@@ -1,0 +1,66 @@
+@import "breakpoints";
+@import "colors";
+@import "variables";
+
+.header{
+  @include medium-large{
+    @include flex-center;
+    justify-content: space-between;
+  }
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.post-red{
+  background-color: #FFD3D2;
+}
+.post-blue{
+  background-color: #D2F5FF;
+}
+.post-yellow{
+  background-color: #FBFFD2;
+}
+.post-green{
+  background-color: #D2FFD2;
+}
+.post-orange{
+  background-color: orange;
+}
+.post-pink{
+  background-color: pink;
+}
+.post-blue{
+  background-color: lightblue;
+}
+
+div.posts-list-header{
+  display: block;
+  padding-top: 5px;
+}
+
+div.competitionBar{
+  width: auto;
+
+  display: inline-flex;
+  align-items: stretch;
+}
+.competitionBar .competition-item{
+  font-size: small;
+  text-decoration: underline;
+  padding: 2px 5px;
+}
+
+.matchResultHeader{
+  font-size: 2em;
+  text-align: center;
+}
+
+.placeholder{
+  width:100%;
+  min-height: 200px;
+  margin-top: 25px;
+  background-color: #dddddd;
+}
+
+.wait{
+  min-height: 300px;
+}

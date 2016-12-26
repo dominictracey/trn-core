@@ -1,0 +1,778 @@
+.trn-comp-link {
+		display: block;
+		height: 100%;
+		width: 100%;
+}
+
+.comp-logo {
+		padding-left: 5px;
+		padding-right: 5px;
+    	background-repeat: no-repeat;
+    	background-size: contain;
+}
+
+.comp-logo-sq {
+		padding-left: 5px;
+		padding-right: 5px;
+    	background-repeat: no-repeat;
+    	background-size: contain;
+    	float: right;
+}
+
+.comp-logo-none {
+	background-image: url("http://www.rugby.net/resources/comps/NON/200R.png");
+}
+
+.comp-logo-sq-none {
+	background-image: url("http://www.rugby.net/resources/comps/NON/200.png");
+}
+
+.comp-logo-AP {
+	background-image: url("http://www.rugby.net/resources/comps/AP/200R.png");
+}
+
+.comp-logo-sq-AP {
+	background-image: url("http://www.rugby.net/resources/comps/AP/200.png");
+}
+
+.comp-logo-GLOBAL {
+	background-image: url("http://www.rugby.net/resources/comps/GLOBAL/200R.png");
+}
+.comp-logo-sq-GLOBAL {
+	background-image: url("http://www.rugby.net/resources/comps/GLOBAL/200.png");
+}
+
+.comp-logo-EU {
+	background-image: url("http://www.rugby.net/resources/comps/EU/200R.png");
+}
+.comp-logo-sq-EU {
+	background-image: url("http://www.rugby.net/resources/comps/EU/200.png");
+}
+
+.comp-logo-SH {
+	background-image: url("http://www.rugby.net/resources/comps/SH/200R.png");
+}
+.comp-logo-sq-SH {
+	background-image: url("http://www.rugby.net/resources/comps/SH/200.png");
+}
+
+.comp-logo-NOV {
+	background-image: url("http://www.rugby.net/resources/comps/NOV/200R.png");
+}
+.comp-logo-sq-NOV {
+	background-image: url("http://www.rugby.net/resources/comps/NOV/200.png");
+}
+
+.comp-logo-PRO12 {
+	background-image: url("http://www.rugby.net/resources/comps/PRO12/200R.png");
+}
+.comp-logo-sq-PRO12 {
+	background-image: url("http://www.rugby.net/resources/comps/PRO12/200.png");
+}
+
+.comp-logo-6N {
+	background-image: url("http://www.rugby.net/resources/comps/6N/200R.png");
+}
+.comp-logo-sq-6N {
+	background-image: url("http://www.rugby.net/resources/comps/6N/200.png");
+}
+
+.comp-logo-ECC {
+	background-image: url("http://www.rugby.net/resources/comps/ECC/200R.png");
+}
+.comp-logo-sq-ECC {
+	background-image: url("http://www.rugby.net/resources/comps/ECC/200.png");
+}
+
+.comp-logo-ERCC {
+	background-image: url("http://www.rugby.net/resources/comps/ERCC/200R.png");
+}
+.comp-logo-sq-ERCC {
+	background-image: url("http://www.rugby.net/resources/comps/ERCC/200.png");
+}
+
+.comp-logo-HNK {
+	background-image: url("http://www.rugby.net/resources/comps/HNK/200R.png");
+}
+.comp-logo-sq-HNK {
+	background-image: url("http://www.rugby.net/resources/comps/HNK/200.png");
+}
+
+.comp-logo-RABO {
+	background-image: url("http://www.rugby.net/resources/comps/RABO/200R.png");
+}
+.comp-logo-sq-RABO {
+	background-image: url("http://www.rugby.net/resources/comps/RABO/200.png");
+}
+
+.comp-logo-SXV {
+	background-image: url("http://www.rugby.net/resources/comps/SXV/200R.png");
+}
+.comp-logo-sq-SXV {
+	background-image: url("http://www.rugby.net/resources/comps/SXV/200.png");
+}
+
+.comp-logo-T14 {
+	background-image: url("http://www.rugby.net/resources/comps/T14/200R.png");
+}
+.comp-logo-sq-T14 {
+	background-image: url("http://www.rugby.net/resources/comps/T14/200.png");
+}
+
+.comp-logo-TRC {
+	background-image: url("http://www.rugby.net/resources/comps/TRC/200R.png");
+}
+.comp-logo-sq-TRC {
+	background-image: url("http://www.rugby.net/resources/comps/TRC/200.png");
+}
+
+.comp-logo-RWC {
+	background-image: url("http://www.rugby.net/resources/comps/RWC/200R.png");
+}
+.comp-logo-sq-RWC {
+	background-image: url("http://www.rugby.net/resources/comps/RWC/200.png");
+}
+
+
+
+.trn-sponsor-link {
+		display: block;
+		height: 100%;
+		width: 100%;
+}
+
+
+.sponsor-logo {
+		padding-left: 5px;
+		padding-right: 5px;
+    	background-repeat: no-repeat;
+    	background-size: contain;
+    	float: right;
+}
+
+.sponsor-logo-NON {
+	background-image: url("http://www.rugby.net/resources/sponsors/NON/200R.png");
+}
+
+.sponsor-logo-AQU {
+	background-image: url("http://www.rugby.net/resources/sponsors/AQU/200R.png");
+}
+
+.sponsor-logo-DHL {
+	background-image: url("http://www.rugby.net/resources/sponsors/DHL/200R.png");
+}
+
+.sponsor-logo-FR {
+	background-image: url("http://www.rugby.net/resources/sponsors/FR/200R.png");
+}
+
+.sponsor-logo-PP {
+	background-image: url("http://s1.2mdn.net/viewad/3493872/Red-PlayerB10G20-216x36.gif");
+}
+
+.sponsor-logo-GRR {
+	background-image: url("http://www.rugby.net/resources/sponsors/GRR/200R.png");
+}
+
+.movement {
+		background-position: center center;
+    	min-width: 39px;
+    	background-repeat: no-repeat;
+}
+
+.movement-up {
+	background-image: url("/icons/arrow_Up_Green.gif");
+}
+
+.movement-down {
+	background-image: url("/icons/arrow_Down_Red.gif");
+}
+
+.movement-unchanged {
+	background-image: url("/icons/unchanged_Blue.gif");
+}
+
+.movement-none {
+	background-image: url("/icons/menu_bg.png");
+}
+
+.table > tbody > tr > td {
+	vertical-align: middle;
+}
+
+.toptentext {
+	padding: 15px;
+}
+
+.compactTopTenPanel {
+	box-shadow: 3px 3px 7px #888888;
+	width: 70%; /* solves jumping */
+}
+
+
+
+#tabPanelWidget {
+	margin-right: 0px;
+	float: none;
+	display: table-cell;
+}
+
+.popupCaption {
+	width: 100%;
+	padding: 4px;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.popupCloseButton {
+	float:right;
+}
+
+.popupPlayerInfo {
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 10px;
+}
+
+.popupContent {
+/* 	width: 400px; */
+	padding: 12px;
+}
+
+.dialogGlass {
+	background-color: black;
+	opacity: 0.5;
+}
+
+.overflowAuto {
+	overflow: auto;
+	width: 100%;
+}
+
+#tabbedContent {
+	overflow: hidden;
+	float: none;
+	display: table-cell;
+}
+
+.notesRow {
+ 	padding:5px;
+ 	min-height: 20px;
+ 	width:100%;
+}
+
+/* ######## RESPONSIVE #########  */
+@media (min-width: 1200px) {
+
+	.sponsor {
+
+	}
+
+	.tagline {
+		font-size: 1.2em;
+	}
+
+	.rugbyNetAddThis {
+		margin-left: 100px;
+	}
+
+	.table > tbody > tr > td {
+		padding: 8px;
+	}
+
+}
+
+@media(min-width: 992px) and (max-width: 1199px) {
+
+	.sponsor {
+	}
+
+	.tagline {
+		font-size: .9em;
+	}
+
+	.rugbyNetAddThis {
+		margin-left: 25px;
+	}
+
+}
+
+@media(min-width: 768px) and (max-width: 991px) {
+
+	.sponsor {
+	}
+
+	.tagline {
+		font-size: 1em;
+	}
+
+	.rugbyNetAddThis {
+		margin-left: 10px;
+	}
+
+	.table > tbody > tr > td {
+		padding: 4px;
+	}
+
+}
+
+@media(min-width: 480px) and (max-width: 767px) {
+
+	.sponsor {
+
+	}
+
+
+	.sponsor-buttons {
+
+	}
+
+	.rugbyNetAddThis {
+		margin-left: 5px;
+	}
+
+	.table > tbody > tr > td {
+		padding: 2px;
+	}
+}
+
+@media(max-width:480px) {
+
+	.sponsor {
+
+	}
+
+	.sponsor-buttons {
+
+	}
+
+	.rugbyNetAddThis {
+		margin-left: 2px;
+	}
+
+	.table > tbody > tr > td {
+		padding: 0px;
+	}
+}
+
+/* top ten panel */
+.toptentext {
+	padding-right: 10px;
+}
+
+/* OpenId navigation */
+.openId {
+    padding: 0;
+    margin: 10px 0 8px;
+    list-style: none;
+    overflow: hidden;
+}
+
+
+ul.openId li {
+    margin: 10px 0 8px;
+    padding: 0;
+}
+
+.openId li a {
+	height: 50px;
+	width: 150px;
+    display: block;
+	background-image: url(/icons/login/login.png);
+}
+
+li#google a {
+    background-position: -0px -150px;
+}
+li#google a:hover  {
+    background-position: -150px -150px;
+}
+
+li#facebook a {
+    background-position: -0px -100px;
+}
+li#facebook a:hover  {
+    background-position: -150px -100px;
+}
+
+li#aol a {
+    background-position: -0px -0px;
+}
+li#aol a:hover  {
+    background-position: -150px -0px;
+}
+
+li#openid a {
+    background-position: -0px -250px;
+}
+li#openid a:hover  {
+    background-position: -150px -250px;
+}
+
+li#yahoo a {
+    background-position: -0px -400px;
+}
+li#yahoo a:hover  {
+    background-position: -150px -400px;
+}
+
+
+/*  Login Panel  */
+input.accountInput {
+	float:right;
+	width:180px;
+}
+
+.accountLabel {
+	padding:2px;
+	text-align:left;
+	margin:2px;
+	width:120px;
+}
+
+.createAccountLabel {
+	padding:2px;
+	text-align:right;
+	margin:2px;
+	width:200px;
+}
+
+.accountPanel {
+	margin:20px;
+}
+
+.serverResponseLabelError {
+	color:red;
+	font-weight:bold;
+	padding: 15px;
+}
+
+input.joinLink {
+	width:250px;
+}
+
+/* Team logos */
+
+.team-logo  {
+		padding-left: 5px;
+		padding-right: 5px;
+		background-repeat: no-repeat;
+		background-position: center center;
+    	background-size: contain;
+    	min-width: 30px;
+}
+
+.teamlogo-small  {
+/* 		padding-left: 5px; */
+/* 		padding-right: 5px; */
+		background-repeat: no-repeat;
+		background-position: center center;
+    	background-size: contain;
+    	min-width: 40px;
+    	min-height: 40Px;
+			display: inline-block;
+/*     	margin-right: 15px; */
+}
+
+.team-logo {
+		padding-left: 5px;
+		padding-right: 5px;
+    	background-repeat: no-repeat;
+    	background-size: contain;
+    	float: right;
+}
+
+.AB {
+	background-image: url("http://www.rugby.net/resources/teams/AB/200.png");
+}
+.ARG {
+	background-image: url("http://www.rugby.net/resources/teams/ARG/200.png");
+}
+.ASM {
+	background-image: url("http://www.rugby.net/resources/teams/ASM/200.png");
+}
+.ASR {
+	background-image: url("http://www.rugby.net/resources/teams/ASR/200.png");
+}
+.AUS {
+	background-image: url("http://www.rugby.net/resources/teams/AUS/200.png");
+}
+.BAT {
+	background-image: url("http://www.rugby.net/resources/teams/BAT/200.png");
+}
+.BLU {
+	background-image: url("http://www.rugby.net/resources/teams/BLU/200.png");
+}
+.BRI {
+	background-image: url("http://www.rugby.net/resources/teams/BRI/200.png");
+}
+.BRU {
+	background-image: url("http://www.rugby.net/resources/teams/BRU/200.png");
+}
+.BUL {
+	background-image: url("http://www.rugby.net/resources/teams/BUL/200.png");
+}
+.CAB {
+	background-image: url("http://www.rugby.net/resources/teams/CAB/200.png");
+}
+.CAN {
+	background-image: url("http://www.rugby.net/resources/teams/CAN/200.png");
+}
+.CAR {
+	background-image: url("http://www.rugby.net/resources/teams/CAR/200.png");
+}
+.CHE {
+	background-image: url("http://www.rugby.net/resources/teams/CHE/200.png");
+}
+.CHF {
+	background-image: url("http://www.rugby.net/resources/teams/CHF/200.png");
+}
+.CO {
+	background-image: url("http://www.rugby.net/resources/teams/CO/200.png");
+}
+.CONN {
+	background-image: url("http://www.rugby.net/resources/teams/CONN/200.png");
+}
+.CRU {
+	background-image: url("http://www.rugby.net/resources/teams/CRU/200.png");
+}
+.EDI {
+	background-image: url("http://www.rugby.net/resources/teams/EDI/200.png");
+}
+.ENG {
+	background-image: url("http://www.rugby.net/resources/teams/ENG/200.png");
+}
+.EXE {
+	background-image: url("http://www.rugby.net/resources/teams/EXE/200.png");
+}
+.FCE {
+	background-image: url("http://www.rugby.net/resources/teams/FCE/200.png");
+}
+.FCG {
+	background-image: url("http://www.rugby.net/resources/teams/FCG/200.png");
+}
+.FJI {
+	background-image: url("http://www.rugby.net/resources/teams/FJI/200.png");
+}
+.FRA {
+	background-image: url("http://www.rugby.net/resources/teams/FRA/200.png");
+}
+.GEO {
+	background-image: url("http://www.rugby.net/resources/teams/GEO/200.png");
+}
+.GLA {
+	background-image: url("http://www.rugby.net/resources/teams/GLA/200.png");
+}
+.GLO {
+	background-image: url("http://www.rugby.net/resources/teams/GLO/200.png");
+}
+.HAR {
+	background-image: url("http://www.rugby.net/resources/teams/HAR/200.png");
+}
+.HGH {
+	background-image: url("http://www.rugby.net/resources/teams/HGH/200.png");
+}
+.HUR {
+	background-image: url("http://www.rugby.net/resources/teams/HUR/200.png");
+}
+.IRE {
+	background-image: url("http://www.rugby.net/resources/teams/IRE/200.png");
+}
+.ITA {
+	background-image: url("http://www.rugby.net/resources/teams/ITA/200.png");
+}
+.JAG {
+	background-image: url("http://www.rugby.net/resources/teams/JAG/200.png");
+}
+.JPN {
+	background-image: url("http://www.rugby.net/resources/teams/JPN/200.png");
+}
+.KIN {
+	background-image: url("http://www.rugby.net/resources/teams/KIN/200.png");
+}
+.LEI {
+	background-image: url("http://www.rugby.net/resources/teams/LEI/200.png");
+}
+.LIR {
+	background-image: url("http://www.rugby.net/resources/teams/LIR/200.png");
+}
+.LNS {
+	background-image: url("http://www.rugby.net/resources/teams/LNS/200.png");
+}
+.LOU {
+	background-image: url("http://www.rugby.net/resources/teams/LOU/200.png");
+}
+.MHR {
+	background-image: url("http://www.rugby.net/resources/teams/MHR/200.png");
+}
+.MUN {
+	background-image: url("http://www.rugby.net/resources/teams/MUN/200.png");
+}
+.NAM {
+	background-image: url("http://www.rugby.net/resources/teams/NAM/200.png");
+}
+.NEW {
+	background-image: url("http://www.rugby.net/resources/teams/NEW/200.png");
+}
+.NGD {
+	background-image: url("http://www.rugby.net/resources/teams/NGD/200.png");
+}
+.NOR {
+	background-image: url("http://www.rugby.net/resources/teams/NOR/200.png");
+}
+.NoTeam {
+	background-image: url("http://www.rugby.net/resources/teams/NoTeam/200.png");
+}
+.NZL {
+	background-image: url("http://www.rugby.net/resources/teams/NZL/200.png");
+}
+.OSP {
+	background-image: url("http://www.rugby.net/resources/teams/OSP/200.png");
+}
+.RCT {
+	background-image: url("http://www.rugby.net/resources/teams/RCT/200.png");
+}
+.REB {
+	background-image: url("http://www.rugby.net/resources/teams/REB/200.png");
+}
+.RED {
+	background-image: url("http://www.rugby.net/resources/teams/RED/200.png");
+}
+.RM92 {
+	background-image: url("http://www.rugby.net/resources/teams/RM92/200.png");
+}
+.R92 {
+	background-image: url("http://www.rugby.net/resources/teams/R92/200.png");
+}
+.ROM {
+	background-image: url("http://www.rugby.net/resources/teams/ROM/200.png");
+}
+.RSA {
+	background-image: url("http://www.rugby.net/resources/teams/RSA/200.png");
+}
+.RSAA {
+	background-image: url("http://www.rugby.net/resources/teams/RSAA/200.png");
+}
+.RUS {
+	background-image: url("http://www.rugby.net/resources/teams/RUS/200.png");
+}
+.SAM {
+	background-image: url("http://www.rugby.net/resources/teams/SAM/200.png");
+}
+.SAR {
+	background-image: url("http://www.rugby.net/resources/teams/SAR/200.png");
+}
+.SAX {
+	background-image: url("http://www.rugby.net/resources/teams/SAX/200.png");
+}
+.SCA {
+	background-image: url("http://www.rugby.net/resources/teams/SCA/200.png");
+}
+.SCO {
+	background-image: url("http://www.rugby.net/resources/teams/SCO/200.png");
+}
+.SFP {
+	background-image: url("http://www.rugby.net/resources/teams/SFP/200.png");
+}
+.SHA {
+	background-image: url("http://www.rugby.net/resources/teams/SHA/200.png");
+}
+.SHK {
+	background-image: url("http://www.rugby.net/resources/teams/SHK/200.png");
+}
+.SP {
+	background-image: url("http://www.rugby.net/resources/teams/SP/200.png");
+}
+.ST {
+	background-image: url("http://www.rugby.net/resources/teams/ST/200.png");
+}
+.STM {
+	background-image: url("http://www.rugby.net/resources/teams/STM/200.png");
+}
+.SUA {
+	background-image: url("http://www.rugby.net/resources/teams/SUA/200.png");
+}
+.SUN {
+	background-image: url("http://www.rugby.net/resources/teams/SUN/200.png");
+}
+.TGA {
+	background-image: url("http://www.rugby.net/resources/teams/TGA/200.png");
+}
+.TIG {
+	background-image: url("http://www.rugby.net/resources/teams/TIG/200.png");
+}
+.TRE {
+	background-image: url("http://www.rugby.net/resources/teams/TRE/200.png");
+}
+.UBB {
+	background-image: url("http://www.rugby.net/resources/teams/UBB/200.png");
+}
+.ULS {
+	background-image: url("http://www.rugby.net/resources/teams/ULS/200.png");
+}
+.URU {
+	background-image: url("http://www.rugby.net/resources/teams/URU/200.png");
+}
+.USA {
+	background-image: url("http://www.rugby.net/resources/teams/USA/200.png");
+}
+.USAP {
+	background-image: url("http://www.rugby.net/resources/teams/USAP/200.png");
+}
+.USO {
+	background-image: url("http://www.rugby.net/resources/teams/USO/200.png");
+}
+.WAL {
+	background-image: url("http://www.rugby.net/resources/teams/WAL/200.png");
+}
+.WAR {
+	background-image: url("http://www.rugby.net/resources/teams/WAR/200.png");
+}
+.WAS {
+	background-image: url("http://www.rugby.net/resources/teams/WAS/200.png");
+}
+.WEL {
+	background-image: url("http://www.rugby.net/resources/teams/WEL/200.png");
+}
+.WOR {
+	background-image: url("http://www.rugby.net/resources/teams/WOR/200.png");
+}
+.ZEB {
+	background-image: url("http://www.rugby.net/resources/teams/ZEB/200.png");
+}
+
+/*header{ background-color:#FFF}*/
+.toplink ul{ padding:0px; margin:0px 15px 0px 0px; list-style:none; float:right; line-height:50px; font-family: "Open Sans",sans-serif; font-size: 12px;}
+.logo{ margin-top:3px}
+.competition-menu {
+	background-color:#252d3a;
+	padding-top: 5px;
+}
+.banner {
+	background-color:#000;
+}
+
+.banner-img {
+	float: right;
+}
+
+.padding-left {
+	padding-left: 10px;
+}
+
+.padding-top {
+	padding-top: 10px;
+}
+
+#draggablePanelList .panel-heading {
+        cursor: move;
+ }
+.redBadge {
+	background-color: red;
+}
+.greenBadge{
+	background-color: green;
+}
+.twitterDialougeRow{
+	min-height: 32px;
+}
