@@ -1,9 +1,9 @@
-import Telescope from 'meteor/nova:lib';
+import { Components } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
 import FRC from 'formsy-react-components';
 import Posts from "meteor/nova:posts";
 import { connect } from 'react-redux'
-import { actions } from 'meteor/trn:rest-redux';
+import { Actions } from 'meteor/trn:rest-redux';
 
 const Input = FRC.Input;
 
@@ -34,15 +34,24 @@ class MatchIdField extends Component {
   handleBlur() {
     const { matches, dispatch } = this.props
 
-    this.setState({loading: true});
+
 
     const id = this.input.getValue();
 
-    if (id.length) {
+    // controlled component per https://facebook.github.io/react/docs/forms.html#controlled-components
+    // if (id !== this.state.value) {
+    //   this.setState({ value: id, })
+    // }
+
+    if (id && id.length) {
+
+      this.setState({
+        loading: true,
+      })
 
       // do we need this match
       if (!matches || !matches[id]) {
-        dispatch(actions.loadMatch(id))
+        dispatch(Actions.loadMatch(id))
         console.log("waiting for match") // eslint-disable-line
       } else {
         this.prefillFields(matches[id])
@@ -52,11 +61,23 @@ class MatchIdField extends Component {
 
   componentDidUpdate(prevProps, prevState){
 
+    // const { matches } = this.props
+    // // hopefully this is our fetched match showing up
+    // const id = this.state.value;
+    //
+    // if (id && id.length && this.state.loading) {
+    //   if (matches && matches[id]) {
+    //     this.prefillFields(matches[id])
+    //   }
+    // }
+  }
+
+  componentWillReceiveProps(nextProps) {
     const { matches } = this.props
     // hopefully this is our fetched match showing up
     const id = this.input.getValue();
 
-    if (id.length && this.state.loading) {
+    if (id && id.length && this.state.loading) {
       if (matches && matches[id]) {
         this.prefillFields(matches[id])
       }
@@ -65,7 +86,7 @@ class MatchIdField extends Component {
 
   render() {
 
-    const Loading = Telescope.components.Loading;
+    const Loading = Components.Loading;
 
     const wrapperStyle = {
       position: "relative"
@@ -81,12 +102,13 @@ class MatchIdField extends Component {
     loadingStyle.display = this.state.loading ? "block" : "none";
 
     // see https://facebook.github.io/react/warnings/unknown-prop.html
-    const {document, updateCurrentValue, control, ...rest} = this.props; // eslint-disable-line
+    const {document, updateCurrentValue, control, name} = this.props; // eslint-disable-line
 
     return (
       <div className="embedly-url-field" style={wrapperStyle}>
         <Input
-          {...rest}
+          // value={this.state.value}
+          name={name}
           onBlur={this.handleBlur}
           type="text"
           ref={ref => this.input = ref}
@@ -104,6 +126,7 @@ MatchIdField.propTypes = {
   value: React.PropTypes.any,
   label: React.PropTypes.string,
   matches: React.PropTypes.object,
+  dispatch: React.PropTypes.func,
 }
 
 MatchIdField.contextTypes = {

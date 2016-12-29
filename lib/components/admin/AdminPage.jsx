@@ -1,10 +1,6 @@
-/*
-A new custom page just for our app.
-Browse to http://localhost:3000/my-custom-route to see it.
-*/
-import Telescope from 'meteor/nova:lib';
+import { Components } from 'meteor/nova:core';
 import React, { PropTypes, Component }from 'react'
-import { actions } from 'meteor/trn:rest-redux'
+import { Actions } from 'meteor/trn:rest-redux'
 import { connect } from 'react-redux'
 import AdminCategoryFromCompButton from './AdminCategoryFromCompButton'
 import { FormattedMessage } from 'react-intl';
@@ -12,8 +8,8 @@ import { Button, Modal, Grid, Row, Col } from 'react-bootstrap';
 import { /* ModalTrigger, */ ContextPasser } from "meteor/nova:core";
 
 const loadData = props => {
-  if (actions.loadConfiguration) {
-    props.dispatch(actions.loadConfiguration([]))
+  if (Actions.loadConfiguration) {
+    props.dispatch(Actions.loadConfiguration([]))
   }
 }
 
@@ -39,7 +35,15 @@ class AdminPage extends Component {
     // this.prefilled.name = name
     // this.prefilled.slug = Telescope.utils.slugify(name)
     // this.prefilled.trnId = compId
-    this.setState({openModal: 0});
+    this.setState({
+      prefilled: {
+        name: name,
+        //slug = Telescope.utils.slugify(name)
+        trnId: compId,
+      },
+      openModal: 0,
+    })
+    //this.setState({openModal: 0});
   }
 
   closeModal() {
@@ -59,8 +63,8 @@ class AdminPage extends Component {
           <Modal.Title><FormattedMessage id="categories.new"/></Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ContextPasser currentUser={this.context.currentUser} messages={this.context.messages} closeCallback={this.closeModal} category={prefilled}>
-            <Telescope.components.CategoriesNewForm/>
+          <ContextPasser currentUser={this.context.currentUser} messages={this.context.messages} closeCallback={this.closeModal} addToAutofilledValues={this.state.prefilled}>
+            <Components.CategoriesNewForm/>
           </ContextPasser>
         </Modal.Body>
       </Modal>
@@ -71,7 +75,7 @@ class AdminPage extends Component {
     const { config } = this.props
 
     if (!config || !Object.keys(config)[0] || !config[Object.keys(config)[0]]) {
-      const Loading = Telescope.components.Loading;
+      const Loading = Components.Loading;
       return (
         <div className='wait'>
           <Loading/>

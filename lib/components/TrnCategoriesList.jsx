@@ -1,26 +1,24 @@
-/**
- * Created by Scott on 12/2/2016.
- */
-import Telescope from 'meteor/nova:lib';
-// import Users from 'meteor/nova:users';
+import { Components, getRawComponent, registerComponent, withList } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
+import Categories from 'meteor/nova:categories'
 import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap';
-import { actions } from 'meteor/trn:rest-redux';
+import { Actions } from 'meteor/trn:rest-redux';
 import { CompList } from './CompList'
 import { withRouter } from 'react-router'
 import { FormattedMessage } from 'react-intl';
 import { Button, DropdownButton, MenuItem, Modal } from 'react-bootstrap';
 import { /* ModalTrigger, */ ContextPasser } from "meteor/nova:core";
+import gql from 'graphql-tag';
 
 const loadData = props => {
-  if (actions.loadConfiguration) {
-    props.dispatch(actions.loadConfiguration([]))
+  if (Actions.loadConfiguration) {
+    props.dispatch(Actions.loadConfiguration([]))
   }
 }
 // import { withRouter } from 'react-router'
 
-class CompetitionBar extends Telescope.components.CategoriesList {
+class TrnCategoriesList extends getRawComponent('CategoriesList') {
   constructor() {
     super();
     this.openCategoryEditModal = this.openCategoryEditModal.bind(this);
@@ -54,7 +52,7 @@ class CompetitionBar extends Telescope.components.CategoriesList {
         </Modal.Header>
         <Modal.Body>
           <ContextPasser currentUser={this.context.currentUser} messages={this.context.messages} actions={this.context.actions} closeCallback={this.closeModal}>
-            <Telescope.components.CategoriesEditForm category={category}/>
+            <Components.CategoriesEditForm category={category}/>
           </ContextPasser>
         </Modal.Body>
       </Modal>
@@ -70,7 +68,7 @@ class CompetitionBar extends Telescope.components.CategoriesList {
         </Modal.Header>
         <Modal.Body>
           <ContextPasser currentUser={this.context.currentUser} messages={this.context.messages} closeCallback={this.closeModal}>
-            <Telescope.components.CategoriesNewForm/>
+            <Components.CategoriesNewForm/>
           </ContextPasser>
         </Modal.Body>
       </Modal>
@@ -79,11 +77,11 @@ class CompetitionBar extends Telescope.components.CategoriesList {
 
   renderCategoryNewButton() {
     return (
-      <Telescope.components.CanDo action="categories.new">
+      <Components.CanDo action="categories.new">
         <div className="category-menu-item dropdown-item"><MenuItem><Button bsStyle="primary" onClick={this.openCategoryNewModal}><FormattedMessage id="categories.new"/></Button></MenuItem></div>
-      </Telescope.components.CanDo>
+      </Components.CanDo>
     );
-    // const CategoriesNewForm = Telescope.components.CategoriesNewForm;
+    // const CategoriesNewForm = Components.CategoriesNewForm;
     // return (
     //   <ModalTrigger title="New Category" component={<MenuItem className="dropdown-item post-category"><Button bsStyle="primary">New Category</Button></MenuItem>}>
     //     <CategoriesNewForm/>
@@ -98,48 +96,48 @@ class CompetitionBar extends Telescope.components.CategoriesList {
 
   fetchComp() {
     const {dispatch} = this.props
-    dispatch(actions.loadCompetition(4978889122119680))
+    dispatch(Actions.loadCompetition(4978889122119680))
   }
 
   render() {
     const { config } = this.props
-    const categories = this.props.categories;
-    // const context = this.context;
-    const currentQuery = _.clone(this.context.router.location.query);
+    const categories = this.props.results;
+
+    const currentQuery = _.clone(this.props.router.location.query);
     delete currentQuery.cat;
 
-    // const compList = config && Object.keys(config) && Object.keys(config).length > 0
-    //   ? <CompList config={config[Object.keys(config)[0]]} fetchComp={this.fetchComp}/>
-    //   : <div></div>
+
+    const compList = config && Object.keys(config) && Object.keys(config).length > 0
+      ? <CompList config={config[Object.keys(config)[0]]} fetchComp={this.fetchComp}/>
+      : <div></div>
 
     return (
       <div className="competitionBar">
           {/* {compList} */}
-          <LinkContainer
+          {/* <LinkContainer
             to={{pathname:"/", query: currentQuery}}
-            className="competitionBar competition-item">
+            className="TrnCategoriesList competition-item">
             <MenuItem
               eventKey={0}
               // key={0}
             >
             Home
             </MenuItem>
-          </LinkContainer>
+          </LinkContainer> */}
 
           {categories && categories.length > 0 ? categories.map((category, index) =>
-            <Telescope.components.Category
-              className="competitionBar competition-item"
+            <Components.Category
+              className=" competition-item"
               key={index+1}
               category={category}
               index={index+1}
               openModal={_.partial(this.openCategoryEditModal, index+1)}/>) : null}
-          {this.renderCategoryNewButton()}
+          {/* {this.renderCategoryNewButton()} */}
 
-        <div>
-          {/* modals cannot be inside DropdownButton component (see GH issue) */}
+        {/* <div>
           {categories && categories.length > 0 ? categories.map((category, index) => super.renderCategoryEditModal) : null}
           {super.renderCategoryNewModal}
-        </div>
+        </div> */}
       </div>
     )
 
@@ -147,13 +145,14 @@ class CompetitionBar extends Telescope.components.CategoriesList {
 }
 
 
-CompetitionBar.propTypes = {
+TrnCategoriesList.propTypes = {
   config: React.PropTypes.object,
   comp: React.PropTypes.object,
+  dispatch: React.PropTypes.func,
 }
 
 const mapStateToProps = state => {
-  const { entities } = state
+  const { entities = {} } = state
   const { config, comp } = entities
 
   return {
@@ -162,5 +161,26 @@ const mapStateToProps = state => {
   }
 }
 
-//module.exports = withRouter(CompetitionBar);
-export default connect(mapStateToProps)(CompetitionBar)
+
+TrnCategoriesList.fragment = gql`
+  fragment trnCategoriesListFragment on Category {
+    _id
+    name
+    description
+    order
+    slug
+    image
+    categoryType
+    active
+    trnId
+  }
+`;
+
+const options = {
+  collection: Categories,
+  queryName: 'categoriesListQuery',
+  fragment: TrnCategoriesList.fragment,
+  limit: 0,
+};
+
+registerComponent('CategoriesList', TrnCategoriesList, withRouter, connect(mapStateToProps), withList(options))

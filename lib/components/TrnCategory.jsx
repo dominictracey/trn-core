@@ -1,7 +1,8 @@
 /**
  * Created by Scott on 12/2/2016.
  */
-import Telescope from 'meteor/nova:lib';
+//import Telescope from 'meteor/nova:lib';
+import { Components, getRawComponent, replaceComponent } from 'meteor/nova:core';
 import Users from 'meteor/nova:users';
 //import Category from 'meteor/nova:base-components'
 import React, { PropTypes, Component } from 'react';
@@ -9,17 +10,17 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { withRouter } from 'react-router'
 import { /* Button, DropdownButton, */ MenuItem } from 'react-bootstrap';
 
-class CompetitionCategory extends Telescope.components.Category {
-  
+class TrnCategory extends getRawComponent('Category') {
+
   renderEdit() {
     return (
-      <Telescope.components.CanDo action="categories.edit.all">
-        <a onClick={this.props.openModal} className="edit-category-link"><Telescope.components.Icon name="edit"/></a>
-      </Telescope.components.CanDo>
+      <Components.CanDo action="categories.edit.all">
+        <a onClick={this.props.openModal} className="edit-category-link"><Components.Icon name="edit"/></a>
+      </Components.CanDo>
     );
     // return (
-    //   <ModalTrigger title="Edit Category" component={<a className="edit-category-link"><Telescope.components.Icon name="edit"/></a>}>
-    //     <Telescope.componentsCategoriesEditForm category={this.props.category}/>
+    //   <ModalTrigger title="Edit Category" component={<a className="edit-category-link"><Components.Icon name="edit"/></a>}>
+    //     <ComponentsCategoriesEditForm category={this.props.category}/>
     //   </ModalTrigger>
     // )
   }
@@ -34,31 +35,29 @@ class CompetitionCategory extends Telescope.components.Category {
 
     return (
       <div className="competitionBar competition-item">
-        <LinkContainer to={{pathname:"/", query: newQuery}}>
-           <MenuItem
+        <Link to={{pathname:"/", query: newQuery}}>
+
              eventKey={index+1}
              key={category._id}
            >
-           {currentCategorySlug === category.slug ? <Telescope.components.Icon name="voted"/> :  null}
+           {/* {currentCategorySlug === category.slug ? <Components.Icon name="voted"/> :  null} */}
             {category.name}
-          </MenuItem>
-        </LinkContainer>
+        </Link>
         {Users.canDo(this.context.currentUser, "categories.edit.all") ? this.renderEdit() : null}
       </div>
     )
   }
 }
 
-CompetitionCategory.propTypes = {
+TrnCategory.propTypes = {
   category: React.PropTypes.object,
   index: React.PropTypes.number,
   currentCategorySlug: React.PropTypes.string,
   openModal: React.PropTypes.func
 }
 
-CompetitionCategory.contextTypes = {
+TrnCategory.contextTypes = {
   currentUser: React.PropTypes.object
 };
 
-module.exports = withRouter(CompetitionCategory);
-export default withRouter(CompetitionCategory);
+replaceComponent('Category', TrnCategory)

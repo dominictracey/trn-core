@@ -1,40 +1,39 @@
-import Telescope from 'meteor/nova:lib';
+import { Components, getRawComponent, replaceComponent } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
-import { FlashContainer } from "meteor/nova:core";
 import { Grid, Row, Col } from 'react-bootstrap'
 import TrnSidebar from './TrnSidebar'
 
-class TrnLayout extends Telescope.components.Layout {
+class TrnLayout extends getRawComponent('Layout') {
 
   render() {
 
     return (
       <div className="wrapper" id="wrapper">
 
-        <Telescope.components.HeadTags />
+        <Components.HeadTags />
 
-        <Telescope.components.UsersProfileCheck {...this.props} />
+        <Components.UsersProfileCheck {...this.props} />
 
-        <Telescope.components.Header {...this.props}/>
+        <Components.Header {...this.props}/>
 
-        <div className="main">
+         <div className="main">
           <Grid>
             <Row>
               <Col xs={12} md={9}>
-                <FlashContainer component={Telescope.components.FlashMessages}/>
+                <Components.FlashMessages/>
 
-                <Telescope.components.Newsletter />
+                <Components.Newsletter />
 
                 {this.props.children}
               </Col>
               <Col xs={6} md={3}>
-                <TrnSidebar/>
+            <TrnSidebar/>
               </Col>
             </Row>
           </Grid>
         </div>
 
-        <Telescope.components.Footer {...this.props}/>
+        <Components.Footer {...this.props}/>
 
       </div>
     )
@@ -43,5 +42,4 @@ class TrnLayout extends Telescope.components.Layout {
 }
 
 TrnLayout.displayName = "Layout";
-
-module.exports = TrnLayout;
+replaceComponent('Layout', TrnLayout)

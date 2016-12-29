@@ -1,12 +1,13 @@
+import Components from 'meteor/nova:core'
 import React, { Component, PropTypes } from 'react'
-import { actions } from 'meteor/trn:rest-redux';
+import { Actions } from 'meteor/trn:rest-redux';
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { Grid, Col, Row } from 'react-bootstrap'
 
 const loadData = props => {
-  if (actions.loadMatch) {
-    props.dispatch(actions.loadMatch(props.post.trnId))
+  if (Actions.loadMatch) {
+    props.dispatch(Actions.loadMatch(props.post.trnId))
   }
 }
 
@@ -27,7 +28,7 @@ class MatchBody extends Component {
     const match = matches[post.trnId]
 
     if (!match) {
-      const Loading = Telescope.components.Loading;
+      const Loading = Components.Loading;
       return ( <Loading/> )
     }
     var status = 'waiting'

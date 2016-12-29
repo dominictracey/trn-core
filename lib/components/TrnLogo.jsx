@@ -1,7 +1,9 @@
+import { replaceComponent } from 'meteor/nova:core';
 import React from 'react';
 import { IndexLink } from 'react-router';
+import Users from 'meteor/nova:users';
 
-const TrnLogo = ({logoUrl, siteTitle}) => {
+const TrnLogo = ({logoUrl, siteTitle, currentUser}) => {
   if (logoUrl) {
     return (
       <h1 className="logo-image ">
@@ -17,8 +19,7 @@ const TrnLogo = ({logoUrl, siteTitle}) => {
       </h1>
     )
   }
+
 }
 
-TrnLogo.displayName = "Logo";
-
-export default TrnLogo;
+replaceComponent('Logo', TrnLogo);
