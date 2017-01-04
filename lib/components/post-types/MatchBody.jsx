@@ -1,20 +1,26 @@
 import Components from 'meteor/nova:core'
 import React, { Component, PropTypes } from 'react'
-import { Actions } from 'meteor/trn:rest-redux';
-import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Actions } from 'meteor/nova:core';
 import _ from 'lodash'
 import { Grid, Col, Row } from 'react-bootstrap'
 
-const loadData = props => {
-  if (Actions.loadMatch) {
-    props.dispatch(Actions.loadMatch(props.post.trnId))
-  }
-}
+// const loadData = props => {
+//   if (Actions.loadMatch) {
+//     props.dispatch(Actions.loadMatch(props.post.trnId))
+//   }
+// }
 
 class MatchBody extends Component {
 
+  componentDidMount() {
+    const {loadMatch, post} = this.props
+    loadMatch([post.trnId]);
+  }
+
   componentWillMount() {
-    loadData(this.props)
+    //loadData(this.props)
     // const { matches, post, dispatch } = this.props
     // if (!matches || !matches[post.trnId]) {
     //   dispatch(actions.loadMatch(post.trnId))
@@ -71,4 +77,6 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(MatchBody)
+const mapDispatchToProps = dispatch => bindActionCreators({loadMatch: Actions.loadMatch}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MatchBody)
