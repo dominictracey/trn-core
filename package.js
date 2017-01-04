@@ -14,12 +14,10 @@ Package.onUse( function(api) {
     'nova:base-components',
     'nova:posts',
     'nova:users',
-    'trn:rest-redux@0.1.0',
+    'trn:rest-redux',
   ]);
 
-  api.addFiles([
-    'lib/modules.js'
-  ], ['client', 'server']);
+  api.mainModule('lib/modules.js', ['client', 'server']);
 
   api.addFiles([
     'lib/stylesheets/custom.scss',
