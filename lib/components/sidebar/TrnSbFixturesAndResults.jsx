@@ -15,16 +15,16 @@ TrnSbFixturesAndResults.propTypes = {
   // post: React.PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => {
-  const { entities } = state
-  const { config, comp } = entities
-
-  return {
-    config,
-    comp
-  }
-}
+// const mapStateToProps = state => {
+//   const { entities } = state
+//   const { config, comp } = entities
+// 
+//   return {
+//     config,
+//     comp
+//   }
+// }
 
 TrnSbFixturesAndResults.displayName = "TrnSbFixturesAndResults";
 
-export default connect(mapStateToProps)(TrnSbFixturesAndResults)
+export default /*connect(mapStateToProps)*/(TrnSbFixturesAndResults)

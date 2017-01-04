@@ -15,16 +15,16 @@ TrnSbProfile.propTypes = {
   // post: React.PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => {
-  const { entities } = state
-  const { config, comp } = entities
-
-  return {
-    config,
-    comp
-  }
-}
+// const mapStateToProps = state => {
+//   const { entities } = state
+//   const { config, comp } = entities
+// 
+//   return {
+//     config,
+//     comp
+//   }
+// }
 
 TrnSbProfile.displayName = "TrnSbProfile";
 
-export default connect(mapStateToProps)(TrnSbProfile)
+export default /*connect(mapStateToProps)*/(TrnSbProfile)

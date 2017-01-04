@@ -11,11 +11,11 @@ import { Button, DropdownButton, MenuItem, Modal } from 'react-bootstrap';
 import { /* ModalTrigger, */ ContextPasser } from "meteor/nova:core";
 import gql from 'graphql-tag';
 
-const loadData = props => {
-  if (Actions.loadConfiguration) {
-    props.dispatch(Actions.loadConfiguration([]))
-  }
-}
+// const loadData = props => {
+//   if (Actions.loadConfiguration) {
+//     props.dispatch(Actions.loadConfiguration([]))
+//   }
+// }
 // import { withRouter } from 'react-router'
 
 class TrnCategoriesList extends getRawComponent('CategoriesList') {
@@ -89,15 +89,15 @@ class TrnCategoriesList extends getRawComponent('CategoriesList') {
     // )
   }
 
-  componentWillMount() {
-    loadData(this.props)
-    this.fetchComp = this.fetchComp.bind(this);
-  }
-
-  fetchComp() {
-    const {dispatch} = this.props
-    dispatch(Actions.loadCompetition(4978889122119680))
-  }
+  // componentWillMount() {
+  //   loadData(this.props)
+  //   this.fetchComp = this.fetchComp.bind(this);
+  // }
+  // 
+  // fetchComp() {
+  //   const {dispatch} = this.props
+  //   dispatch(Actions.loadCompetition(4978889122119680))
+  // }
 
   render() {
     const { config } = this.props
@@ -183,4 +183,4 @@ const options = {
   limit: 0,
 };
 
-registerComponent('CategoriesList', TrnCategoriesList, withRouter, connect(mapStateToProps), withList(options))
+// registerComponent('CategoriesList', TrnCategoriesList, withRouter, connect(mapStateToProps), withList(options))
