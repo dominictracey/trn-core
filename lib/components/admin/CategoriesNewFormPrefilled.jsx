@@ -1,5 +1,6 @@
-import { Components, replaceComponent } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
+import { intlShape } from 'react-intl';
+import { Components, replaceComponent } from 'meteor/nova:core';
 import Categories from "meteor/nova:categories";
 import SmartForm from "meteor/nova:forms";
 
@@ -11,7 +12,7 @@ const CategoriesNewFormPrefilled = (props, context) => {
         queryToUpdate="categoriesListQuery"
         successCallback={category => {
           props.closeCallback();
-          props.flash("Category created.", "success");
+          props.flash(context.intl.formatMessage({id: 'categories.new_success'}, {name: category.name}), "success");
         }}
         prefilledProps={props.prefilledProps}
       />
@@ -20,5 +21,17 @@ const CategoriesNewFormPrefilled = (props, context) => {
 };
 
 CategoriesNewFormPrefilled.displayName = "CategoriesNewForm";
+
+
+CategoriesNewFormPrefilled.propTypes = {
+  closeCallback: React.PropTypes.func,
+  flash: React.PropTypes.func,
+  prefilledProps: React.PropTypes.object,
+};
+
+CategoriesNewFormPrefilled.contextTypes = {
+  intl: intlShape,
+};
+
 
 replaceComponent('CategoriesNewForm', CategoriesNewFormPrefilled);

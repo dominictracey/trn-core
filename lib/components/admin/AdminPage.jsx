@@ -13,7 +13,7 @@ class AdminPage extends Component {
 
   constructor() {
     super();
-    // this.openCategoryEditModal = this.openCategoryEditModal.bind(this);
+    this.openCategoryEditModal = this.openCategoryEditModal.bind(this);
     this.openCategoryNewModal = this.openCategoryNewModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.state = {
@@ -38,13 +38,17 @@ class AdminPage extends Component {
       openModal: 0,
     });
   }
+  
+  openCategoryEditModal(index) {
+    // edit category modals are numbered from 1 to 
+    this.setState({openModal: index});
+  }
 
   closeModal() {
     this.setState({openModal: false});
   }
 
   renderCategoryNewModal() {
-
     return (
       <Modal show={this.state.openModal === 0} onHide={this.closeModal}>
         <Modal.Header closeButton>
@@ -54,7 +58,20 @@ class AdminPage extends Component {
           <Components.CategoriesNewForm prefilledProps={{...this.state.prefilled}} closeCallback={this.closeModal} />
         </Modal.Body>
       </Modal>
-    )
+    );
+  }
+  
+  renderCategoryEditModal(category, index) {
+    return (
+      <Modal key={index} show={this.state.openModal === index+1} onHide={this.closeModal}>
+        <Modal.Header closeButton>
+          <Modal.Title><FormattedMessage id="categories.edit"/></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Components.CategoriesEditForm category={category} closeCallback={this.closeModal}/>
+        </Modal.Body>
+      </Modal>
+    );
   }
 
   renderExistingCategories() {
@@ -63,13 +80,20 @@ class AdminPage extends Component {
     return !categories.length 
       ? <p>No categories</p> 
       : <Grid>
-        {categories.map(cat =>
+        {categories.map((cat, index) =>
           <Row key={cat._id}>
-            <Col xs={8} md={9}>
+            <Col xs={6}>
               <span>{cat.name}</span>
             </Col>
-            <Col xs={4} md={3}>
+            <Col xs={3}>
+              <Components.AdminCompetitionActionButton
+                openCategoryEditModal={_.partial(this.openCategoryEditModal, index+1)}
+                category={cat}
+              />
+            </Col>
+            <Col xs={3}>
               <Components.AdminCategoryActionButton category={cat} />
+              {cat.active ? <Components.AdminCategoryVisibilityButton category={cat} /> : null}
             </Col>
           </Row>
         )}
@@ -110,12 +134,19 @@ class AdminPage extends Component {
 
   render() {
     
+    const {results: categories} = this.props;
+    
     return (
       <div>
         <h1>Admin Page</h1>
         
         <h3>Existing categories</h3>
         {this.renderExistingCategories()}
+        
+        <div>
+          {categories && categories.length > 0 ?
+            categories.map((category, index) => this.renderCategoryEditModal(category, index)) : null}
+        </div>
         
         <h3>Competitions from TRN API</h3>
         {this.renderFetchedCompetitions()}
@@ -141,7 +172,9 @@ AdminPage.fragment = gql`
     image
     categoryType
     active
+    visible
     trnId
+    abbr
   }
 `;
 
