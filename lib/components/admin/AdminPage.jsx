@@ -33,6 +33,7 @@ class AdminPage extends Component {
         slug: Utils.slugify(name),
         trnId: compId,
         active: true,
+        type: 'comp',
       },
       // new category modal has number 0
       openModal: 0,
@@ -73,14 +74,45 @@ class AdminPage extends Component {
       </Modal>
     );
   }
+  
+  renderTeamCategories() {
+    const {results: categories} = this.props;
 
-  renderExistingCategories() {
+    const teamCategory = categories.filter(c => c.type === 'team');
+    
+    return !teamCategory.length 
+      ? <p>No competitions categories</p> 
+      : <Grid>
+        {teamCategory.map((cat, index) =>
+          <Row key={cat._id}>
+            <Col xs={6}>
+              <span>{cat.name}</span>
+            </Col>
+            <Col xs={3}>
+              <Components.AdminCompetitionActionButton
+                openCategoryEditModal={_.partial(this.openCategoryEditModal, index+1)}
+                category={cat}
+              />
+            </Col>
+            <Col xs={3}>
+              <Components.AdminCategoryActionButton category={cat} />
+              {cat.active ? <Components.AdminCategoryVisibilityButton category={cat} /> : null}
+            </Col>
+          </Row>
+        )}
+      </Grid>
+
+  }
+
+  renderCompetitionsCategories() {
     const {results: categories} = this.props;
     
-    return !categories.length 
-      ? <p>No categories</p> 
+    const competitionsCategories = categories.filter(c => c.type === 'competition');
+    
+    return !competitionsCategories.length 
+      ? <p>No competitions categories</p> 
       : <Grid>
-        {categories.map((cat, index) =>
+        {competitionsCategories.map((cat, index) =>
           <Row key={cat._id}>
             <Col xs={6}>
               <span>{cat.name}</span>
@@ -140,12 +172,16 @@ class AdminPage extends Component {
       <div>
         <h1>Admin Page</h1>
         
-        <h3>Existing categories</h3>
-        {this.renderExistingCategories()}
+        <h3>Normal categories</h3>
+        
+        <h3>Teams categories</h3>
+        {this.renderTeamCategories()}
+        
+        <h3>Competitions categories</h3>
+        {this.renderCompetitionsCategories()}
         
         <div>
-          {categories && categories.length > 0 ?
-            categories.map((category, index) => this.renderCategoryEditModal(category, index)) : null}
+          {categories && categories.length > 0 ? categories.map((category, index) => this.renderCategoryEditModal(category, index)) : null}
         </div>
         
         <h3>Competitions from TRN API</h3>
@@ -170,7 +206,7 @@ AdminPage.fragment = gql`
     order
     slug
     image
-    categoryType
+    type
     active
     visible
     trnId

@@ -16,7 +16,7 @@ const newFragment = gql`
     order
     slug
     image
-    categoryType
+    type
     # active
     visible
     trnId

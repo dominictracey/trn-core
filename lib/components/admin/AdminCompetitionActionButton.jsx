@@ -105,7 +105,7 @@ AdminCompetitionActionButton.contextTypes = {
 
 const options = {
   collection: Categories,
-  fragment: Components.AdminPage.fragment,
+  fragment: Components.AdminPage.rawComponent.fragment,
 };
 
 const mapStateToProps = ({entities: { comp }}) => ({ comp });
