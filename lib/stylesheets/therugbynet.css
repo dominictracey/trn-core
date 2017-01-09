@@ -474,6 +474,18 @@ input.joinLink {
 /*     	margin-right: 15px; */
 }
 
+.teamlogo-med  {
+/* 		padding-left: 5px; */
+/* 		padding-right: 5px; */
+		background-repeat: no-repeat;
+		background-position: center center;
+    	background-size: contain;
+    	min-width: 60px;
+    	min-height: 60Px;
+			display: inline-block;
+/*     	margin-right: 15px; */
+}
+
 .team-logo {
 		padding-left: 5px;
 		padding-right: 5px;

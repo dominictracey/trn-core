@@ -16,7 +16,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
 
     // match threads are orange
     if (post.postType === 'match') {
-      postClass += " post-orange"
+      postClass += " match-post-item"
     } else if (post.postType === 'video') {
       postClass += " post-blue"
     }
