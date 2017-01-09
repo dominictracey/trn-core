@@ -26,7 +26,7 @@ class AdminPage extends Component {
     this.props.loadConfiguration([]);
   }
 
-  openCategoryNewModal({type = 'normal', compId = '', name = ''}) {
+  openCategoryNewModal({type = 'normal', compId = '', name = '', ...rest}) {
     return e => this.setState({
       prefilled: {
         name: name,
@@ -34,6 +34,7 @@ class AdminPage extends Component {
         trnId: compId,
         active: true,
         type: type,
+        ...rest,
       },
       // new category modal has number 0
       openModal: 0,
@@ -105,7 +106,7 @@ class AdminPage extends Component {
       }
 
       <Components.AdminCategoryActionButton
-        createCategory={this.openCategoryNewModal({type: 'normal'})}
+        createCategory={this.openCategoryNewModal({order: 1, type: 'normal'})}
       />
       </div>
     )
@@ -171,8 +172,9 @@ class AdminPage extends Component {
   
   renderFetchedCompetitions() {
     
-    const {results: categories, config} = this.props;
-    
+    const {results: categories = [], config} = this.props;
+    // console.log('results',results);
+    // console.log('cat',categories);
     if (_.isEmpty(config)) {
       return <Components.Loading />;
     }
@@ -249,6 +251,7 @@ AdminPage.fragment = gql`
     visible
     trnId
     abbr
+    trnTeamIds
   }
 `;
 
