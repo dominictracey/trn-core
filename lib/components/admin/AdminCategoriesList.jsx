@@ -96,15 +96,15 @@
 //                   <span>{cat.name}</span>
 //                 </Col>
 //                 <Col xs={3}>
-//                   <Components.AdminCompetitionActionButton
+//                   <Components.CategoriesCompetitionsEditButton
 //                     openCategoryEditModal={_.partial(this.openCategoryEditModal, index+1)}
 //                     category={cat}
 //                   />
 //                   this.renderCategoryEditModal(category, index)
 //                 </Col>
 //                 <Col xs={3}>
-//                   <Components.AdminCategoryActionButton category={cat} />
-//                   {cat.active ? <Components.AdminCategoryVisibilityButton category={cat} /> : null}
+//                   <Components.CategoriesCompetitionsNewButton category={cat} />
+//                   {cat.active ? <Components.CategoriesVisibilityButton category={cat} /> : null}
 //                 </Col>
 //               </Row>
 //             )}

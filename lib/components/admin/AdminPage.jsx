@@ -97,15 +97,14 @@ class AdminPage extends Component {
                 </Button>
               </Col>
               <Col xs={3}>
-                <Components.AdminCategoryActionButton category={cat} />
-                {cat.active ? <Components.AdminCategoryVisibilityButton category={cat} /> : null}
+                {cat.active ? <Components.CategoriesVisibilityButton category={cat} /> : null}
               </Col>
             </Row>
           )}
         </Grid>
       }
 
-      <Components.AdminCategoryActionButton
+      <Components.CategoriesCompetitionsNewButton
         createCategory={this.openCategoryNewModal({order: 1, type: 'normal'})}
       />
       </div>
@@ -123,18 +122,16 @@ class AdminPage extends Component {
       : <Grid>
         {teamCategory.map((cat, index) =>
           <Row key={cat._id}>
-            <Col xs={6}>
+            <Col xs={4}>
               <span>{cat.name}</span>
             </Col>
-            <Col xs={3}>
-              <Components.AdminCompetitionActionButton
-                openCategoryEditModal={_.partial(this.openCategoryEditModal, index+1)}
-                category={cat}
-              />
+            <Col xs={4}>
+              <Button bsStyle="primary" onClick={_.partial(this.openCategoryEditModal, index+1)}>
+                Edit
+              </Button>
             </Col>
-            <Col xs={3}>
-              <Components.AdminCategoryActionButton category={cat} />
-              {cat.active ? <Components.AdminCategoryVisibilityButton category={cat} /> : null}
+            <Col xs={4}>
+              {cat.active ? <Components.CategoriesVisibilityButton category={cat} /> : null}
             </Col>
           </Row>
         )}
@@ -152,18 +149,18 @@ class AdminPage extends Component {
       : <Grid>
         {competitionsCategories.map((cat, index) =>
           <Row key={cat._id}>
-            <Col xs={6}>
+            <Col xs={4}>
               <span>{cat.name}</span>
             </Col>
-            <Col xs={3}>
-              <Components.AdminCompetitionActionButton
+            <Col xs={4}>
+              <Components.CategoriesCompetitionsEditButton
                 openCategoryEditModal={_.partial(this.openCategoryEditModal, index+1)}
                 category={cat}
               />
             </Col>
-            <Col xs={3}>
-              <Components.AdminCategoryActionButton category={cat} />
-              {cat.active ? <Components.AdminCategoryVisibilityButton category={cat} /> : null}
+            <Col xs={4}>
+              <Components.CategoriesCompetitionsActivityButton category={cat} />
+              {cat.active ? <Components.CategoriesVisibilityButton category={cat} /> : null}
             </Col>
           </Row>
         )}
@@ -190,11 +187,11 @@ class AdminPage extends Component {
       : (<Grid>
         {filteredComps.map(trnId =>
           <Row key={trnId}>
-            <Col xs={8} md={9}>
+            <Col xs={6}>
               <span>{competitionMap[trnId]} </span>
             </Col>
-            <Col xs={4} md={3}>
-              <Components.AdminCategoryActionButton
+            <Col xs={6}>
+              <Components.CategoriesCompetitionsNewButton
                 createCategory={this.openCategoryNewModal({trnId, name: competitionMap[trnId], type: 'comp'})}
               />
             </Col>
