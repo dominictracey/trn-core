@@ -5,9 +5,9 @@ import { Button } from 'react-bootstrap';
 import { Components, getRawComponent, registerComponent, withEdit, withMessages } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
-const CategoriesCompetitionsActivityButton = ({category, editMutation, flash}, context) => {
+const CategoriesActivityButton = ({category, editMutation, flash}, context) => {
   
-  if (!category || category.type !== 'comp') {
+  if (!category /*|| category.type !== 'comp'*/) {
     return <div>Error defining button</div>
   }
   
@@ -22,7 +22,7 @@ const CategoriesCompetitionsActivityButton = ({category, editMutation, flash}, c
     set: { 
       name: category.name, // needed even if we don't change it (category type definition)
       active: !category.active,
-      type: 'comp',
+      type: category.type,
     },
     unset: {}, // needed even if we don't "unset" anything (mutation utils process)
   };
@@ -38,9 +38,9 @@ const CategoriesCompetitionsActivityButton = ({category, editMutation, flash}, c
   
 }
 
-CategoriesCompetitionsActivityButton.displayName = "CategoriesCompetitionsActivityButton";
+CategoriesActivityButton.displayName = "CategoriesActivityButton";
 
-CategoriesCompetitionsActivityButton.contextTypes = {
+CategoriesActivityButton.contextTypes = {
   intl: intlShape,
 }
 
@@ -49,4 +49,4 @@ const options = {
   fragment: getRawComponent('AdminPage').fragment,
 };
 
-registerComponent('CategoriesCompetitionsActivityButton', CategoriesCompetitionsActivityButton, withMessages, withEdit(options));
+registerComponent('CategoriesActivityButton', CategoriesActivityButton, withMessages, withEdit(options));
