@@ -2,7 +2,7 @@ import React, { PropTypes, Component }from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { Modal, Grid, Row, Col } from 'react-bootstrap';
+import { Modal, Grid, Row, Col, Button } from 'react-bootstrap';
 import gql from 'graphql-tag';
 
 import { Components, registerComponent, Utils, withList } from 'meteor/nova:core';
@@ -26,13 +26,15 @@ class AdminPage extends Component {
     this.props.loadConfiguration([]);
   }
 
-  openCategoryNewModal(compId, name) {
+  openCategoryNewModal({type = 'normal', compId = '', name = '', ...rest}) {
     return e => this.setState({
       prefilled: {
         name: name,
         slug: Utils.slugify(name),
         trnId: compId,
         active: true,
+        type: type,
+        ...rest,
       },
       // new category modal has number 0
       openModal: 0,
@@ -73,14 +75,82 @@ class AdminPage extends Component {
       </Modal>
     );
   }
+  
+  renderNormalCategories() {
+    const {results: categories} = this.props;
 
-  renderExistingCategories() {
+    const normalCategory = categories.filter(c => c.type === 'normal');
+    
+    return (
+      <div>
+      {!normalCategory.length 
+      ? <p>No normal categories</p> 
+      : <Grid>
+          {normalCategory.map((cat, index) =>
+            <Row key={cat._id}>
+              <Col xs={6}>
+                <span>{cat.name}</span>
+              </Col>
+              <Col xs={3}>
+                <Button bsStyle="primary" onClick={_.partial(this.openCategoryEditModal, index+1)}>
+                  Edit
+                </Button>
+              </Col>
+              <Col xs={3}>
+                <Components.AdminCategoryActionButton category={cat} />
+                {cat.active ? <Components.AdminCategoryVisibilityButton category={cat} /> : null}
+              </Col>
+            </Row>
+          )}
+        </Grid>
+      }
+
+      <Components.AdminCategoryActionButton
+        createCategory={this.openCategoryNewModal({order: 1, type: 'normal'})}
+      />
+      </div>
+    )
+
+  }
+  
+  renderTeamCategories() {
+    const {results: categories} = this.props;
+
+    const teamCategory = categories.filter(c => c.type === 'team');
+    
+    return !teamCategory.length 
+      ? <p>No competitions categories</p> 
+      : <Grid>
+        {teamCategory.map((cat, index) =>
+          <Row key={cat._id}>
+            <Col xs={6}>
+              <span>{cat.name}</span>
+            </Col>
+            <Col xs={3}>
+              <Components.AdminCompetitionActionButton
+                openCategoryEditModal={_.partial(this.openCategoryEditModal, index+1)}
+                category={cat}
+              />
+            </Col>
+            <Col xs={3}>
+              <Components.AdminCategoryActionButton category={cat} />
+              {cat.active ? <Components.AdminCategoryVisibilityButton category={cat} /> : null}
+            </Col>
+          </Row>
+        )}
+      </Grid>
+
+  }
+
+  renderCompetitionsCategories() {
     const {results: categories} = this.props;
     
-    return !categories.length 
-      ? <p>No categories</p> 
+    const competitionsCategories = categories.filter(c => c.type === 'comp');
+    
+    return !competitionsCategories.length 
+      ? <p>No competitions categories</p> 
       : <Grid>
-        {categories.map((cat, index) =>
+        {competitionsCategories.map((cat, index) =>
           <Row key={cat._id}>
             <Col xs={6}>
               <span>{cat.name}</span>
@@ -102,10 +172,11 @@ class AdminPage extends Component {
   
   renderFetchedCompetitions() {
     
-    const {results: categories, config} = this.props;
-    
+    const {results: categories = [], config} = this.props;
+    // console.log('results',results);
+    // console.log('cat',categories);
     if (_.isEmpty(config)) {
-      return <div className='wait'><Components.Loading /></div>;
+      return <Components.Loading />;
     }
     
     // config = { 12345: { compsForClient, competitionMap, ... } }, we want cFC & cM
@@ -124,7 +195,7 @@ class AdminPage extends Component {
             </Col>
             <Col xs={4} md={3}>
               <Components.AdminCategoryActionButton
-                createCategory={this.openCategoryNewModal(trnId, competitionMap[trnId])}
+                createCategory={this.openCategoryNewModal({trnId, name: competitionMap[trnId], type: 'comp'})}
               />
             </Col>
           </Row>
@@ -140,12 +211,17 @@ class AdminPage extends Component {
       <div>
         <h1>Admin Page</h1>
         
-        <h3>Existing categories</h3>
-        {this.renderExistingCategories()}
+        <h3>Normal categories</h3>
+        {categories ? this.renderNormalCategories() : <Components.Loading />}
+        
+        <h3>Teams categories</h3>
+        {categories ? this.renderTeamCategories() : <Components.Loading />}
+        
+        <h3>Competitions categories</h3>
+        {categories ? this.renderCompetitionsCategories() : <Components.Loading />}
         
         <div>
-          {categories && categories.length > 0 ?
-            categories.map((category, index) => this.renderCategoryEditModal(category, index)) : null}
+          {categories && categories.length > 0 ? categories.map((category, index) => this.renderCategoryEditModal(category, index)) : null}
         </div>
         
         <h3>Competitions from TRN API</h3>
@@ -170,11 +246,12 @@ AdminPage.fragment = gql`
     order
     slug
     image
-    categoryType
+    type
     active
     visible
     trnId
     abbr
+    trnTeamIds
   }
 `;
 

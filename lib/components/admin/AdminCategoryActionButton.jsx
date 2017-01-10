@@ -22,7 +22,8 @@ const AdminCategoryActionButton = ({ category, createCategory, editMutation, fla
       documentId: category._id,
       set: { 
         name: category.name, // needed even if we don't change it (category type definition)
-        active: !category.active
+        active: !category.active,
+        type: 'comp',
       },
       unset: {}, // needed even if we don't "unset" anything (mutation utils process)
     };
@@ -47,7 +48,7 @@ AdminCategoryActionButton.contextTypes = {
 
 const options = {
   collection: Categories,
-  fragment: Components.AdminPage.fragment,
+  fragment: Components.AdminPage.rawComponent.fragment,
 };
 
 registerComponent('AdminCategoryActionButton', AdminCategoryActionButton, withMessages, withEdit(options));
