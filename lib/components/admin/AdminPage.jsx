@@ -90,11 +90,10 @@ AdminPage.fragment = gql`
     slug
     image
     type
-    active
     visible
     trnId
     abbr
-    trnTeamIds
+    attachedTeams
   }
 `;
 

@@ -88,10 +88,7 @@ class AdminCategoriesList extends Component {
                 }
               </Col>
               <Col xs={2}>
-                <Components.CategoriesActivityButton category={cat} />
-              </Col>
-              <Col xs={2}>
-                {cat.active ? <Components.CategoriesVisibilityButton category={cat} /> : null}
+                <Components.CategoriesVisibilityButton category={cat} />
               </Col>
             </Row>
           )}

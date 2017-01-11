@@ -33,7 +33,7 @@ class AdminCategoriesRemoteList extends Component {
         name: name,
         slug: Utils.slugify(name),
         trnId: compId,
-        active: true,
+        visible: true,
         ...rest,
       },
     });

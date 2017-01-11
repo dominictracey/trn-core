@@ -55,16 +55,17 @@ class CategoriesCompetitionsEditButton extends Component {
     const { category, editMutation, flash } = this.props;
 
     try {
-      const { weightingFactor, abbr, teamIds } = comp;
+      const { weightingFactor, abbr, teamIds, showToClient } = comp;
       
       const mutationParams = {
         documentId: category._id,
         set: { 
           name: category.name, // needed even if we don't change it (category type definition)
           order: parseInt(weightingFactor * 100),
-          abbr,
           image: `http://www.rugby.net/resources/comps/${abbr}/200.png`,
-          trnTeamIds: teamIds,
+          visible: showToClient,
+          abbr,
+          attachedTeams: teamIds,
         },
         unset: {}, // needed even if we don't "unset" anything (mutation utils process)
       };
@@ -84,9 +85,16 @@ class CategoriesCompetitionsEditButton extends Component {
   async updateTeams(comp) {
     const { category, newMutation, flash, client } = this.props;
     try {
-      const { teams } = comp;
+      const { teams = [] } = comp;
       
       // console.log(teams);
+      
+      // handle the case where the TRN API got successly fetched but didn't populated the store with teams
+      if(!teams.length) {
+        flash(`Apparently, competition "${category.name}" doesn't have any category... (store for comp not populated): (TRN ID: ${category.trnId})`, 'warning');
+        
+        return;
+      }
       
       const uniqueTeams = teams.filter(team => {
         // get the current data of the store
@@ -113,7 +121,6 @@ class CategoriesCompetitionsEditButton extends Component {
               abbr: team.abbr,
               image: `http://www.rugby.net/resources/comps/${team.abbr}/200.png`,
               trnId: team.id,
-              active: true,
               visible: true,
               order: 0,
             }
@@ -140,7 +147,7 @@ class CategoriesCompetitionsEditButton extends Component {
   render() {
     const { category, openCategoryEditModal } = this.props;
     
-    const label = category.order ? 'Edit' : 'Init comp';
+    const label = category.order ? 'Edit' : 'Init competition';
     const onClick = category.order && category.abbr ? openCategoryEditModal : this.fetchComp;
     
     if(!category || !category.trnId || category.type !== 'comp') {
