@@ -16,7 +16,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
 
     // match threads are orange
     if (post.postType === 'match') {
-      postClass += " post-orange"
+      postClass += " match-post-item"
     } else if (post.postType === 'video') {
       postClass += " post-blue"
     }
@@ -25,7 +25,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
       <div className={postClass}>
 
         <div className="posts-item-vote">
-          <Components.Vote post={post} />
+          <Components.Vote document={post} collection={Posts} />
         </div>
 
         {post.thumbnailUrl ? <Components.PostsThumbnail post={post}/> : null}
@@ -69,53 +69,5 @@ TrnPostsItem.propTypes = {
 TrnPostsItem.contextTypes = {
   currentUser: React.PropTypes.object
 };
-
-TrnPostsItem.fragment = gql`
-  fragment PostsItemFragment on Post {
-    _id
-    title
-    url
-    slug
-    thumbnailUrl
-    baseScore
-    postedAt
-    sticky
-    status
-    categories {
-      # ...minimumCategoryInfo
-      _id
-      name
-      slug
-    }
-    commentCount
-    commenters {
-      # ...avatarUserInfo
-      _id
-      __displayName
-      __emailHash
-      __slug
-    }
-    upvoters {
-      _id
-    }
-    downvoters {
-      _id
-    }
-    upvotes # should be asked only for admins?
-    score # should be asked only for admins?
-    viewCount # should be asked only for admins?
-    clickCount # should be asked only for admins?
-    user {
-      # ...avatarUserInfo
-      _id
-      __displayName
-      __emailHash
-      __slug
-    }
-    color
-    postType
-    trnId
-  }
-`;
 
 replaceComponent('PostsItem', TrnPostsItem)

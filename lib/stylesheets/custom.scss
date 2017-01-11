@@ -10,6 +10,38 @@
   padding-top: 0px;
   padding-bottom: 0px;
 }
+div.main, .footer, .header{
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 $hmargin;
+  max-width: 100%;
+}
+div.main{
+  margin-bottom: $vmargin;
+}
+@media (min-width: 544px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 100%;
+  }
+}
 .post-red{
   background-color: #FFD3D2;
 }
@@ -32,6 +64,13 @@
   background-color: lightblue;
 }
 
+.match-post-item{
+  background-color: $match-green;
+  border-color: $match-green-border;
+  color: $match-text;
+  border-width: 2px;
+}
+
 div.posts-list-header{
   display: block;
   padding-top: 5px;
@@ -43,15 +82,37 @@ div.competitionBar{
   display: inline-flex;
   align-items: stretch;
 }
+
+div.matchDate {
+  text-align: center;
+  padding-bottom: 5px;
+  font-style: italic;
+  font-size: .8em;
+}
 .competitionBar .competition-item{
   font-size: small;
   text-decoration: underline;
   padding: 2px 5px;
 }
 
-.matchResultHeader{
+.matchTeamName {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.matchTeamName-visit {
+  float: left;
+}
+
+.matchScore {
   font-size: 2em;
   text-align: center;
+}
+
+.matchStatus{
+  font-size: 1em;
+  text-align: center;
+  font-weight: 400;
 }
 
 .placeholder{
@@ -63,4 +124,12 @@ div.competitionBar{
 
 .wait{
   min-height: 300px;
+}
+
+.homeLogo {
+  float: left;
+}
+
+.visitLogo {
+  float: right;
 }
