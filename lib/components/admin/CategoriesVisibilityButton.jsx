@@ -2,10 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import { intlShape } from 'react-intl';
 import { Button } from 'react-bootstrap';
 
-import { Components, registerComponent, withEdit, withMessages } from 'meteor/nova:core';
+import { Components, getRawComponent, registerComponent, withEdit, withMessages } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
-const AdminCategoryVisibilityButton = ({ category, editMutation, flash }, context) => {
+const CategoriesVisibilityButton = ({ category, editMutation, flash }, context) => {
   
   if(!category) {
     return <span>Error defining button</span>;
@@ -38,15 +38,15 @@ const AdminCategoryVisibilityButton = ({ category, editMutation, flash }, contex
   
 }
 
-AdminCategoryVisibilityButton.displayName = "AdminCategoryVisibilityButton";
+CategoriesVisibilityButton.displayName = "CategoriesVisibilityButton";
 
-AdminCategoryVisibilityButton.contextTypes = {
+CategoriesVisibilityButton.contextTypes = {
   intl: intlShape,
 }
 
 const options = {
   collection: Categories,
-  fragment: Components.AdminPage.rawComponent.fragment,
+  fragment: getRawComponent('AdminPage').fragment,
 };
 
-registerComponent('AdminCategoryVisibilityButton', AdminCategoryVisibilityButton, withMessages, withEdit(options));
+registerComponent('CategoriesVisibilityButton', CategoriesVisibilityButton, withMessages, withEdit(options));

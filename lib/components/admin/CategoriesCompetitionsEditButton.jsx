@@ -8,7 +8,8 @@ import { withApollo } from 'react-apollo';
 import { Components, registerComponent, getRawComponent, withEdit, withNew, withMessages, Actions, Utils } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
-class AdminCompetitionActionButton extends Component {
+class CategoriesCompetitionsEditButton extends Component {
+  
   constructor(props) {
     super(props);
     this.fetchComp = this.fetchComp.bind(this);
@@ -85,7 +86,7 @@ class AdminCompetitionActionButton extends Component {
     try {
       const { teams } = comp;
       
-      console.log(teams);
+      // console.log(teams);
       
       const uniqueTeams = teams.filter(team => {
         // get the current data of the store
@@ -95,13 +96,11 @@ class AdminCompetitionActionButton extends Component {
         const storedCategories = _.filter(apolloData, (object, key) => {
           return object.__typename === 'Category'
         });
-        
-        console.log(team.id, !storedCategories.find(cat => cat.trnId === team.id))
-        
+                
         return !storedCategories.find(cat => cat.trnId === team.id)
       });
       
-      console.log(uniqueTeams);
+      // console.log(uniqueTeams);
 
       if (uniqueTeams.length) {
         const teamMutations = uniqueTeams.map(team => {
@@ -114,7 +113,9 @@ class AdminCompetitionActionButton extends Component {
               abbr: team.abbr,
               image: `http://www.rugby.net/resources/comps/${team.abbr}/200.png`,
               trnId: team.id,
-              order: 0, // patch?
+              active: true,
+              visible: true,
+              order: 0,
             }
           };
           
@@ -142,7 +143,7 @@ class AdminCompetitionActionButton extends Component {
     const label = category.order ? 'Edit' : 'Init comp';
     const onClick = category.order && category.abbr ? openCategoryEditModal : this.fetchComp;
     
-    if(!category || !category.trnId) {
+    if(!category || !category.trnId || category.type !== 'comp') {
       return <span>Error defining button</span>;
     }
       
@@ -154,13 +155,13 @@ class AdminCompetitionActionButton extends Component {
   }
 }
 
-AdminCompetitionActionButton.displayName = "AdminCompetitionActionButton";
+CategoriesCompetitionsEditButton.displayName = "CategoriesCompetitionsEditButton";
 
-AdminCompetitionActionButton.defaultProps = {
+CategoriesCompetitionsEditButton.defaultProps = {
   comp: {}, // will avoid errors of undefined propagation!
 }
 
-AdminCompetitionActionButton.contextTypes = {
+CategoriesCompetitionsEditButton.contextTypes = {
   intl: intlShape,
 }
 
@@ -172,4 +173,4 @@ const options = {
 const mapStateToProps = ({entities: { comp }}) => ({ comp });
 const mapDispatchToProps = dispatch => bindActionCreators({loadCompetition: Actions.loadCompetition}, dispatch);
 
-registerComponent('AdminCompetitionActionButton', AdminCompetitionActionButton, withMessages, withEdit(options), withNew(options), withApollo, connect(mapStateToProps, mapDispatchToProps));
+registerComponent('CategoriesCompetitionsEditButton', CategoriesCompetitionsEditButton, withMessages, withEdit(options), withNew(options), withApollo, connect(mapStateToProps, mapDispatchToProps));

@@ -17,7 +17,7 @@ const newFragment = gql`
     slug
     image
     type
-    # active
+    active
     visible
     trnId
     abbr
@@ -29,7 +29,7 @@ const categoriesListOptions = {
   queryName: 'visibleCategoriesListQuery',
   fragment: newFragment,
   limit: 0,
-  terms: {onlyVisible: true},
+  terms: {onlyVisible: true}, // see callbacks.js -> 'categories.parameters'
 };
 
 registerComponent('CategoriesList', originalComponent, withRouter, withList(categoriesListOptions));
