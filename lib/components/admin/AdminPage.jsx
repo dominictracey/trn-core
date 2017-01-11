@@ -38,6 +38,7 @@ class AdminPage extends Component {
               showNewCategoryButton={false}
               type="comp"
               categories={categories.filter(c => c.type === 'comp')}
+              specificActionButton={Components.CategoriesCompetitionsEditButton}
             />;
   }
   

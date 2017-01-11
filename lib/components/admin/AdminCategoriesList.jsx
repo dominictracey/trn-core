@@ -60,7 +60,9 @@ class AdminCategoriesList extends Component {
 
   render() {
     
-    const { categories, type, showNewCategoryButton } = this.props;
+    const { categories, type, showNewCategoryButton, specificActionButton = null } = this.props;
+    
+    const ActionButton = specificActionButton || Button;
     
     return (
       <div>
@@ -73,9 +75,17 @@ class AdminCategoriesList extends Component {
                 <span>{cat.name}</span>
               </Col>
               <Col xs={2}>
-                <Button bsStyle="primary" onClick={_.partial(this.openCategoryEditModal, index+1)}>
-                  Edit
-                </Button>
+                { specificActionButton 
+                  ? <ActionButton
+                      category={cat}
+                      openCategoryEditModal={_.partial(this.openCategoryEditModal, index+1)}
+                   />
+                  : <ActionButton 
+                      bsStyle="primary"
+                      onClick={_.partial(this.openCategoryEditModal, index+1)}>
+                      Edit
+                    </ActionButton>
+                }
               </Col>
               <Col xs={2}>
                 <Components.CategoriesActivityButton category={cat} />
