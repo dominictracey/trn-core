@@ -62,6 +62,7 @@ class AdminCategoriesList extends Component {
     
     const { categories, type, showNewCategoryButton, specificActionButton = null } = this.props;
     
+    // to be refactored
     const ActionButton = specificActionButton || Button;
     
     return (
@@ -87,9 +88,10 @@ class AdminCategoriesList extends Component {
                     </ActionButton>
                 }
               </Col>
-              <Col xs={2}>
-                <Components.CategoriesVisibilityButton category={cat} />
-              </Col>
+              {
+                // if the category is a competition, show the visibility toggle button
+                cat.type === 'comp' ? <Col xs={2}><Components.CategoriesVisibilityButton category={cat} /></Col> : null
+              }
             </Row>
           )}
         </Grid>
