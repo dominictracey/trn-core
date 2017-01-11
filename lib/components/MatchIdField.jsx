@@ -1,9 +1,9 @@
-import { Components } from 'meteor/nova:core';
+import { registerComponent, Components, Actions } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
+import { bindActionCreators } from 'redux';
 import FRC from 'formsy-react-components';
-import Posts from "meteor/nova:posts";
+// import Posts from "meteor/nova:posts";
 import { connect } from 'react-redux'
-import { Actions } from 'meteor/trn:rest-redux';
 
 const Input = FRC.Input;
 
@@ -32,7 +32,7 @@ class MatchIdField extends Component {
 
   // called whenever the URL input field loses focus
   handleBlur() {
-    const { matches, dispatch } = this.props
+    const { matches, loadMatch } = this.props
 
 
 
@@ -51,7 +51,7 @@ class MatchIdField extends Component {
 
       // do we need this match
       if (!matches || !matches[id]) {
-        dispatch(Actions.loadMatch(id))
+        loadMatch(id)
         console.log("waiting for match") // eslint-disable-line
       } else {
         this.prefillFields(matches[id])
@@ -135,14 +135,7 @@ MatchIdField.contextTypes = {
   actions: React.PropTypes.object,
 }
 
-
-const mapStateToProps = state => {
-  const { entities } = state
-  const { matches} = entities
-
-  return {
-    matches,
-  }
-}
-
-export default connect(mapStateToProps)(MatchIdField)
+const mapStateToProps = ({entities: { matches }}) => ({matches})
+const mapDispatchToProps = dispatch => bindActionCreators({loadMatch: Actions.loadMatch}, dispatch);
+//registerComponent('MatchIdField', MatchIdField, connect(mapStateToProps, mapDispatchToProps))
+export default connect(mapStateToProps,mapDispatchToProps)(MatchIdField)

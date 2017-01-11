@@ -13,7 +13,7 @@ export class TeamStatsPanel extends Component {
 
     return (
       <div>
-      {post.htmlBody ? <div className="posts-page-body" dangerouslySetInnerHTML={htmlBody}></div> : null}
+      {teamMatchStatsByMatchId[matchId] ? teamMatchStats[teamMatchStatsByMatchId[matchId]].tmsList[teamSelector] : null}
       </div>
     )
   }

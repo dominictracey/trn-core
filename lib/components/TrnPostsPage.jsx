@@ -18,7 +18,7 @@ const TrnPostsPage = (props) => {
     if (!post.postType || post.postType === 'link') {
       body = <LinkBody post={post}/>
     } else if (post.postType === 'match') {
-      body = <MatchBody post={post}/>
+      body = <Components.MatchBody post={post}/>
     }
 
     return (

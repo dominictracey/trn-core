@@ -2,7 +2,7 @@ import Components from 'meteor/nova:core'
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Actions, registerComponent } from 'meteor/nova:core';
+import { Actions, registerComponent, withMessages } from 'meteor/nova:core';
 import { FormattedDate, FormattedTime } from 'react-intl'
 import _ from 'lodash'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
@@ -32,10 +32,14 @@ class MatchBody extends Component {
 
         await loadTeamMatchStats(post.trnId, matches[post.trnId].homeTeamId)
 
+
         console.log('fetch end');
         this.setState({loading: false});
-        //flash(`Team Match Stats for "${matches[post.trnId].displayName}" fetched!`, 'success');
-
+        flash(`Team Match Stats for "${matches[post.trnId].displayName}" fetched!`, 'success');
+        this.setState({
+          showTeamStats: 0,
+          showPlayerStats: -1,
+        })
 
 
       } else if (index === 1) {
@@ -67,6 +71,7 @@ class MatchBody extends Component {
     var visitName = ''
     var score = ' vs. '
     var date = ''
+    var teamStats = null
 
     if (match && match.status) {
       status = match.status
@@ -80,6 +85,8 @@ class MatchBody extends Component {
         score = ' ' + result.homeScore + ' - ' + result.visitScore + ' '
         status = 'Final'
       }
+
+      // teamStats = this.state.showTeamStats ? <TeamStatsPanel matchId={match.id} home={0}/> : null
     }
 
     return (
@@ -92,6 +99,8 @@ class MatchBody extends Component {
         </Col></Row><Row><Col md={12}>
           <div className='matchStatus'>{status}</div>
           <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div>
+        </Col></Row><Row><Col>
+          <div className='teamStatsPanel'>{teamStats}</div>
         </Col></Row></Grid>
         <ButtonGroup justified>
           <Button bsStyle="info" bsSize="small" onClick={this.showStats}>{this.state.loading ? <Components.Loading /> : <span>{homeName} Team Stats</span>}</Button>
@@ -124,5 +133,5 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({loadMatch: Actions.loadMatch, loadTeamMatchStats: Actions.loadTeamMatchStats, loadPlayerMatchStats: Actions.loadPlayerMatchStats}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MatchBody)
-//registerComponent('MatchBody', MatchBody, connect(mapStateToProps, mapDispatchToProps));
+//export default connect(mapStateToProps, mapDispatchToProps)(MatchBody)
+registerComponent('MatchBody', MatchBody, withMessages, connect(mapStateToProps, mapDispatchToProps));
