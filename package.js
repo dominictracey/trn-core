@@ -20,8 +20,9 @@ Package.onUse( function(api) {
   api.mainModule('lib/modules.js', ['client', 'server']);
 
   api.addFiles([
-    'lib/stylesheets/custom.scss',
-    'lib/stylesheets/therugbynet.css'
+    'lib/stylesheets/bootstrap.css',
+    'lib/stylesheets/main.scss',
+    'lib/stylesheets/therugbynet.css',
   ], ['client']);
 
   api.addFiles([

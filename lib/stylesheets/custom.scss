@@ -1,7 +1,3 @@
-@import "breakpoints";
-@import "colors";
-@import "variables";
-
 .header{
   @include medium-large{
     @include flex-center;
