@@ -65,7 +65,7 @@ class CategoriesCompetitionsEditButton extends Component {
           image: `http://www.rugby.net/resources/comps/${abbr}/200.png`,
           visible: showToClient,
           abbr,
-          attachedTeams: teamIds,
+          attachedTeams: teamIds || [],
         },
         unset: {}, // needed even if we don't "unset" anything (mutation utils process)
       };

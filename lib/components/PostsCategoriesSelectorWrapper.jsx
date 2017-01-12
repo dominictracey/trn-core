@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import FRC from 'formsy-react-components';
 import Categories from 'meteor/nova:categories';
-import PostsCategoriesSelector from './PostsCategoriesSelector.jsx';
+import { Components, registerComponent } from 'meteor/nova:core';
 
 const Input = FRC.Input;
 
@@ -96,22 +96,23 @@ class PostsCategoriesSelectorWrapper extends Component {
       <div className="form-group row">
         <label className="control-label col-sm-3">{label}</label>
         <div className="col-sm-9 tags-field-wrapper">
-          {Categories.availableTypes.map((categoryType, index) => (
-              <PostsCategoriesSelector
+          {Categories.availableTypes.map((categoryType, index) => {
+            
+            const categoriesOfThisType = options.filter(cat => cat.type === categoryType.value);
+            
+            return categoriesOfThisType.length ? (
+              <Components.PostsCategoriesSelector
                 key={index}
                 categoryType={categoryType} // e.g. {value: "comp", label: "Competition"},
                 tags={this.state.tags.filter(tag => tag.type === categoryType.value)}
-                categories={
-                  options
-                    .filter(cat => cat.type === categoryType.value)
-                    .filter(cat => !this.state.value.find(v => v === cat.value))
-                }
+                tagsLimit={categoryType.value === 'comp' && 1} // tags limit set to 1 only for competitions 
+                categoriesSuggestions={categoriesOfThisType.filter(cat => !this.state.value.find(v => v === cat.value))}
                 handleDelete={this.handleDelete}
                 handleAddition={this.handleAddition}
                 handleClearSelection={this.handleClearSelection}
               />
-            )
-          )}
+            ) : <div className="tags-field" key={index}>No {categoryType.label}.</div>;
+          })}
           <Input name={name} type="hidden" readOnly value={this.state.value} />
         </div>
       </div>
@@ -125,4 +126,4 @@ PostsCategoriesSelectorWrapper.propTypes = {
   label: React.PropTypes.string
 }
 
-export default PostsCategoriesSelectorWrapper;
+registerComponent('PostsCategoriesSelectorWrapper', PostsCategoriesSelectorWrapper);

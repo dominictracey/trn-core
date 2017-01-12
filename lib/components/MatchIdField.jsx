@@ -137,5 +137,7 @@ MatchIdField.contextTypes = {
 
 const mapStateToProps = ({entities: { matches }}) => ({matches})
 const mapDispatchToProps = dispatch => bindActionCreators({loadMatch: Actions.loadMatch}, dispatch);
-//registerComponent('MatchIdField', MatchIdField, connect(mapStateToProps, mapDispatchToProps))
-export default connect(mapStateToProps,mapDispatchToProps)(MatchIdField)
+
+// note: let's stick to one way to use components in the app :)
+registerComponent('MatchIdField', MatchIdField, connect(mapStateToProps, mapDispatchToProps))
+// export default connect(mapStateToProps,mapDispatchToProps)(MatchIdField)

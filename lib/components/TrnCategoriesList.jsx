@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router';
 import gql from 'graphql-tag';
 
-import { Components, getRawComponent, registerComponent, withList } from 'meteor/nova:core';
+import { Components, getRawComponent, replaceComponent, withList } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
 // get the original list
@@ -20,7 +20,18 @@ const newFragment = gql`
     visible
     trnId
     abbr
-    attachedTeams
+    attachedTeams {
+      _id
+      name
+      description
+      order
+      slug
+      image
+      type
+      visible
+      trnId
+      abbr
+    }
   }
 `;
 
@@ -32,4 +43,4 @@ const categoriesListOptions = {
   terms: {onlyVisible: true}, // see callbacks.js -> 'categories.parameters'
 };
 
-registerComponent('CategoriesList', originalComponent, withRouter, withList(categoriesListOptions));
+replaceComponent('CategoriesList', originalComponent, withRouter, withList(categoriesListOptions));

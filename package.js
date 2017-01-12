@@ -17,17 +17,14 @@ Package.onUse( function(api) {
     'trn:rest-redux',
   ]);
 
-  api.mainModule('lib/modules.js', ['client', 'server']);
+  api.mainModule('client.js', ['client']);
+  api.mainModule('server.js', ['server']);
 
   api.addFiles([
     'lib/stylesheets/bootstrap.css',
     'lib/stylesheets/main.scss',
     'lib/stylesheets/therugbynet.css',
   ], ['client']);
-
-  api.addFiles([
-    'lib/server/templates.js'
-  ], ['server']);
 
   api.addAssets([
     'lib/server/emails/customNewPost.handlebars',

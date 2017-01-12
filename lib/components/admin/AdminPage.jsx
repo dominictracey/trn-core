@@ -93,7 +93,18 @@ AdminPage.fragment = gql`
     visible
     trnId
     abbr
-    attachedTeams
+    attachedTeams {
+      _id
+      name
+      description
+      order
+      slug
+      image
+      type
+      visible
+      trnId
+      abbr
+    }
   }
 `;
 
