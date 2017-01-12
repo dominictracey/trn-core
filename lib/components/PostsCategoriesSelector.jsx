@@ -15,11 +15,11 @@ const PostsCategoriesSelector = (props, context) => {
     handleDelete, // from the wrapper
     handleAddition, // from the wrapper
     handleClearSelection,
-    tagsLimit,
+    /* tagsLimit, */
   } = props;
 
-  // show the clear selection if there is no more suggestion or if the tags limit has been reached
-  const limitReached = categoriesSuggestions.length === 0 || (typeof tagsLimit === 'number' && tags.length >= tagsLimit);
+  // show the clear selection if there is no more suggestion /* or if the tags limit has been reached */
+  const limitReached = categoriesSuggestions.length === 0 /*|| (typeof tagsLimit === 'number' && tags.length >= tagsLimit)*/;
 
   return (
     <div className={`tags-field ${limitReached ? "tags-field--full" : ""}`}>

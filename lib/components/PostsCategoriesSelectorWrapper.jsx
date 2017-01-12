@@ -15,7 +15,7 @@ class PostsCategoriesSelectorWrapper extends Component {
     
     const tags = props.value ? props.value.map((optionId, index) => {
       return {
-        id: index + 1,
+        id: optionId,
         text: _.findWhere(props.options, {value: optionId}).name,
         type: _.findWhere(props.options, {value: optionId}).type,
       };
@@ -28,18 +28,25 @@ class PostsCategoriesSelectorWrapper extends Component {
     };
   }
 
-  handleDelete(i) {
-
-    const tags = this.state.tags;
-    tags.splice(i, 1);
-
-    const value = this.state.value;
-    value.splice(i,1);
-
-    this.setState(prevState => ({
-      tags,
-      value,
-    }));
+  handleDelete(categoryType) {
+    // react-tag-input gives us the index of the tag in its OWN list
+    return index => {
+      // filter the tags to get the related list
+      const selectedListTags = this.state.tags.filter(tag => tag.type === categoryType.value);
+      
+      // grab the tag to delete
+      const selectedTag = selectedListTags[index];
+      
+      // create a new state :)
+      const newTags = this.state.tags.filter(tag => tag.id !== selectedTag.id);
+      const newValue = this.state.value.filter(v => v !== selectedTag.id);
+      
+      this.setState(prevState => ({
+        tags: newTags,
+        value: newValue,
+      }));
+      
+    }
   }
 
   handleAddition(tag) {
@@ -51,10 +58,11 @@ class PostsCategoriesSelectorWrapper extends Component {
 
       // add tag to state (for tag widget)
       const tags = this.state.tags;
+      
       tags.push({
-          id: tags.length + 1,
-          text: tag,
-          type: option.type,
+        id: option.value,
+        text: tag,
+        type: option.type,
       });
 
       // add value to state (to store in db)
@@ -70,9 +78,9 @@ class PostsCategoriesSelectorWrapper extends Component {
   }
   
   handleClearSelection(categoryType) {
-    
     // filter and reorder the tags state
-    const newCategoryTags = this.state.tags.filter(tag => tag.type !== categoryType.value).map((tag, index) => ({...tag, id: index+1}));
+    const newCategoryTags = this.state.tags.filter(tag => tag.type !== categoryType.value)
+    // .map((tag, index) => ({...tag/*, id: index+1*/}));
     
     // recreate the value state based on the tags
     const newValue = newCategoryTags.map(tag => {
@@ -105,9 +113,11 @@ class PostsCategoriesSelectorWrapper extends Component {
                 key={index}
                 categoryType={categoryType} // e.g. {value: "comp", label: "Competition"},
                 tags={this.state.tags.filter(tag => tag.type === categoryType.value)}
-                tagsLimit={categoryType.value === 'comp' && 1} // tags limit set to 1 only for competitions 
+                /*
+                  tagsLimit={categoryType.value === 'comp' && 1} // tags limit set to 1 only for competitions 
+                */
                 categoriesSuggestions={categoriesOfThisType.filter(cat => !this.state.value.find(v => v === cat.value))}
-                handleDelete={this.handleDelete}
+                handleDelete={this.handleDelete(categoryType)}
                 handleAddition={this.handleAddition}
                 handleClearSelection={this.handleClearSelection}
               />
