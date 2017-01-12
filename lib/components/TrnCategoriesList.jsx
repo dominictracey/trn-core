@@ -20,6 +20,7 @@ const newFragment = gql`
     visible
     trnId
     abbr
+    attachedTeams
   }
 `;
 
