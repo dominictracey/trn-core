@@ -5,24 +5,26 @@ import PostsCategoriesSelector from './PostsCategoriesSelector.jsx';
 
 const Input = FRC.Input;
 
-class Tags extends Component {
+class PostsCategoriesSelectorWrapper extends Component {
 
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
-
-    const tags = props.value ? props.value.map(optionId => {
+    this.handleClearSelection = this.handleClearSelection.bind(this);
+    
+    const tags = props.value ? props.value.map((optionId, index) => {
       return {
-        id: optionId,
-        text: _.findWhere(props.options, {value: optionId}).label
+        id: index + 1,
+        text: _.findWhere(props.options, {value: optionId}).name,
+        type: _.findWhere(props.options, {value: optionId}).type,
       };
     }) : [];
 
     this.state = {
       tags: tags,
-      suggestions: _.pluck(props.options, "label"),
-      value: props.value || []
+      suggestions: _.pluck(props.options, "name"),
+      value: props.value || [],
     };
   }
 
@@ -34,16 +36,16 @@ class Tags extends Component {
     const value = this.state.value;
     value.splice(i,1);
 
-    this.setState({
-      tags: tags,
-      value: value
-    });
+    this.setState(prevState => ({
+      tags,
+      value,
+    }));
   }
 
   handleAddition(tag) {
 
     // first, check if added tag is part of the possible options
-    const option = _.findWhere(this.props.options, {label: tag});
+    const option = _.findWhere(this.props.options, {name: tag});
 
     if (option) {
 
@@ -51,19 +53,37 @@ class Tags extends Component {
       const tags = this.state.tags;
       tags.push({
           id: tags.length + 1,
-          text: tag
+          text: tag,
+          type: option.type,
       });
 
       // add value to state (to store in db)
       const value = this.state.value;
       value.push(option.value);
 
-      this.setState({
-        tags: tags,
-        value: value
-      });
+      this.setState(prevState => ({
+        tags,
+        value,
+      }));
     }
 
+  }
+  
+  handleClearSelection(categoryType) {
+    
+    // filter and reorder the tags state
+    const newCategoryTags = this.state.tags.filter(tag => tag.type !== categoryType.value).map((tag, index) => ({...tag, id: index+1}));
+    
+    // recreate the value state based on the tags
+    const newValue = newCategoryTags.map(tag => {
+      const category = _.findWhere(this.props.options, {name: tag.text});
+      return category.value;
+    });
+    
+    this.setState(prevState => ({
+      tags: newCategoryTags,
+      value: newValue,
+    }));
   }
 
   render() {
@@ -80,7 +100,15 @@ class Tags extends Component {
               <PostsCategoriesSelector
                 key={index}
                 categoryType={categoryType} // e.g. {value: "comp", label: "Competition"},
-                categories={options.filter(cat => cat.type === categoryType.value)}
+                tags={this.state.tags.filter(tag => tag.type === categoryType.value)}
+                categories={
+                  options
+                    .filter(cat => cat.type === categoryType.value)
+                    .filter(cat => !this.state.value.find(v => v === cat.value))
+                }
+                handleDelete={this.handleDelete}
+                handleAddition={this.handleAddition}
+                handleClearSelection={this.handleClearSelection}
               />
             )
           )}
@@ -91,10 +119,10 @@ class Tags extends Component {
   }
 }
 
-Tags.propTypes = {
+PostsCategoriesSelectorWrapper.propTypes = {
   name: React.PropTypes.string,
   value: React.PropTypes.any,
   label: React.PropTypes.string
 }
 
-export default Tags;
+export default PostsCategoriesSelectorWrapper;

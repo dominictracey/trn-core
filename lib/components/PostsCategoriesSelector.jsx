@@ -1,5 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import ReactTagInput from 'react-tag-input';
+import { Button } from 'react-bootstrap';
+
+import { Components } from 'meteor/nova:core';
 
 const ReactTags = ReactTagInput.WithContext;
 
@@ -7,77 +10,39 @@ class PostsCategoriesSelector extends Component {
 
   constructor(props) {
     super(props);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleAddition = this.handleAddition.bind(this);
-    
-    const tags = props.value ? props.value.map(optionId => {
-      return {
-        id: optionId,
-        text: _.findWhere(props.categories, {value: optionId}).name
-      };
-    }) : [];
-
-    this.state = {
-      tags: tags,
-      suggestions: _.pluck(props.categories, "name"),
-      value: props.value || []
-    };
-  }
-
-  handleDelete(i) {
-
-    const tags = this.state.tags;
-    tags.splice(i, 1);
-
-    const value = this.state.value;
-    value.splice(i,1);
-
-    this.setState({
-      tags: tags,
-      value: value
-    });
-  }
-
-  handleAddition(tag) {
-
-    // first, check if added tag is part of the possible options
-    const option = _.findWhere(this.props.categories, {name: tag});
-
-    if (option) {
-
-      // add tag to state (for tag widget)
-      const tags = this.state.tags;
-      tags.push({
-          id: tags.length + 1,
-          text: tag
-      });
-
-      // add value to state (to store in db)
-      const value = this.state.value;
-      value.push(option.value);
-
-      this.setState({
-        tags: tags,
-        value: value
-      });
-    }
-
+  
+    // this.state = {
+    //   tags: props.tags,
+    //   suggestions: _.pluck(props.categories, "name"),
+    //   value: props.value || []
+    // };
   }
 
   render() {
 
-    const {categoryType, categories } = this.props;
+    const { 
+      categoryType, // used for the label
+      tags, // current tags to show
+      categories, // used for suggestions
+      value = [], 
+      handleDelete, // from the wrapper
+      handleAddition, // from the wrapper
+      handleClearSelection,
+    } = this.props;
 
     return (
-      <div className="tags-field">
+      <div className={`tags-field ${!categories.length ? "tags-field--full" : ""}`}>
         <ReactTags
-          tags={this.state.tags}
-          suggestions={this.state.suggestions}
-          handleDelete={this.handleDelete}
-          handleAddition={this.handleAddition}
+          autofocus={false}
+          tags={tags}
+          suggestions={_.pluck(categories, "name")}
+          handleDelete={handleDelete}
+          handleAddition={handleAddition}
           minQueryLength={1}
           placeholder={`Add a ${categoryType.label}`}
+          readOnly={!categories.length}
         />
+        {!categories.length ? <Button className="tags-field-clear" bsSize="small" bsStyle="primary" onClick={() => handleClearSelection(categoryType)} ref={categoryType}><Components.Icon name="close" /></Button>: null}
       </div>
     );
   }
@@ -88,6 +53,7 @@ PostsCategoriesSelector.propTypes = {
   categoryType: React.PropTypes.object,
   categories: React.PropTypes.any,
   value: React.PropTypes.any,
+  tags: React.PropTypes.any,
 }
 
 export default PostsCategoriesSelector;
