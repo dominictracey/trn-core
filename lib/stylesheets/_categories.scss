@@ -1,8 +1,10 @@
-.category-menu-item{
-  position: relative;
-  .categories-delete-link, .edit-category-link{
-    position: absolute;
-    top: 4px;
-    right: 5px;
+.category-list-item a {
+  margin-right: $hmargin;
+  color: $black;
+  text-decoration: underline;
+  font-size: $small-font;
+  &:hover {
+    color: $active-color;
+    text-decoration: none;
   }
 }

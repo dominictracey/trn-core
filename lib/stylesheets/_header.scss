@@ -1,15 +1,25 @@
 .header-wrapper{
-  background: $header-bg;
   margin-bottom: $vmargin;
 }
 
-.header{
+.header-primary{
   @include medium-large{
     @include flex-center;
     justify-content: space-between;
   }
-  padding-top: $vmargin;
-  padding-bottom: $vmargin;
+  padding: 0 $hmargin;
+  background: $header-bg;
+  // padding-top: $vmargin;
+  // padding-bottom: $vmargin;
+  border-bottom: 4px solid $light-grey;
+}
+
+.header-secondary {
+  background: $white;
+  padding: 0 $hmargin;
+  padding-top: $vmargin/2;
+  padding-bottom: $vmargin/2;
+  border-bottom: $border;
 }
 
 .logo{

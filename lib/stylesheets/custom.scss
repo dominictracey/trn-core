@@ -1,11 +1,11 @@
-.header{
-  @include medium-large{
-    @include flex-center;
-    justify-content: space-between;
-  }
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
+// .header{
+//   @include medium-large{
+//     @include flex-center;
+//     justify-content: space-between;
+//   }
+//   padding-top: 0px;
+//   padding-bottom: 0px;
+// }
 div.main, .footer, .header{
   margin-left: auto;
   margin-right: auto;
@@ -67,10 +67,10 @@ div.main{
   border-width: 2px;
 }
 
-div.posts-list-header{
-  display: block;
-  padding-top: 5px;
-}
+// div.posts-list-header{
+//   display: block;
+//   padding-top: 5px;
+// }
 
 div.competitionBar{
   width: auto;
