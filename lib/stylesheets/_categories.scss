@@ -8,3 +8,36 @@
     text-decoration: none;
   }
 }
+
+.category-bar {
+  @include flex-center;
+  justify-content: space-between;
+  @include border;
+  @include border-radius;
+  padding: $vmargin/2 $hmargin/2;
+  margin-bottom: $vmargin;
+}
+
+.category-bar-content {
+  @include flex-center;
+}
+
+.category-bar-thumbnail {
+  display: block;
+  width: auto;
+  height: 50px;
+  margin-right: $hmargin/2;
+}
+
+.category-bar-teams-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 200px;
+}
+
+.category-bar-teams-item {
+  display: block;
+  height: 45px;
+  margin: 2.5px;
+  width: auto;
+}

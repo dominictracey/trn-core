@@ -119,7 +119,7 @@ class CategoriesCompetitionsEditButton extends Component {
               slug: Utils.slugify(team.displayName),
               description: team.groupInfo ? Utils.sanitize(team.groupInfo) : "",
               abbr: team.abbr,
-              image: `http://www.rugby.net/resources/comps/${team.abbr}/200.png`,
+              image: team.abbr ? `http://www.rugby.net/resources/teams/${team.abbr}/200.png` : '',
               trnId: team.id,
               visible: true,
               order: 0,

@@ -2,7 +2,7 @@ import React, { PropTypes, Component }from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Modal, Grid, Row, Col, Button } from 'react-bootstrap';
 
-import { Components, registerComponent, Utils } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/nova:core';
 
 class CategoriesAdminList extends Component {
 
@@ -71,7 +71,7 @@ class CategoriesAdminList extends Component {
       ? <p>No {type} categories</p> 
       : <Grid>
           {categories.map((cat, index) =>
-            <Row key={cat._id}>
+            <Row key={cat._id + index}>
               <Col xs={6}>
                 <span>{cat.name}</span>
               </Col>

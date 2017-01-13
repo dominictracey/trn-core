@@ -18,7 +18,7 @@ class TrnLayout extends getRawComponent('Layout') {
          <div className="main">
           <Grid>
             <Row>
-              <Col xs={12} md={9}>
+              <Col xs={12} md={9} className="main-content">
                 <Components.FlashMessages/>
 
                 <Components.Newsletter />
