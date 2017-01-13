@@ -27,6 +27,6 @@
   },
   "homepage": "https://github.com/dominictracey/core",
   "dependencies": {
-
+    "griddle-react": "^0.7.1"
   }
 }
