@@ -7,7 +7,7 @@ import { FormattedDate, FormattedTime } from 'react-intl'
 import _ from 'lodash'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
 
-class MatchBody extends Component {
+class PostsMatchBody extends Component {
 
   constructor() {
     super();
@@ -114,7 +114,7 @@ class MatchBody extends Component {
   }
 }
 
-MatchBody.propTypes = {
+PostsMatchBody.propTypes = {
   matches: React.PropTypes.object,
   post: React.PropTypes.object,
   flash: React.PropTypes.func,
@@ -133,5 +133,4 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({loadMatch: Actions.loadMatch, loadTeamMatchStats: Actions.loadTeamMatchStats, loadPlayerMatchStats: Actions.loadPlayerMatchStats}, dispatch);
 
-//export default connect(mapStateToProps, mapDispatchToProps)(MatchBody)
-registerComponent('MatchBody', MatchBody, withMessages, connect(mapStateToProps, mapDispatchToProps));
+registerComponent('PostsMatchBody', PostsMatchBody, withMessages, connect(mapStateToProps, mapDispatchToProps));

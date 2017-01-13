@@ -1,3 +1,3 @@
 import { addRoute, Components } from 'meteor/nova:core';
 
-addRoute({name:"adminRoute", path:"/admin", component:Components.AdminPage});
+addRoute({name:"adminRoute", path:"/admin", component:Components.CategoriesAdminPage});

@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router'
-import TrnSbProfile from './sidebar/TrnSbProfile'
-import TrnSbFixturesAndResults from './sidebar/TrnSbFixturesAndResults'
+import { Components, registerComponent } from 'meteor/nova:core';
 
 const TrnSidebar = () => {
   //
@@ -10,13 +9,12 @@ const TrnSidebar = () => {
   // newQuery.cat = category.slug;
   return (
     <div>
-      <TrnSbProfile />
-      <TrnSbFixturesAndResults />
+      <Components.TrnSbProfile />
+      <Components.TrnSbFixturesAndResults />
     </div>
   )
 }
 
 TrnSidebar.displayName = "TrnSidebar";
 
-module.exports = withRouter(TrnSidebar);
-export default withRouter(TrnSidebar);
+registerComponent('TrnSidebar', TrnSidebar, withRouter);

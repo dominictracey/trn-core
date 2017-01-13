@@ -20,7 +20,7 @@ const TrnUsersMenu = ({currentUser, client}, context) => (
         <LinkContainer to={`/account`}>
           <MenuItem className="dropdown-item" eventKey="2"><FormattedMessage id="users.edit_account"/></MenuItem>
         </LinkContainer>
-        {currentUser && currentUser.isAdmin ? <LinkContainer to={`/admin`}>
+        {Users.canDo(currentUser, 'categories.edit.all') ? <LinkContainer to={`/admin`}>
           <MenuItem className="dropdown-item" eventKey="3"><FormattedMessage id="categories.manage"/></MenuItem>
         </LinkContainer> : null}
         <MenuItem className="dropdown-item" eventKey="4" onClick={() => Meteor.logout(() => client.resetStore())}><FormattedMessage id="users.log_out"/></MenuItem>

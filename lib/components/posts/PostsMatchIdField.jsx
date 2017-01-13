@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 const Input = FRC.Input;
 
-class MatchIdField extends Component {
+class PostsMatchIdField extends Component {
 
   constructor() {
     super();
@@ -102,12 +102,13 @@ class MatchIdField extends Component {
     loadingStyle.display = this.state.loading ? "block" : "none";
 
     // see https://facebook.github.io/react/warnings/unknown-prop.html
-    const {document, updateCurrentValue, control, name} = this.props; // eslint-disable-line
+    const {document, updateCurrentValue, control, name, label} = this.props; // eslint-disable-line
 
     return (
       <div className="embedly-url-field" style={wrapperStyle}>
         <Input
           // value={this.state.value}
+          label={label}
           name={name}
           onBlur={this.handleBlur}
           type="text"
@@ -121,7 +122,7 @@ class MatchIdField extends Component {
   }
 }
 
-MatchIdField.propTypes = {
+PostsMatchIdField.propTypes = {
   name: React.PropTypes.string,
   value: React.PropTypes.any,
   label: React.PropTypes.string,
@@ -129,7 +130,7 @@ MatchIdField.propTypes = {
   dispatch: React.PropTypes.func,
 }
 
-MatchIdField.contextTypes = {
+PostsMatchIdField.contextTypes = {
   addToAutofilledValues: React.PropTypes.func,
   throwError: React.PropTypes.func,
   actions: React.PropTypes.object,
@@ -139,5 +140,4 @@ const mapStateToProps = ({entities: { matches }}) => ({matches})
 const mapDispatchToProps = dispatch => bindActionCreators({loadMatch: Actions.loadMatch}, dispatch);
 
 // note: let's stick to one way to use components in the app :)
-registerComponent('MatchIdField', MatchIdField, connect(mapStateToProps, mapDispatchToProps))
-// export default connect(mapStateToProps,mapDispatchToProps)(MatchIdField)
+registerComponent('PostsMatchIdField', PostsMatchIdField, connect(mapStateToProps, mapDispatchToProps));

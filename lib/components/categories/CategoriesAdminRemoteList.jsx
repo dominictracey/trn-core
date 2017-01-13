@@ -6,7 +6,7 @@ import { Modal, Grid, Row, Col } from 'react-bootstrap';
 
 import { Components, registerComponent, Utils, Actions } from 'meteor/nova:core';
 
-class AdminCategoriesRemoteList extends Component {
+class CategoriesAdminRemoteList extends Component {
 
   constructor() {
     super();
@@ -105,13 +105,13 @@ class AdminCategoriesRemoteList extends Component {
   }
 }
 
-AdminCategoriesRemoteList.propTypes = {
+CategoriesAdminRemoteList.propTypes = {
   config: PropTypes.object,
   categories: PropTypes.array,
 };
 
-// extract `config` from state.entities and pass it as props to `AdminCategoriesRemoteList`
+// extract `config` from state.entities and pass it as props to `CategoriesAdminRemoteList`
 const mapStateToProps = ({entities: { config }}) => ({ config })
 const mapDispatchToProps = dispatch => bindActionCreators({loadConfiguration: Actions.loadConfiguration}, dispatch);
 
-registerComponent('AdminCategoriesRemoteList', AdminCategoriesRemoteList,  connect(mapStateToProps, mapDispatchToProps));
+registerComponent('CategoriesAdminRemoteList', CategoriesAdminRemoteList,  connect(mapStateToProps, mapDispatchToProps));

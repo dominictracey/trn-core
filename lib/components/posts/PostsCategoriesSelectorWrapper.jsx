@@ -13,11 +13,27 @@ class PostsCategoriesSelectorWrapper extends Component {
     this.handleAddition = this.handleAddition.bind(this);
     this.handleClearSelection = this.handleClearSelection.bind(this);
     
-    const tags = props.value ? props.value.map((optionId, index) => {
+    // the form is prefilled (edit form or prefilled new form)
+    const tags = props.value ? props.value.map((currentValue, index) => {
+      // define the relevant selector to find the category based on the value of the option
+      const optionSelector = typeof currentValue === 'object' ? {slug: currentValue.slug} : {value: currentValue};
+      
+      // find the related category in the options
+      let categoryFromOptions = _.findWhere(props.options, optionSelector);
+
+      // optionId === _id (string) of the category
+      const optionId = typeof currentValue === 'object' ? categoryFromOptions.value : currentValue;
+      
+      // ℹ️ note: props.value[index] may still be a slug (prefilled new form)
+      if (props.value[index] !== optionId) {
+        // ⚠️ mutate the value to fit with what's expected by the resolver & the component
+        props.value[index] = optionId;
+      }
+      
       return {
         id: optionId,
-        text: _.findWhere(props.options, {value: optionId}).name,
-        type: _.findWhere(props.options, {value: optionId}).type,
+        text: categoryFromOptions.name,
+        type: categoryFromOptions.type,
       };
     }) : [];
 
@@ -130,7 +146,8 @@ class PostsCategoriesSelectorWrapper extends Component {
                     // get the complete data about the competitions from the component options
                     const competitionCompleteData = options.find(cat => cat.value === comp.id);
                     
-                    console.log('competitionCompleteData', competitionCompleteData);
+                    // uncomment for debug
+                    // console.log('competitionCompleteData', competitionCompleteData);
                     
                     // extract the attached teams of this competition (default to [])
                     const { attachedTeams = [] } = competitionCompleteData;

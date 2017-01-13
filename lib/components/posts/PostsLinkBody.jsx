@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
+import { registerComponent, Components } from 'meteor/nova:core';
 
-export class LinkBody extends Component {
+class PostsLinkBody extends Component {
 
   render() {
     const { post } = this.props
@@ -14,4 +15,4 @@ export class LinkBody extends Component {
   }
 }
 
-export default LinkBody
+registerComponent('PostsLinkBody', PostsLinkBody);

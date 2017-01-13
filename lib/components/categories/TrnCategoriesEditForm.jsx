@@ -12,7 +12,7 @@ const CategoriesEditForm = (props, context) => {
       <SmartForm
         collection={Categories}
         documentId={props.category._id}
-        fragment={getRawComponent('AdminPage').fragment}
+        mutationFragment={getRawComponent('CategoriesAdminPage').fragment}
         successCallback={category => {
           props.closeCallback();
           props.flash(context.intl.formatMessage({id: 'categories.edit_success'}, {name: category.name}), "success");

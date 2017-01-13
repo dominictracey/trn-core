@@ -1,30 +1,30 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
+import { Components, registerComponent } from 'meteor/nova:core';
 
-export class TeamStatsPanel extends Component {
+class PostsTeamStatsPanel extends Component {
 
   componentDidMount() {
 
   }
 
   render() {
-    const { matchId, teamSelector } = this.props
-
+    const { matchId, teamSelector, teamMatchStatsByMatchId, teamMatchStats } = this.props
 
     return (
       <div>
       {teamMatchStatsByMatchId[matchId] ? teamMatchStats[teamMatchStatsByMatchId[matchId]].tmsList[teamSelector] : null}
       </div>
-    )
+    );
   }
 }
 
- TeamStatsPanel.propTypes = {
+PostsTeamStatsPanel.propTypes = {
   matchId: React.PropTypes.object,
   teamSelector: React.PropTypes.object,
-}
+};
 
-const mapStateToProps = ({entities: { teamMatchStatsByMatchId, teamMatchStats }}) => ({teamMatchStatsByMatchId, teamMatchStats})
+const mapStateToProps = ({entities: { teamMatchStatsByMatchId, teamMatchStats }}) => ({teamMatchStatsByMatchId, teamMatchStats});
 //const mapDispatchToProps = dispatch => bindActionCreators({loadConfiguration: Actions.loadConfiguration}, dispatch);
 
-export default connect(mapStateToProps)(TeamStatsPanel)
+registerComponent('PostsTeamStatsPanel', PostsTeamStatsPanel, connect(mapStateToProps));

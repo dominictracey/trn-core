@@ -4,7 +4,7 @@ import { Modal, Grid, Row, Col, Button } from 'react-bootstrap';
 
 import { Components, registerComponent, Utils } from 'meteor/nova:core';
 
-class AdminCategoriesList extends Component {
+class CategoriesAdminList extends Component {
 
   constructor() {
     super();
@@ -112,11 +112,11 @@ class AdminCategoriesList extends Component {
 
 }
 
-AdminCategoriesList.propTypes = {
+CategoriesAdminList.propTypes = {
   type: PropTypes.string,
   prefilledNewCategory: PropTypes.object,
   showNewCategoryButton: PropTypes.bool,
   categories: PropTypes.array,
 };
 
-registerComponent('AdminCategoriesList', AdminCategoriesList);
+registerComponent('CategoriesAdminList', CategoriesAdminList);

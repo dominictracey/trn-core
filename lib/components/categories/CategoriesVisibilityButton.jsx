@@ -46,7 +46,7 @@ CategoriesVisibilityButton.contextTypes = {
 
 const options = {
   collection: Categories,
-  fragment: getRawComponent('AdminPage').fragment,
+  fragment: getRawComponent('CategoriesAdminPage').fragment,
 };
 
 registerComponent('CategoriesVisibilityButton', CategoriesVisibilityButton, withMessages, withEdit(options));

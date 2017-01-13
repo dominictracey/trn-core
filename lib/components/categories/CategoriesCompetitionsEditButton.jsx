@@ -174,7 +174,7 @@ CategoriesCompetitionsEditButton.contextTypes = {
 
 const options = {
   collection: Categories,
-  fragment: getRawComponent('AdminPage').fragment,
+  fragment: getRawComponent('CategoriesAdminPage').fragment,
 };
 
 const mapStateToProps = ({entities: { comp }}) => ({ comp });

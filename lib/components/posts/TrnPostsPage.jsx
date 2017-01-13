@@ -1,7 +1,6 @@
 import { Components, registerComponent, getRawComponent } from 'meteor/nova:core';
 import React from 'react';
 import Posts from "meteor/nova:posts";
-import MatchBody, { LinkBody } from './post-types'
 import gql from 'graphql-tag';
 import { withDocument } from 'meteor/nova:core';
 
@@ -16,7 +15,7 @@ const TrnPostsPage = (props) => {
 
     var body = {}
     if (!post.postType || post.postType === 'link') {
-      body = <LinkBody post={post}/>
+      body = <Components.LinkBody post={post}/>
     } else if (post.postType === 'match') {
       body = <Components.MatchBody post={post}/>
     }

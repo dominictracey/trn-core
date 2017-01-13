@@ -1,10 +1,11 @@
 import React, { PropTypes, Component }from 'react';
 import gql from 'graphql-tag';
 
-import { Components, registerComponent, withList } from 'meteor/nova:core';
+import { Components, registerComponent, withList, withCurrentUser, ShowIf } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
+import Users from 'meteor/nova:users';
 
-class AdminPage extends Component {
+class CategoriesAdminPage extends Component {
 
   constructor(props) {
     super(props);
@@ -13,7 +14,7 @@ class AdminPage extends Component {
   renderNormalCategories() {
     const {results: categories} = this.props;
     
-    return <Components.AdminCategoriesList
+    return <Components.CategoriesAdminList
               showNewCategoryButton={true}
               type="normal"
               categories={categories.filter(c => c.type === 'normal')}
@@ -24,7 +25,7 @@ class AdminPage extends Component {
   renderTeamCategories() {
     const {results: categories} = this.props;
     
-    return <Components.AdminCategoriesList
+    return <Components.CategoriesAdminList
               showNewCategoryButton={false}
               type="team"
               categories={categories.filter(c => c.type === 'team')}
@@ -34,7 +35,7 @@ class AdminPage extends Component {
   renderCompetitionsCategories() {
     const {results: categories} = this.props;
     
-    return <Components.AdminCategoriesList
+    return <Components.CategoriesAdminList
               showNewCategoryButton={false}
               type="comp"
               categories={categories.filter(c => c.type === 'comp')}
@@ -47,14 +48,19 @@ class AdminPage extends Component {
     const { results: categories = [] } = this.props;
     
     // the logic to filter the categories is done directly in the component thanks to the remote results of the TRN API
-    return <Components.AdminCategoriesRemoteList
+    return <Components.CategoriesAdminRemoteList
               categories={categories}
             />;
   }
 
   render() {
     
-    const {results: categories} = this.props;
+    const {results: categories, currentUser} = this.props;
+    
+    // user not allowed to access the content
+    if(!Users.canDo(currentUser, 'categories.edit.all')) {
+      return <Components.UsersAccountForm />;
+    }
     
     return (
       <div>
@@ -71,17 +77,16 @@ class AdminPage extends Component {
         
         <h3>Competitions from TRN API</h3>
         {categories ? this.renderRemoteCompetitions() : <Components.Loading />}
-
       </div>
-    )
+    );
   }
 }
 
-AdminPage.propTypes = {
+CategoriesAdminPage.propTypes = {
   results: PropTypes.array,
 };
 
-AdminPage.fragment = gql`
+CategoriesAdminPage.fragment = gql`
   fragment adminPageCategoriesFragment on Category {
     _id
     name
@@ -111,8 +116,8 @@ AdminPage.fragment = gql`
 const options = {
   collection: Categories,
   queryName: 'adminPageCategoriesListQuery',
-  fragment: AdminPage.fragment,
+  fragment: CategoriesAdminPage.fragment,
   limit: 0,
 };
 
-registerComponent('AdminPage', AdminPage, withList(options));
+registerComponent('CategoriesAdminPage', CategoriesAdminPage, withCurrentUser, withList(options));

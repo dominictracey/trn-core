@@ -1,7 +1,6 @@
 import { Components, getRawComponent, replaceComponent } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
-import TrnSidebar from './TrnSidebar'
 
 class TrnLayout extends getRawComponent('Layout') {
 
@@ -27,7 +26,7 @@ class TrnLayout extends getRawComponent('Layout') {
                 {this.props.children}
               </Col>
               <Col xs={6} md={3}>
-            <TrnSidebar/>
+                <Components.TrnSidebar/>
               </Col>
             </Row>
           </Grid>
@@ -42,4 +41,5 @@ class TrnLayout extends getRawComponent('Layout') {
 }
 
 TrnLayout.displayName = "Layout";
-replaceComponent('Layout', TrnLayout)
+
+replaceComponent('Layout', TrnLayout);
