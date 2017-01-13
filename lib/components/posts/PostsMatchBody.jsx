@@ -6,6 +6,41 @@ import { Actions, registerComponent, withMessages } from 'meteor/nova:core';
 import { FormattedDate, FormattedTime } from 'react-intl'
 import _ from 'lodash'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
+import Griddle from 'griddle-react'
+
+const teamStatAbbrMap = {
+  teamAbbr: "Team",
+  tries: "Tries",
+  conversionsAttempted: "CA",
+  conversionsMade: "CM",
+  penaltiesAttempted: "PA",
+  penaltiesMade: "PM",
+  dropGoalsAttempted: "DGA",
+  dropGoalsMade: "DGM",
+  kicksFromHand: "K",
+  passes: "P",
+  runs: "R",
+  metersRun: "MR",
+  possesion: "Poss",
+  territory: "Terr",
+  cleanBreaks: "CB",
+  defendersBeaten: "DB",
+  offloads: "OL",
+  rucks: "R",
+  rucksWon: "RW",
+  mauls: "M",
+  maulsWon: "MW",
+  turnoversConceded: "TOC",
+  tacklesMade: "T",
+  tacklesMissed: "TM",
+  scrumsPutIn: "S",
+  scrumsWonOnOwnPut: "SW",
+  lineoutsThrownIn: "LO",
+  lineoutsWonOnOwnThrow: "LOW",
+  penaltiesConceded: "PC",
+  yellowCards: "YC",
+  redCards: "RC",
+}
 
 class PostsMatchBody extends Component {
 
@@ -17,7 +52,11 @@ class PostsMatchBody extends Component {
   componentDidMount() {
     const {loadMatch, post} = this.props
     loadMatch([post.trnId]);
-    this.setState({loading: false});
+    this.setState({
+      loading: false,
+      showTeamStats: -1,
+      showPlayerStats: -1
+    });
   }
 
   async showStats() {
@@ -43,20 +82,34 @@ class PostsMatchBody extends Component {
 
 
       } else if (index === 1) {
-        loadTeamMatchStats(post.trnId, matches[post.trnId].visitingTeamId)
-      } else if (index === 2) {
         loadPlayerMatchStats(post.trnId, matches[post.trnId].homeTeamId)
-      } else if (index === 3) {
+      } else if (index === 2) {
         loadPlayerMatchStats(post.trnId, matches[post.trnId].visitingTeamId)
       }
     } catch(e) {
-      // flash(`Error fetching comp: ${e}`, "error");
-      console.log(`Error fetching comp: ${e}`, "error");
+      flash(`Error fetching comp: ${e}`, "error");
     }
   }
 
+  prepareTeamMatchStats(tmsList) {
+    const { teamMatchStats={} } = this.props
+
+    var retval = []
+    tmsList.map(function(tmsId) {
+      const tms = teamMatchStats[tmsId]
+      var cleansed = {}
+      Object.keys(teamStatAbbrMap).map(function(key) {
+        cleansed[teamStatAbbrMap[key]] = tms[key]
+      })
+      retval.push(cleansed)
+    })
+
+    return retval
+  }
+
+
   render() {
-    const { post, matches={}, teams={}, simpleScoreMatchResults={}} = this.props
+    const { post, matches={}, teams={}, simpleScoreMatchResults={}, teamMatchStatsByMatchId={}, teamMatchStats={} } = this.props
 
     const match = matches[post.trnId]
 
@@ -72,6 +125,7 @@ class PostsMatchBody extends Component {
     var score = ' vs. '
     var date = ''
     var teamStats = null
+    var teamStatsGrid = null
 
     if (match && match.status) {
       status = match.status
@@ -86,7 +140,9 @@ class PostsMatchBody extends Component {
         status = 'Final'
       }
 
-      // teamStats = this.state.showTeamStats ? <TeamStatsPanel matchId={match.id} home={0}/> : null
+      teamStats = this.state.showTeamStats != -1 && teamMatchStatsByMatchId && teamMatchStatsByMatchId[post.trnId] && teamMatchStats[teamMatchStatsByMatchId[post.trnId].tmsList[this.state.showTeamStats]] ? this.prepareTeamMatchStats(teamMatchStatsByMatchId[post.trnId].tmsList) : null
+
+      teamStatsGrid = teamStats ? (<Griddle columns={Object.values(teamStatAbbrMap)} showFilter={true} showSettings={true} results={teamStats}/>) : null
     }
 
     return (
@@ -100,11 +156,10 @@ class PostsMatchBody extends Component {
           <div className='matchStatus'>{status}</div>
           <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div>
         </Col></Row><Row><Col>
-          <div className='teamStatsPanel'>{teamStats}</div>
+          <div className='teamStatsPanel'>{teamStatsGrid}</div>
         </Col></Row></Grid>
         <ButtonGroup justified>
-          <Button bsStyle="info" bsSize="small" onClick={this.showStats}>{this.state.loading ? <Components.Loading /> : <span>{homeName} Team Stats</span>}</Button>
-          <Button bsStyle="info" bsSize="small">{visitName} Team Stats</Button>
+          <Button bsStyle="info" bsSize="small" onClick={this.showStats}>{this.state.loading ? <Components.Loading /> : <span>Team Stats</span>}</Button>
           <Button bsStyle="info" bsSize="small">{homeName} Player Stats</Button>
           <Button bsStyle="info" bsSize="small">{visitName} Player Stats</Button>
           <Button bsStyle="info" bsSize="small">Top Ten Performances</Button>
@@ -122,12 +177,14 @@ PostsMatchBody.propTypes = {
 
 const mapStateToProps = state => {
   const { entities } = state
-  const { matches, teams, simpleScoreMatchResults } = entities
+  const { matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats } = entities
 
   return {
     matches,
     teams,
     simpleScoreMatchResults,
+    teamMatchStatsByMatchId,
+    teamMatchStats,
   }
 }
 
