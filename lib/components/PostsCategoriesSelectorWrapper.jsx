@@ -31,20 +31,24 @@ class PostsCategoriesSelectorWrapper extends Component {
   handleDelete(categoryType) {
     // react-tag-input gives us the index of the tag in its OWN list
     return index => {
-      // filter the tags to get the related list
-      const selectedListTags = this.state.tags.filter(tag => tag.type === categoryType.value);
-      
-      // grab the tag to delete
-      const selectedTag = selectedListTags[index];
-      
-      // create a new state :)
-      const newTags = this.state.tags.filter(tag => tag.id !== selectedTag.id);
-      const newValue = this.state.value.filter(v => v !== selectedTag.id);
-      
-      this.setState(prevState => ({
-        tags: newTags,
-        value: newValue,
-      }));
+      // only handle the delete of an existing tag 
+      // note: index === -1 if you backspace on the empty input
+      if (index >= 0) {
+        // filter the tags to get the related list
+        const selectedListTags = this.state.tags.filter(tag => tag.type === categoryType.value);
+        
+        // grab the tag to delete
+        const selectedTag = selectedListTags[index];
+        
+        // create a new state :)
+        const newTags = this.state.tags.filter(tag => tag.id !== selectedTag.id);
+        const newValue = this.state.value.filter(v => v !== selectedTag.id);
+        
+        this.setState(prevState => ({
+          tags: newTags,
+          value: newValue,
+        }));
+      }
       
     }
   }
@@ -80,7 +84,6 @@ class PostsCategoriesSelectorWrapper extends Component {
   handleClearSelection(categoryType) {
     // filter and reorder the tags state
     const newCategoryTags = this.state.tags.filter(tag => tag.type !== categoryType.value)
-    // .map((tag, index) => ({...tag/*, id: index+1*/}));
     
     // recreate the value state based on the tags
     const newValue = newCategoryTags.map(tag => {
@@ -106,17 +109,50 @@ class PostsCategoriesSelectorWrapper extends Component {
         <div className="col-sm-9 tags-field-wrapper">
           {Categories.availableTypes.map((categoryType, index) => {
             
+            // all categories of this type
             const categoriesOfThisType = options.filter(cat => cat.type === categoryType.value);
+            
+            // categories of this type selected
+            let categoryTags = this.state.tags.filter(tag => tag.type === categoryType.value);
+            
+            // remaining suggestions considering the current selected categories of this type
+            // ⚠️ can be mutated below: new competition selected gives only team related
+            let suggestionsTags = categoriesOfThisType.filter(cat => !this.state.tags.find(tag => tag.id === cat.value));
+            
+            // in case we are dealing with teams, and one or more competitions are already selected, filter the teams tags to show only the attached teams
+            if (categoryType.value === 'team') {
+                // get the tags corresponding to the selected competitions
+                const competitionsSelected = this.state.tags.filter(tag => tag.type === 'comp');
+                
+                if (competitionsSelected.length) {
+                  // create an array of attached teams related to these competitions
+                  const attachedTeamsAvailable = competitionsSelected.reduce((teams, comp) => {
+                    // get the complete data about the competitions from the component options
+                    const competitionCompleteData = options.find(cat => cat.value === comp.id);
+                    
+                    console.log('competitionCompleteData', competitionCompleteData);
+                    
+                    // extract the attached teams of this competition (default to [])
+                    const { attachedTeams = [] } = competitionCompleteData;
+                    
+                    // add them to the accumulator
+                    return [...teams, ...attachedTeams];
+                  }, []);
+                  
+                  // mutate suggestions tags
+                  suggestionsTags = attachedTeamsAvailable;
+              }
+            }
             
             return categoriesOfThisType.length ? (
               <Components.PostsCategoriesSelector
                 key={index}
                 categoryType={categoryType} // e.g. {value: "comp", label: "Competition"},
-                tags={this.state.tags.filter(tag => tag.type === categoryType.value)}
+                tags={categoryTags}
                 /*
                   tagsLimit={categoryType.value === 'comp' && 1} // tags limit set to 1 only for competitions 
                 */
-                categoriesSuggestions={categoriesOfThisType.filter(cat => !this.state.value.find(v => v === cat.value))}
+                categoriesSuggestions={suggestionsTags}
                 handleDelete={this.handleDelete(categoryType)}
                 handleAddition={this.handleAddition}
                 handleClearSelection={this.handleClearSelection}
