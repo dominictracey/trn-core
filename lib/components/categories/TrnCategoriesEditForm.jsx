@@ -4,6 +4,34 @@ import { Components, registerComponent, getRawComponent } from 'meteor/nova:lib'
 import SmartForm from "meteor/nova:forms";
 import Categories from "meteor/nova:categories";
 import { withMessages } from 'meteor/nova:core';
+import gql from 'graphql-tag';
+
+const fragment = gql`
+  fragment trnCategoriesEditForm on Category {
+    _id
+name
+description
+order
+slug
+image
+type
+visible
+trnId
+abbr
+    attachedTeams {
+      _id
+name
+description
+order
+slug
+image
+type
+visible
+trnId
+abbr
+    }
+  }
+`;
 
 const CategoriesEditForm = (props, context) => {
 
@@ -12,7 +40,8 @@ const CategoriesEditForm = (props, context) => {
       <SmartForm
         collection={Categories}
         documentId={props.category._id}
-        mutationFragment={getRawComponent('CategoriesAdminPage').fragment}
+        queryFragment={fragment}
+        mutationFragment={fragment}
         successCallback={category => {
           props.closeCallback();
           props.flash(context.intl.formatMessage({id: 'categories.edit_success'}, {name: category.name}), "success");

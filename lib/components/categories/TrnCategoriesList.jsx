@@ -1,12 +1,11 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import gql from 'graphql-tag';
 import { Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Components, getRawComponent, registerComponent, withList } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
-const TrnCategoriesList = ({ results: categories, router, typeFilter }, context) => {
+const TrnCategoriesList = ({ loading, results: categories = [], router, typeFilter }, context) => {
   
   const currentCategorySlug = router.location.query.cat;
   const currentQuery = _.clone(router.location.query);
@@ -23,8 +22,7 @@ const TrnCategoriesList = ({ results: categories, router, typeFilter }, context)
     name: 'Home',
   });
   
-  // note (jan 13rd 2017): when having twice the same query, if you update the list, you duplicate the result for the client...
-  return router.location.pathname !== '/admin' ? (
+  return (
     <Nav className="categories-list">
       {categories && categories.length ? categories.map((category, index) => (
         <LinkContainer className="category-list-item" key={index} to={{pathname:"/", query: {...currentQuery, cat: category.slug}}}>
@@ -35,7 +33,7 @@ const TrnCategoriesList = ({ results: categories, router, typeFilter }, context)
         </LinkContainer>
       )) : null}
     </Nav>
-  ) : null;
+  );
 
 }
 
@@ -43,26 +41,26 @@ const TrnCategoriesList = ({ results: categories, router, typeFilter }, context)
 TrnCategoriesList.fragment = gql`
   fragment visibleCategoriesListFragment on Category {
     _id
-    name
-    description
-    order
-    slug
-    image
-    type
-    visible
-    trnId
-    abbr
+name
+description
+order
+slug
+image
+type
+visible
+trnId
+abbr
     attachedTeams {
       _id
-      name
-      description
-      order
-      slug
-      image
-      type
-      visible
-      trnId
-      abbr
+name
+description
+order
+slug
+image
+type
+visible
+trnId
+abbr
     }
   }
 `;
@@ -72,7 +70,6 @@ const categoriesListOptions = {
   queryName: 'visibleCategoriesListQuery',
   fragment: TrnCategoriesList.fragment,
   limit: 0,
-  terms: {onlyVisible: true}, // see callbacks.js -> 'categories.parameters'
 };
 
-registerComponent('CategoriesList', TrnCategoriesList, withRouter, withList(categoriesListOptions));
+registerComponent('CategoriesList', TrnCategoriesList, withList(categoriesListOptions));

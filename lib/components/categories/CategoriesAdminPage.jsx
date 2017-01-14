@@ -1,7 +1,7 @@
 import React, { PropTypes, Component }from 'react';
 import gql from 'graphql-tag';
 
-import { Components, registerComponent, withList, withCurrentUser, ShowIf } from 'meteor/nova:core';
+import { Components, registerComponent, withList, withCurrentUser } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 import Users from 'meteor/nova:users';
 

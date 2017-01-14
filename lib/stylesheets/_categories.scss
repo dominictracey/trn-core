@@ -32,7 +32,8 @@
 .category-bar-teams-wrapper {
   display: flex;
   flex-wrap: wrap;
-  max-width: 200px;
+  justify-content: flex-end;
+  flex-grow: 1;
 }
 
 .category-bar-teams-item {

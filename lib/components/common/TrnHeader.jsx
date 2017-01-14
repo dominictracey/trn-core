@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import { getSetting, Components, replaceComponent } from 'meteor/nova:core';
 
 const TrnHeader = (props, context) => {
@@ -32,7 +33,10 @@ const TrnHeader = (props, context) => {
       </header>
       
       <div className="header-secondary">
-        <Components.CategoriesList typeFilter="comp" />
+      {
+        // note (jan 13rd 2017): when having twice the same query, if you update the list, you duplicate the result for the client...
+        props.router.location.pathname !== '/admin' ?  <Components.CategoriesList typeFilter="comp" router={props.router} terms={{onlyVisible: true}} /> : null
+      }
       </div>
     </div>
   )
@@ -44,4 +48,4 @@ TrnHeader.propTypes = {
   currentUser: React.PropTypes.object,
 };
 
-replaceComponent('Header', TrnHeader);
+replaceComponent('Header', TrnHeader, withRouter);

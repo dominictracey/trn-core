@@ -8,11 +8,12 @@ Needed to run the app:
 - react-tag-input 
 - react-dnd 
 - react-dnd-html5-backend
+- griddle-react
 
 **--save**
 
 ```
-npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-dnd-html5-backend
+npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-dnd-html5-backend griddle-react
 ```
 
 ### Changes in .meteor/packages

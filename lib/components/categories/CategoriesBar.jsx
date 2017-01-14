@@ -14,8 +14,7 @@ const CategoriesBar = ({loading, document: category}, context) => {
       </div>
       {category.type === 'comp' && category.attachedTeams && category.attachedTeams.length ? <div className="category-bar-teams-wrapper">
         {
-          // note: for now just take a maximum of 4 teams to display
-          _.take(category.attachedTeams, 4).map((team, index) => team.image 
+          category.attachedTeams.map((team, index) => team.image 
           ? (<Link 
               key={index} 
               to={{pathname:'/', query: {cat: team.slug}}}>
@@ -31,26 +30,26 @@ const CategoriesBar = ({loading, document: category}, context) => {
 CategoriesBar.fragment = gql`
   fragment barFragment on Category {
     _id
-    name
-    description
-    order
-    slug
-    image
-    type
-    visible
-    trnId
-    abbr
+name
+description
+order
+slug
+image
+type
+visible
+trnId
+abbr
     attachedTeams {
       _id
-      name
-      description
-      order
-      slug
-      image
-      type
-      visible
-      trnId
-      abbr
+name
+description
+order
+slug
+image
+type
+visible
+trnId
+abbr
     }
   }
 `;
