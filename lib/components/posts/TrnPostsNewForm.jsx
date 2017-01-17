@@ -24,7 +24,7 @@ const TrnPostsNewForm = (props, context) => {
           mutationFragment={getRawComponent('PostsPage').fragment}
           successCallback={post => {
             props.closeModal();
-            // props.router.push({pathname: Posts.getPageUrl(post)});
+            props.router.push({pathname: Posts.getPageUrl(post)});
             props.flash(context.intl.formatMessage({id: "posts.created_message"}), "success");
           }}
           prefilledProps={prefilledProps}

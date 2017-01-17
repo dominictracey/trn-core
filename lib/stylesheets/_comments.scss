@@ -9,7 +9,7 @@
 }
 
 .comments-list{
-  margin-bottom: $vmargin;
+  margin: $vmargin 0;
 }
 
 .comments-node .comments-node, .comments-item-reply{
@@ -54,6 +54,7 @@
 }
 
 .comments-edit-form, .comments-new-form{
+  margin-bottom: $vmargin;
   .input-body{
     margin-bottom: $hmargin;
   }
