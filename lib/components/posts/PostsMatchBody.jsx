@@ -3,44 +3,79 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions, registerComponent, withMessages } from 'meteor/nova:core';
-import { FormattedDate, FormattedTime } from 'react-intl'
+import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
 import _ from 'lodash'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
 import Griddle from 'griddle-react'
 
+// const teamStatAbbrMap = {
+//   teamAbbr: "Team",
+//   tries: "Tries",
+//   conversionsAttempted: "CA",
+//   conversionsMade: "CM",
+//   penaltiesAttempted: "PA",
+//   penaltiesMade: "PM",
+//   dropGoalsAttempted: "DGA",
+//   dropGoalsMade: "DGM",
+//   kicksFromHand: "K",
+//   passes: "P",
+//   runs: "C",
+//   metersRun: "MR",
+//   possesion: "Poss",
+//   territory: "Terr",
+//   cleanBreaks: "CB",
+//   defendersBeaten: "DB",
+//   offloads: "OL",
+//   rucks: "R",
+//   rucksWon: "RW",
+//   mauls: "M",
+//   maulsWon: "MW",
+//   turnoversConceded: "TOC",
+//   tacklesMade: "T",
+//   tacklesMissed: "TM",
+//   scrumsPutIn: "S",
+//   scrumsWonOnOwnPut: "SW",
+//   lineoutsThrownIn: "LO",
+//   lineoutsWonOnOwnThrow: "LOW",
+//   penaltiesConceded: "PC",
+//   yellowCards: "YC",
+//   redCards: "RC",
+// }
+
 const teamStatAbbrMap = {
-  teamAbbr: "Team",
-  tries: "Tries",
-  conversionsAttempted: "CA",
-  conversionsMade: "CM",
-  penaltiesAttempted: "PA",
-  penaltiesMade: "PM",
-  dropGoalsAttempted: "DGA",
-  dropGoalsMade: "DGM",
-  kicksFromHand: "K",
-  passes: "P",
-  runs: "R",
-  metersRun: "MR",
-  possesion: "Poss",
-  territory: "Terr",
-  cleanBreaks: "CB",
-  defendersBeaten: "DB",
-  offloads: "OL",
-  rucks: "R",
-  rucksWon: "RW",
-  mauls: "M",
-  maulsWon: "MW",
-  turnoversConceded: "TOC",
-  tacklesMade: "T",
-  tacklesMissed: "TM",
-  scrumsPutIn: "S",
-  scrumsWonOnOwnPut: "SW",
-  lineoutsThrownIn: "LO",
-  lineoutsWonOnOwnThrow: "LOW",
-  penaltiesConceded: "PC",
-  yellowCards: "YC",
-  redCards: "RC",
+	teamAbbr: "Team",
+	tries: "Tries",
+	conversions: "CV",
+	//conversionsMade: "CM",
+	penalties: "PT",
+	//penaltiesMade: "PM",
+	dropGoals: "DG",
+	//dropGoalsMade: "DGM",
+	kicksFromHand: "K",
+	passes: "P",
+	runs: "C",
+	//metersRun: "MR",
+	possesion: "Poss",
+	territory: "Terr",
+	cleanBreaks: "CB",
+	defendersBeaten: "DB",
+	offloads: "OL",
+	rucks: "R",
+	//rucksWon: "RW",
+	mauls: "M",
+	//maulsWon: "MW",
+	turnoversConceded: "TOC",
+	tackles: "T",
+	//tacklesMissed: "TM",
+	scrums: "S",
+	//scrumsWonOnOwnPut: "SW",
+	lineouts: "LO",
+	//lineoutsWonOnOwnThrow: "LOW",
+	penaltiesConceded: "PC",
+	yellowCards: "YC",
+	redCards: "RC",
 }
+const displayName = Object.getOwnPropertyNames(teamStatAbbrMap);
 
 class PostsMatchBody extends Component {
 
@@ -74,7 +109,7 @@ class PostsMatchBody extends Component {
 
         console.log('fetch end');
         this.setState({loading: false});
-        flash(`Team Match Stats for "${matches[post.trnId].displayName}" fetched!`, 'success');
+        //flash(`Team Match Stats for "${matches[post.trnId].displayName}" fetched!`, 'success');
         this.setState({
           showTeamStats: 0,
           showPlayerStats: -1,
@@ -97,9 +132,33 @@ class PostsMatchBody extends Component {
     var retval = []
     tmsList.map(function(tmsId) {
       const tms = teamMatchStats[tmsId]
+      var tmsComb = {
+        tries: tms.tries,
+        conversions: tms.conversionsMade +"/"+ tms.conversionsAttempted,
+        penalties: tms.penaltiesMade +"/"+ tms.penaltiesAttempted,
+        dropGoals: tms.dropGoalsMade +"/"+ tms.dropGoalsAttempted,
+        kicksFromHand: tms.kicksFromHand,
+        passes: tms.passes,
+        runs: tms.runs +"/"+ tms.metersRun,
+        possesion: tms.possesion,
+        territory: tms.territory,
+        cleanBreaks: tms.cleanBreaks,
+        defendersBeaten: tms.defendersBeaten,
+        offloads: tms.offloads,
+        rucks: tms.rucksWon +"/"+ tms.rucks,
+	      mauls: tms.maulsWon +"/"+ tms.mauls,
+	      turnoversConceded: tms.turnoversConceded,
+        tackles: tms.tacklesMade +"/"+ tms.tacklesMissed,
+        scrums: tms.scrumsWonOnOwnPut +"/"+ tms.scrumsPutIn,
+        lineouts: tms.lineoutsWonOnOwnThrow +"/"+ tms.lineoutsThrownIn,
+        penaltiesConceded: tms.penaltiesConceded,
+        yellowCards: tms.yellowCards,
+        redCards: tms.redCards,
+      }
+
       var cleansed = {}
       Object.keys(teamStatAbbrMap).map(function(key) {
-        cleansed[teamStatAbbrMap[key]] = tms[key]
+        cleansed[teamStatAbbrMap[key]] = tmsComb[key]
       })
       retval.push(cleansed)
     })
@@ -126,6 +185,7 @@ class PostsMatchBody extends Component {
     var date = ''
     var teamStats = null
     var teamStatsGrid = null
+    var legend = null
 
     if (match && match.status) {
       status = match.status
@@ -142,7 +202,8 @@ class PostsMatchBody extends Component {
 
       teamStats = this.state.showTeamStats != -1 && teamMatchStatsByMatchId && teamMatchStatsByMatchId[post.trnId] && teamMatchStats[teamMatchStatsByMatchId[post.trnId].tmsList[this.state.showTeamStats]] ? this.prepareTeamMatchStats(teamMatchStatsByMatchId[post.trnId].tmsList) : null
 
-      teamStatsGrid = teamStats ? (<Griddle columns={Object.values(teamStatAbbrMap)} showFilter={true} showSettings={true} results={teamStats}/>) : null
+      teamStatsGrid = teamStats ? (<Griddle columns={Object.values(teamStatAbbrMap)} columnMetadata={displayName} showFilter={true} showSettings={true} results={teamStats}/>) : null
+      legend = teamStatsGrid != null ? (<FormattedMessage id="teamMatchStats.legend"/>) : null
     }
 
     return (
@@ -154,9 +215,11 @@ class PostsMatchBody extends Component {
         </Col><Col md={4}><div className='matchTeamName matchTeamName-visit'>{visitName}</div><div className={visitAbbr}></div>
         </Col></Row><Row><Col md={12}>
           <div className='matchStatus'>{status}</div>
+          /* TODO Match venue */
           <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div>
         </Col></Row><Row><Col>
           <div className='teamStatsPanel'>{teamStatsGrid}</div>
+          <div className='teamStatsLegend'>{legend}</div>
         </Col></Row></Grid>
         <ButtonGroup justified>
           <Button bsStyle="info" bsSize="small" onClick={this.showStats}>{this.state.loading ? <Components.Loading /> : <span>Team Stats</span>}</Button>
