@@ -18,7 +18,7 @@ class CategoriesAdminPage extends Component {
               showNewCategoryButton={true}
               type="normal"
               categories={categories.filter(c => c.type === 'normal')}
-              prefilledNewCategory={{order: 1, type: 'normal'}}
+              prefilledNewCategory={{order: 1, type: 'normal', visible: true}}
             />;
   }
   

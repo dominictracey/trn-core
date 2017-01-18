@@ -2,12 +2,12 @@ import React, { PropTypes, Component } from 'react';
 import { intlShape } from 'react-intl';
 import { Components, replaceComponent } from 'meteor/nova:core';
 import Categories from "meteor/nova:categories";
-import SmartForm from "meteor/nova:forms";
+
 
 const CategoriesNewFormPrefilled = (props, context) => {
   return (
     <div className="categories-new-form">
-      <SmartForm
+      <Components.SmartForm
         collection={Categories}
         successCallback={category => {
           props.closeCallback();

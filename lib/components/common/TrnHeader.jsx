@@ -35,7 +35,7 @@ const TrnHeader = (props, context) => {
       <div className="header-secondary">
       {
         // note (jan 13rd 2017): when having twice the same query, if you update the list, you duplicate the result for the client...
-        props.router.location.pathname !== '/admin' ?  <Components.CategoriesList typeFilter="comp" router={props.router} terms={{onlyVisible: true}} /> : null
+        props.router.location.pathname !== '/admin' ?  <Components.CategoriesList typeFilter={['comp', 'normal']} router={props.router} terms={{onlyVisible: true}} /> : null
       }
       </div>
     </div>

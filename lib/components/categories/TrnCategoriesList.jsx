@@ -13,7 +13,7 @@ const TrnCategoriesList = ({ loading, results: categories = [], router, typeFilt
   
   // categories may be filtered by type
   if (typeFilter) {
-    categories = categories.filter(cat => cat.type === typeFilter);
+    categories = categories.filter(cat => typeFilter.includes(cat.type));
   }
   
   // add "Home" as a fake category at the beginning of the list
@@ -41,28 +41,28 @@ const TrnCategoriesList = ({ loading, results: categories = [], router, typeFilt
 TrnCategoriesList.fragment = gql`
   fragment visibleCategoriesListFragment on Category {
     _id
-name
-description
-order
-slug
-image
-type
-visible
-trnId
-abbr
-    attachedTeams {
-      _id
-name
-description
-order
-slug
-image
-type
-visible
-trnId
-abbr
+    name
+    description
+    order
+    slug
+    image
+    type
+    visible
+    trnId
+    abbr
+      attachedTeams {
+        _id
+        name
+        description
+        order
+        slug
+        image
+        type
+        visible
+        trnId
+        abbr
+      }
     }
-  }
 `;
 
 const categoriesListOptions = {

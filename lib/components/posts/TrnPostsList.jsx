@@ -19,7 +19,6 @@ const newFragment = gql`
       _id
       name
       slug
-      avatar
     }
     commentCount
     commenters {

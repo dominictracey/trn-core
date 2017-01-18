@@ -1,5 +1,5 @@
 import { Components, replaceComponent, getRawComponent } from 'meteor/nova:core';
-import SmartForm from "meteor/nova:forms";
+
 import { ShowIf } from 'meteor/nova:core';
 import Posts from "meteor/nova:posts";
 import React, { PropTypes, Component } from 'react';
@@ -14,12 +14,12 @@ const TrnPostsNewForm = (props, context) => {
   const prefilledProps = !!currentCategorySlug ? {categories: [{slug: currentCategorySlug}]}: {};
   
   return (
-    <ShowIf
+    <Components.ShowIf
       check={Posts.options.mutations.new.check}
       failureComponent={<Components.UsersAccountForm />}
     >
       <div className="posts-new-form">
-        <SmartForm
+        <Components.SmartForm
           collection={Posts}
           mutationFragment={getRawComponent('PostsPage').fragment}
           successCallback={post => {
@@ -30,7 +30,7 @@ const TrnPostsNewForm = (props, context) => {
           prefilledProps={prefilledProps}
         />
       </div>
-    </ShowIf>
+    </Components.ShowIf>
   );
 };
 
