@@ -9,11 +9,12 @@ const Input = FRC.Input;
 
 class PostsMatchIdField extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleBlur = this.handleBlur.bind(this);
     this.state = {
       loading: false,
+      value: props.value || '',
     }
     this.prefillFields = this.prefillFields.bind(this)
   }
@@ -59,19 +60,6 @@ class PostsMatchIdField extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState){
-
-    // const { matches } = this.props
-    // // hopefully this is our fetched match showing up
-    // const id = this.state.value;
-    //
-    // if (id && id.length && this.state.loading) {
-    //   if (matches && matches[id]) {
-    //     this.prefillFields(matches[id])
-    //   }
-    // }
-  }
-
   componentWillReceiveProps(nextProps) {
     const { matches } = this.props
     // hopefully this is our fetched match showing up
@@ -102,17 +90,18 @@ class PostsMatchIdField extends Component {
     loadingStyle.display = this.state.loading ? "block" : "none";
 
     // see https://facebook.github.io/react/warnings/unknown-prop.html
-    const {document, updateCurrentValue, control, name, label} = this.props; // eslint-disable-line
+    const {document, updateCurrentValue, control, name, label, value} = this.props; // eslint-disable-line
 
     return (
       <div className="embedly-url-field" style={wrapperStyle}>
         <Input
-          // value={this.state.value}
+          value={this.state.value}
           label={label}
           name={name}
           onBlur={this.handleBlur}
           type="text"
           ref={ref => this.input = ref}
+          placeholder="Enter a TRN Match Id here."
         />
         <div className="embedly-url-field-loading" style={loadingStyle}>
           <Loading />

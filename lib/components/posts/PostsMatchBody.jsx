@@ -82,22 +82,24 @@ class PostsMatchBody extends Component {
   constructor() {
     super();
     this.showStats = this.showStats.bind(this);
-  }
-
-  componentDidMount() {
-    const {loadMatch, post} = this.props
-    loadMatch([post.trnId]);
-    this.setState({
-      loading: false,
+		
+		// always define an inital state!
+		this.state = {
+			loading: false,
       showTeamStats: -1,
       showPlayerStats: -1
-    });
+		};
+  }
+
+  async componentDidMount() {
+    const {loadMatch, post} = this.props;
+    await loadMatch([post.trnId]);
   }
 
   async showStats() {
     const { post, matches={}, loadTeamMatchStats, loadPlayerMatchStats, flash } = this.props
 
-      const index = 0
+      const index = 0 // @xavier: where do you make it change?
 
     try {
       if (index === 0) {
@@ -117,9 +119,9 @@ class PostsMatchBody extends Component {
 
 
       } else if (index === 1) {
-        loadPlayerMatchStats(post.trnId, matches[post.trnId].homeTeamId)
+        await loadPlayerMatchStats(post.trnId, matches[post.trnId].homeTeamId)
       } else if (index === 2) {
-        loadPlayerMatchStats(post.trnId, matches[post.trnId].visitingTeamId)
+        await loadPlayerMatchStats(post.trnId, matches[post.trnId].visitingTeamId)
       }
     } catch(e) {
       flash(`Error fetching comp: ${e}`, "error");
@@ -146,8 +148,8 @@ class PostsMatchBody extends Component {
         defendersBeaten: tms.defendersBeaten,
         offloads: tms.offloads,
         rucks: tms.rucksWon +"/"+ tms.rucks,
-	      mauls: tms.maulsWon +"/"+ tms.mauls,
-	      turnoversConceded: tms.turnoversConceded,
+				mauls: tms.maulsWon +"/"+ tms.mauls,
+				turnoversConceded: tms.turnoversConceded,
         tackles: tms.tacklesMade +"/"+ tms.tacklesMissed,
         scrums: tms.scrumsWonOnOwnPut +"/"+ tms.scrumsPutIn,
         lineouts: tms.lineoutsWonOnOwnThrow +"/"+ tms.lineoutsThrownIn,
@@ -238,19 +240,25 @@ PostsMatchBody.propTypes = {
   flash: React.PropTypes.func,
 }
 
-const mapStateToProps = state => {
-  const { entities } = state
-  const { matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats } = entities
+// const mapStateToProps = state => {
+//   const { entities } = state
+//   const { matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats } = entities
+// 
+//   return {
+//     matches,
+//     teams,
+//     simpleScoreMatchResults,
+//     teamMatchStatsByMatchId,
+//     teamMatchStats,
+//   }
+// }
 
-  return {
-    matches,
-    teams,
-    simpleScoreMatchResults,
-    teamMatchStatsByMatchId,
-    teamMatchStats,
-  }
-}
+// note: same thing as above
+const mapStateToProps = ({entities: { matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats } }) => ({ matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats });
 
-const mapDispatchToProps = dispatch => bindActionCreators({loadMatch: Actions.loadMatch, loadTeamMatchStats: Actions.loadTeamMatchStats, loadPlayerMatchStats: Actions.loadPlayerMatchStats}, dispatch);
+// note: destructure Actions for more readibility
+const { loadMatch, loadTeamMatchStats, loadPlayerMatchStats } = Actions;
+
+const mapDispatchToProps = dispatch => bindActionCreators({ loadMatch, loadTeamMatchStats, loadPlayerMatchStats }, dispatch);
 
 registerComponent('PostsMatchBody', PostsMatchBody, withMessages, connect(mapStateToProps, mapDispatchToProps));
