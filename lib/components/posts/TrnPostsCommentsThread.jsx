@@ -4,7 +4,7 @@ import { ModalTrigger, withList, withCurrentUser, Components, registerComponent,
 import Comments from 'meteor/nova:comments';
 import gql from 'graphql-tag';
 
-const PostsCommentsThread = (props, context) => {
+const TrnPostsCommentsThread = (props, context) => {
 
   const {loading, terms: { postId }, results, totalCount} = props;
   
@@ -39,14 +39,14 @@ const PostsCommentsThread = (props, context) => {
   }
 };
 
-PostsCommentsThread.displayName = "PostsCommentsThread";
+TrnPostsCommentsThread.displayName = "TrnPostsCommentsThread";
 
-PostsCommentsThread.propTypes = {
+TrnPostsCommentsThread.propTypes = {
   currentUser: React.PropTypes.object
 };
 
-PostsCommentsThread.fragment = gql`
-  fragment commentsListFragment on Comment {
+TrnPostsCommentsThread.fragment = gql`
+  fragment trnCommentsListFragment on Comment {
     _id
     postId
     parentCommentId
@@ -56,9 +56,10 @@ PostsCommentsThread.fragment = gql`
     postedAt
     user {
       _id
-      __displayName
-      __emailHash
-      __slug
+      displayName
+      emailHash
+      slug
+      avatar
     }
     userId
   }
@@ -67,8 +68,8 @@ PostsCommentsThread.fragment = gql`
 const options = {
   collection: Comments,
   queryName: 'commentsListQuery',
-  fragment: PostsCommentsThread.fragment,
+  fragment: TrnPostsCommentsThread.fragment,
   limit: 0,
 };
 
-registerComponent('PostsCommentsThread', PostsCommentsThread, withList(options), withCurrentUser);
+registerComponent('TrnPostsCommentsThread', TrnPostsCommentsThread, withList(options), withCurrentUser);

@@ -64,9 +64,10 @@ TrnPostsPage.fragment = gql`
     commenters {
       # ...avatarUserInfo
       _id
-      __displayName
-      __emailHash
-      __slug
+      displayName
+      emailHash
+      slug
+      avatar
     }
     upvoters {
       _id
@@ -81,9 +82,10 @@ TrnPostsPage.fragment = gql`
     user {
       # ...avatarUserInfo
       _id
-      __displayName
-      __emailHash
-      __slug
+      displayName
+      emailHash
+      slug
+      avatar
     }
     userId
     postType

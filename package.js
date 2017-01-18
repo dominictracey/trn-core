@@ -11,9 +11,10 @@ Package.onUse( function(api) {
     'fourseven:scss',
 
     'nova:core',
-    'nova:base-components',
     'nova:posts',
     'nova:users',
+    'xavcz:nova-forms-upload',
+    'nova:base-components',
     'trn:rest-redux',
   ]);
 

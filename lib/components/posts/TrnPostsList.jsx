@@ -19,14 +19,16 @@ const newFragment = gql`
       _id
       name
       slug
+      avatar
     }
     commentCount
     commenters {
       # ...avatarUserInfo
       _id
-      __displayName
-      __emailHash
-      __slug
+      displayName
+      emailHash
+      slug
+      avatar
     }
     upvoters {
       _id
@@ -41,9 +43,10 @@ const newFragment = gql`
     user {
       # ...avatarUserInfo
       _id
-      __displayName
-      __emailHash
-      __slug
+      displayName
+      emailHash
+      slug
+      avatar
     }
     userId
     trnId
