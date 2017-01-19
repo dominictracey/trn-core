@@ -17,7 +17,7 @@ npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-d
 ```
 
 ### Changes in .meteor/packages
-You'll need to disable `nova:base-styles` and add `trn-core` & `trn-rest-redux`.
+You'll need to disable `nova:base-styles` and add `xavcz:nova-forms-upload`, `trn-core` & `trn-rest-redux`.
 The `.meteor/packages` text file should look like:
 
 ```
@@ -68,6 +68,7 @@ accounts-password@1.3.3
 # customization-demo
 # framework-demo
 
+xavcz:nova-forms-upload
 trn:rest-redux
 trn:core
 ```
