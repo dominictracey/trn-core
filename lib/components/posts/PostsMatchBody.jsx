@@ -183,6 +183,9 @@ class PostsMatchBody extends Component {
     var visitAbbr = 'NON'
     var homeName = ''
     var visitName = ''
+    var venue = {}
+    var venueCity = null
+    var venueName = null
     var score = ' vs. '
     var date = ''
     var teamStats = null
@@ -195,6 +198,11 @@ class PostsMatchBody extends Component {
       visitAbbr = teams[match.visitingTeam].abbr + ' teamlogo-med visitLogo'
       homeName = teams[match.homeTeamId].displayName
       visitName = teams[match.visitingTeam].displayName
+      if(match.venue){
+        venue = match.venue
+        venueCity = venue.venueCity != null ? venue.venueCity : null
+	      venueName = venue.venueName != null ? venue.venueName : null
+      }
       date = new Date(match.date)
       if (_.includes(status,'FINAL') && match.simpleScoreMatchResultId) {
         const result = simpleScoreMatchResults[match.simpleScoreMatchResultId]
@@ -217,7 +225,7 @@ class PostsMatchBody extends Component {
         </Col><Col md={4}><div className='matchTeamName matchTeamName-visit'>{visitName}</div><div className={visitAbbr}></div>
         </Col></Row><Row><Col md={12}>
           <div className='matchStatus'>{status}</div>
-          /* TODO Match venue */
+          <div className="matchVenue">{venueName}<br/>{venueCity}</div>
           <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div>
         </Col></Row><Row><Col>
           <div className='teamStatsPanel'>{teamStatsGrid}</div>
