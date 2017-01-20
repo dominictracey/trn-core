@@ -26,7 +26,12 @@ const TrnPostsPage = (props) => {
         <Components.HeadTags url={Posts.getLink(post)} title={post.title} image={post.thumbnailUrl} />
 
         <Components.PostsItem post={post}/>
-
+        
+        <div className="posts-page-social-buttons">
+          <Components.SocialButton type="facebook" post={post} />
+          <Components.SocialButton type="twitter" post={post} />
+        </div>
+        
         {body}
 
         {/*<SocialShare url={ Posts.getLink(post) } title={ post.title }/>*/}

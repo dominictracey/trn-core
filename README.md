@@ -1,6 +1,6 @@
 # The Rugby Net extensions to Telescope
 
-### Node Dependecies to run RSM (Nova-TRN):
+## Node Dependencies to run RSM (Nova-TRN):
 Needed to run the app:
 - humps 
 - normalizr 
@@ -12,12 +12,32 @@ Needed to run the app:
 
 **--save**
 
-```
+```bash
 npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-dnd-html5-backend griddle-react
 ```
 
-### Changes in .meteor/packages
-You'll need to disable `nova:base-styles` and add `xavcz:nova-forms-upload`, `trn-core` & `trn-rest-redux`.
+## Meteor packages dependencies
+
+#### Clone the additional packages 📂
+
+```bash
+
+# go in your /packages folder
+cd /packages
+
+# clone the additional Nova packages
+git clone https://github.com/xavcz/nova-forms-upload.git
+git clone https://github.com/xavcz/nova-social-share.git
+
+# clone the TRN packages
+git clone https://github.com/dominictracey/trn-core.git
+git clone https://github.com/dominictracey/trn-rest-redux.git
+
+# go to next section of the readme to tell Nova to start the app with them :)
+```
+
+#### Changes in `.meteor/packages` 📃
+You'll need to disable `nova:base-styles` and add `xavcz:nova-social-share`, `xavcz:nova-forms-upload`, `trn-core` & `trn-rest-redux`.
 The `.meteor/packages` text file should look like:
 
 ```
@@ -69,11 +89,12 @@ accounts-password@1.3.3
 # framework-demo
 
 xavcz:nova-forms-upload
+xavcz:nova-social-share
 trn:rest-redux
 trn:core
 ```
 
-### Get updates from Nova & RSM Packages
+## Get updates from Nova & RSM Packages
 Copy / paste the `update_trn.sh` to the **root of the app**.
 
 Run `sh update_trn.sh` & enjoy :smile:

@@ -14,6 +14,7 @@ Package.onUse( function(api) {
     'nova:posts',
     'nova:users',
     'xavcz:nova-forms-upload',
+    'xavcz:nova-social-share',
     'nova:base-components',
     'trn:rest-redux',
   ]);
