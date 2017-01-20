@@ -72,4 +72,4 @@ const options = {
   limit: 0,
 };
 
-registerComponent('TrnPostsCommentsThread', TrnPostsCommentsThread, withList(options), withCurrentUser);
+registerComponent('PostsCommentsThread', TrnPostsCommentsThread, withList(options), withCurrentUser);
