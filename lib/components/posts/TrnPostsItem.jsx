@@ -48,7 +48,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
               </Link>
             </div>
             {this.context.currentUser && this.context.currentUser.isAdmin ? <Components.PostsStats post={post} /> : null}
-            {this.renderActions()}
+            {Posts.options.mutations.edit.check(this.props.currentUser, post) ? this.renderActions() : null}
           </div>
 
         </div>

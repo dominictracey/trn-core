@@ -1,8 +1,7 @@
-import { Components, registerComponent, getRawComponent } from 'meteor/nova:core';
+import { Components, registerComponent, getRawComponent, withCurrentUser, withDocument } from 'meteor/nova:core';
 import React from 'react';
 import Posts from "meteor/nova:posts";
 import gql from 'graphql-tag';
-import { withDocument } from 'meteor/nova:core';
 
 const TrnPostsPage = (props) => {
   if (props.loading) {
@@ -11,13 +10,15 @@ const TrnPostsPage = (props) => {
 
   } else {
 
-    const post = props.document;
+    const {document: post, currentUser} = props;
 
-    var body = {}
+    let body = null;
     if (!post.postType || post.postType === 'link') {
       body = <Components.PostsLinkBody post={post}/>
     } else if (post.postType === 'match') {
       body = <Components.PostsMatchBody post={post}/>
+    } else if (post.postType === 'video') { 
+      body = <Components.PostsVideoBody post={post}/>
     }
 
     return (
@@ -25,7 +26,7 @@ const TrnPostsPage = (props) => {
 
         <Components.HeadTags url={Posts.getLink(post)} title={post.title} image={post.thumbnailUrl} />
 
-        <Components.PostsItem post={post}/>
+        <Components.PostsItem post={post} currentUser={currentUser}/>
         
         <div className="posts-page-social-buttons">
           <Components.SocialButton type="facebook" post={post} />
@@ -96,6 +97,8 @@ TrnPostsPage.fragment = gql`
     postType
     trnId
     color
+    # embedly related stuff
+    media
   }
 `;
 
@@ -107,4 +110,4 @@ const options = {
   fragment: TrnPostsPage.fragment,
 };
 
-registerComponent('PostsPage', TrnPostsPage, withDocument(options));
+registerComponent('PostsPage', TrnPostsPage, withCurrentUser, withDocument(options));
