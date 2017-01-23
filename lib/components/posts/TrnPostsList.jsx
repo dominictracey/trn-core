@@ -1,5 +1,4 @@
-import { Components, getRawComponent, registerComponent } from 'meteor/nova:lib';
-import { withList } from 'meteor/nova:core';
+import { Components, getRawComponent, registerComponent, withCurrentUser, withList } from 'meteor/nova:core';
 import Posts from "meteor/nova:posts";
 import gql from 'graphql-tag';
 
@@ -60,4 +59,4 @@ const options = {
   fragment: newFragment,
 };
 
-registerComponent('PostsList', getRawComponent('PostsList'), withList(options));
+registerComponent('PostsList', getRawComponent('PostsList'), withCurrentUser, withList(options));

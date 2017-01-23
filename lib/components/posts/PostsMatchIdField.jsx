@@ -90,7 +90,7 @@ class PostsMatchIdField extends Component {
     loadingStyle.display = this.state.loading ? "block" : "none";
 
     // see https://facebook.github.io/react/warnings/unknown-prop.html
-    const {document, updateCurrentValue, control, name, label, value} = this.props; // eslint-disable-line
+    const {document, updateCurrentValues, control, name, label, value} = this.props; // eslint-disable-line
 
     return (
       <div className="embedly-url-field" style={wrapperStyle}>

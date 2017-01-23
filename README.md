@@ -9,11 +9,13 @@ Needed to run the app:
 - react-dnd 
 - react-dnd-html5-backend
 - griddle-react
+- react-dropzone
+- isomorphic-fetch
 
 **--save**
 
 ```bash
-npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-dnd-html5-backend griddle-react
+npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-dnd-html5-backend griddle-react react-dropzone isomorphic-fetch
 ```
 
 ## Meteor packages dependencies

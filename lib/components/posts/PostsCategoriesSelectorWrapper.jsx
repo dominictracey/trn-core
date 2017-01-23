@@ -147,7 +147,7 @@ class PostsCategoriesSelectorWrapper extends Component {
                     const competitionCompleteData = options.find(cat => cat.value === comp.id);
                     
                     // uncomment for debug
-                    console.log('competitionCompleteData', competitionCompleteData);
+                    // console.log('competitionCompleteData', competitionCompleteData);
                     
                     // extract the attached teams of this competition (default to [])
                     let { attachedTeams } = competitionCompleteData;
