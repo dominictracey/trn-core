@@ -75,6 +75,29 @@ const teamStatAbbrMap = {
 	yellowCards: "YC",
 	redCards: "RC",
 }
+const playerMap = {
+	teamAbbr: "Team",
+	name:"Name",
+	slot:"Slot",
+	tries:"TR",
+	tryAssists:"TA",
+	points:"PTS",
+	kicks:"K",
+	passes:"P",
+	runs:"R",
+	metersRun:"MR",
+	cleanBreaks:"CB",
+	defendersBeaten:"DB",
+	offloads:"OL",
+	turnovers:"TO",
+	tacklesMade:"TMA",
+	tacklesMissed:"TMI",
+	lineoutsWonOnThrow:"LW",
+	penaltiesConceded:"PC",
+	yellowCards:"YC",
+	redCards:"RC",
+	timePlayed:"Time"
+}
 const displayName = Object.getOwnPropertyNames(teamStatAbbrMap);
 
 class PostsMatchBody extends Component {
@@ -96,15 +119,15 @@ class PostsMatchBody extends Component {
     await loadMatch([post.trnId]);
   }
 
-  async showStats() {
+  async showStats(index) {
     const { post, matches={}, loadTeamMatchStats, loadPlayerMatchStats, flash } = this.props
 
-      const index = 0 // @xavier: where do you make it change?
+      //const index = 0 // @xavier: where do you make it change?
 
     try {
-      if (index === 0) {
-        console.log('fetch start');
-        this.setState({loading: true});
+      if (index === 0) {      // Fetch Team Stats
+        console.log('fetch match start');
+        this.setState({loading: true, showPlayerStats: -1,});
 
         await loadTeamMatchStats(post.trnId, matches[post.trnId].homeTeamId)
 
@@ -114,14 +137,24 @@ class PostsMatchBody extends Component {
         //flash(`Team Match Stats for "${matches[post.trnId].displayName}" fetched!`, 'success');
         this.setState({
           showTeamStats: 0,
-          showPlayerStats: -1,
         })
 
 
-      } else if (index === 1) {
+      } else if (index === 1) {     // Fetch Player stats
+	      this.setState({loading: true, showTeamStats: -1,});
+        console.log("fetch players start")
+
         await loadPlayerMatchStats(post.trnId, matches[post.trnId].homeTeamId)
+
+        console.log("fetch end")
+	      this.setState({
+	        loading: false,
+          showPlayerStats: 0,
+	      });
+
+
       } else if (index === 2) {
-        await loadPlayerMatchStats(post.trnId, matches[post.trnId].visitingTeamId)
+        //await loadPlayerMatchStats(post.trnId, matches[post.trnId].visitingTeamId)
       }
     } catch(e) {
       flash(`Error fetching comp: ${e}`, "error");
@@ -135,6 +168,7 @@ class PostsMatchBody extends Component {
     tmsList.map(function(tmsId) {
       const tms = teamMatchStats[tmsId]
       var tmsComb = {
+      	teamAbbr: tms.teamAbbr,
         tries: tms.tries,
         conversions: tms.conversionsMade +"/"+ tms.conversionsAttempted,
         penalties: tms.penaltiesMade +"/"+ tms.penaltiesAttempted,
@@ -168,9 +202,25 @@ class PostsMatchBody extends Component {
     return retval
   }
 
+	preparePlayerStats(playerList) {
+		const { playerStats={} } = this.props
+
+		var retval = []
+		playerList.map(function(playerId) {
+		  const pms = playerStats[playerId]
+
+			var cleansed = {}
+			Object.keys(playerMap).map(function(key) {
+			  cleansed[playerMap[key]] = pms[key]
+			})
+			retval.push(cleansed)
+		})
+
+		return retval
+	}
 
   render() {
-    const { post, matches={}, teams={}, simpleScoreMatchResults={}, teamMatchStatsByMatchId={}, teamMatchStats={} } = this.props
+    const { post, matches={}, teams={}, simpleScoreMatchResults={}, teamMatchStatsByMatchId={}, teamMatchStats={}, playerStats={}, playerMatchStats={} } = this.props
 
     const match = matches[post.trnId]
 
@@ -190,6 +240,7 @@ class PostsMatchBody extends Component {
     var date = ''
     var teamStats = null
     var teamStatsGrid = null
+    var locPlayerStats = null
     var legend = null
 
     if (match && match.status) {
@@ -211,9 +262,31 @@ class PostsMatchBody extends Component {
       }
 
       teamStats = this.state.showTeamStats != -1 && teamMatchStatsByMatchId && teamMatchStatsByMatchId[post.trnId] && teamMatchStats[teamMatchStatsByMatchId[post.trnId].tmsList[this.state.showTeamStats]] ? this.prepareTeamMatchStats(teamMatchStatsByMatchId[post.trnId].tmsList) : null
+      locPlayerStats = this.state.showPlayerStats != -1 && playerMatchStats&&playerMatchStats[post.trnId]&&playerStats ? this.preparePlayerStats(playerMatchStats[post.trnId].players) : null
 
-      teamStatsGrid = teamStats ? (<Griddle columns={Object.values(teamStatAbbrMap)} columnMetadata={displayName} showFilter={true} showSettings={true} results={teamStats}/>) : null
-      legend = teamStatsGrid != null ? (<FormattedMessage id="teamMatchStats.legend"/>) : null
+      if(teamStats && this.state.showTeamStats != -1){
+      	locPlayerStats = null
+	      teamStatsGrid = (<Griddle columns={Object.values(teamStatAbbrMap)} showFilter={true} showSettings={true} results={teamStats}/>)
+      }
+      else if(locPlayerStats && this.state.showPlayerStats != -1){
+      	teamStats = null
+	      teamStatsGrid = (<Griddle columns={Object.values(playerMap)} showFilter={true} showSettings={true} results={locPlayerStats}/>)
+        //teamStatsGrid = locPlayerStats[0].toString()
+      }
+      else{
+	      teamStatsGrid = null
+      }
+
+      if(teamStatsGrid && this.state.showTeamStats != -1){
+	      legend = (<FormattedMessage id="teamMatchStats.legend"/>)
+      }
+      else if(teamStatsGrid && this.state.showPlayerStats != -1){
+	      legend = (<FormattedMessage id="playerMatchStats.legend"/>)
+      }
+      else{
+      	legend = null
+      }
+
     }
 
     return (
@@ -232,9 +305,8 @@ class PostsMatchBody extends Component {
           <div className='teamStatsLegend'>{legend}</div>
         </Col></Row></Grid>
         <ButtonGroup justified>
-          <Button bsStyle="info" bsSize="small" onClick={this.showStats}>{this.state.loading ? <Components.Loading /> : <span>Team Stats</span>}</Button>
-          <Button bsStyle="info" bsSize="small">{homeName} Player Stats</Button>
-          <Button bsStyle="info" bsSize="small">{visitName} Player Stats</Button>
+          <Button bsStyle="info" bsSize="small" onClick={() => this.showStats(0)}>{this.state.loading ? <Components.Loading /> : <span>Team Stats</span>}</Button>
+          <Button bsStyle="info" bsSize="small" onClick={() => this.showStats(1)}>{this.state.loading ? <Components.Loading /> : <span>Player Stats</span>} </Button>
           <Button bsStyle="info" bsSize="small">Top Ten Performances</Button>
         </ButtonGroup>
       </div>
@@ -262,7 +334,7 @@ PostsMatchBody.propTypes = {
 // }
 
 // note: same thing as above
-const mapStateToProps = ({entities: { matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats } }) => ({ matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats });
+const mapStateToProps = ({entities: { matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats, playerMatchStats, playerStats } }) => ({ matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats, playerMatchStats, playerStats });
 
 // note: destructure Actions for more readibility
 const { loadMatch, loadTeamMatchStats, loadPlayerMatchStats } = Actions;
