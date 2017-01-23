@@ -9,7 +9,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
 
   render() {
 
-    const { post } = this.props
+    const { post } = this.props;
 
     let postClass = "posts-item";
     if (post.sticky) postClass += " posts-sticky";
@@ -25,7 +25,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
       <div className={postClass}>
 
         <div className="posts-item-vote">
-          <Components.Vote document={post} collection={Posts} />
+          <Components.Vote document={post} collection={Posts} currentUser={this.props.currentUser} />
         </div>
 
         {post.thumbnailUrl ? <Components.PostsThumbnail post={post}/> : null}
@@ -47,7 +47,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
                 <FormattedMessage id="comments.count" values={{count: post.commentCount}}/>
               </Link>
             </div>
-            {this.context.currentUser && this.context.currentUser.isAdmin ? <Components.PostsStats post={post} /> : null}
+            {this.props.currentUser && this.props.currentUser.isAdmin ? <Components.PostsStats post={post} /> : null}
             {Posts.options.mutations.edit.check(this.props.currentUser, post) ? this.renderActions() : null}
           </div>
 
@@ -63,11 +63,8 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
 }
 
 TrnPostsItem.propTypes = {
-  post: React.PropTypes.object.isRequired
+  post: React.PropTypes.object.isRequired,
+  currentUser: React.PropTypes.object,
 }
-
-TrnPostsItem.contextTypes = {
-  currentUser: React.PropTypes.object
-};
 
 replaceComponent('PostsItem', TrnPostsItem)
