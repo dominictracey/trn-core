@@ -65,6 +65,7 @@ TrnPostsPage.fragment = gql`
       _id
       name
       slug
+      type
     }
     commentCount
     commenters {
