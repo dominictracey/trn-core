@@ -14,10 +14,10 @@ const newFragment = gql`
     sticky
     status
     categories {
-      # ...minimumCategoryInfo
       _id
       name
       slug
+      type
     }
     commentCount
     commenters {
