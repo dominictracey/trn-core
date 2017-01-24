@@ -305,3 +305,18 @@
 .posts-page-social-buttons {
   margin-bottom: $vmargin;
 }
+
+.posts-page-media {
+  @include flex-center;
+  justify-content: center;
+  iframe {
+    @include medium-large {
+      max-width: 80%;
+      max-height: 80%;
+    }
+    @include small {
+      max-width: 320px;
+      max-height: 240px;
+    }
+  }
+}

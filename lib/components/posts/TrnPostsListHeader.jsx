@@ -3,11 +3,11 @@ import { withRouter } from 'react-router';
 import { Components, replaceComponent } from 'meteor/nova:lib';
 
 const TrnPostsListHeader = ({router}, context) => {
-  const currentCategorySlug = router.location.query.cat;
+  const onCategoryRoutes = router.params.categoryType && router.params.slug;
   
   return (
     <div>
-      {currentCategorySlug ? <Components.CategoriesBar slug={currentCategorySlug} /> : null}
+      {onCategoryRoutes ? <Components.CategoriesBar slug={router.params.slug} /> : null}
       <div className="posts-list-header">
         <Components.PostsViews />
         <Components.SearchForm/>

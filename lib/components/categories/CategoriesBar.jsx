@@ -14,12 +14,20 @@ const CategoriesBar = ({loading, document: category}, context) => {
       </div>
       {category.type === 'comp' && category.attachedTeams && category.attachedTeams.length ? <div className="category-bar-teams-wrapper">
         {
-          category.attachedTeams.map((team, index) => team.image 
-          ? (<Link 
-              key={index} 
-              to={{pathname:'/', query: {cat: team.slug}}}>
-                <img src={team.image} title={team.name} className="category-bar-teams-item" />
-             </Link>) : null)}
+          category.attachedTeams.map((team, index) => { 
+            
+            // get the slug type of this category type thanks to a collection helper
+            const {slug: slugType} = Categories.availableTypes.find(type => type.value === category.type);
+            
+            return team.image 
+              ? (<Link 
+                key={index} 
+                to={{pathname: `/${slugType}/${team.slug}`}}>
+                  <img src={team.image} title={team.name} className="category-bar-teams-item" />
+               </Link>) 
+               : null;
+          })
+        }
       </div>: null}
         
       
@@ -30,26 +38,26 @@ const CategoriesBar = ({loading, document: category}, context) => {
 CategoriesBar.fragment = gql`
   fragment barFragment on Category {
     _id
-name
-description
-order
-slug
-image
-type
-visible
-trnId
-abbr
+    name
+    description
+    order
+    slug
+    image
+    type
+    visible
+    trnId
+    abbr
     attachedTeams {
       _id
-name
-description
-order
-slug
-image
-type
-visible
-trnId
-abbr
+      name
+      description
+      order
+      slug
+      image
+      type
+      visible
+      trnId
+      abbr
     }
   }
 `;

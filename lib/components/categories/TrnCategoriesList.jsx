@@ -24,14 +24,37 @@ const TrnCategoriesList = ({ loading, results: categories = [], router, typeFilt
   
   return (
     <Nav className="categories-list">
-      {categories && categories.length ? categories.map((category, index) => (
-        <LinkContainer className="category-list-item" key={index} to={{pathname:"/", query: {...currentQuery, cat: category.slug}}}>
-          <NavItem>
-            {currentCategorySlug && currentCategorySlug === category.slug ? <Components.Icon name="voted"/> :  null}
-            {category.name}
-          </NavItem>
-        </LinkContainer>
-      )) : null}
+      {
+        categories && categories.length ? categories.map((category, index) => {
+          
+          // index route that should redirect to /
+          let pathname = '/';
+          
+          if (category._id !== 1) {
+            
+            // get the slug type of this category type thanks to a collection helper
+            const {slug: slugType} = Categories.availableTypes.find(type => type.value === category.type);
+            
+            pathname = `/${slugType}/${category.slug}`;
+          }
+          
+          return (
+            <LinkContainer 
+              className="category-list-item" 
+              key={index} 
+              to={{
+                pathname,
+                query: {...currentQuery}
+             }}
+            >
+              <NavItem>
+                {currentCategorySlug && currentCategorySlug === category.slug ? <Components.Icon name="voted"/> :  null}
+                {category.name}
+              </NavItem>
+            </LinkContainer>
+          )
+        }) : null
+      }
     </Nav>
   );
 
