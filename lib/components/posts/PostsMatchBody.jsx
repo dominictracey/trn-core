@@ -8,40 +8,6 @@ import _ from 'lodash'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
 import Griddle from 'griddle-react'
 
-// const teamStatAbbrMap = {
-//   teamAbbr: "Team",
-//   tries: "Tries",
-//   conversionsAttempted: "CA",
-//   conversionsMade: "CM",
-//   penaltiesAttempted: "PA",
-//   penaltiesMade: "PM",
-//   dropGoalsAttempted: "DGA",
-//   dropGoalsMade: "DGM",
-//   kicksFromHand: "K",
-//   passes: "P",
-//   runs: "C",
-//   metersRun: "MR",
-//   possesion: "Poss",
-//   territory: "Terr",
-//   cleanBreaks: "CB",
-//   defendersBeaten: "DB",
-//   offloads: "OL",
-//   rucks: "R",
-//   rucksWon: "RW",
-//   mauls: "M",
-//   maulsWon: "MW",
-//   turnoversConceded: "TOC",
-//   tacklesMade: "T",
-//   tacklesMissed: "TM",
-//   scrumsPutIn: "S",
-//   scrumsWonOnOwnPut: "SW",
-//   lineoutsThrownIn: "LO",
-//   lineoutsWonOnOwnThrow: "LOW",
-//   penaltiesConceded: "PC",
-//   yellowCards: "YC",
-//   redCards: "RC",
-// }
-
 const teamStatAbbrMap = {
 	teamAbbr: "Team",
 	tries: "Tries",
@@ -78,8 +44,8 @@ const teamStatAbbrMap = {
 const playerMap = {
 	teamAbbr: "Team",
 	name:"Name",
-	slot:"Slot",
-	tries:"TR",
+	position:"Position",
+	tries:"T",
 	tryAssists:"TA",
 	points:"PTS",
 	kicks:"K",
@@ -88,17 +54,16 @@ const playerMap = {
 	metersRun:"MR",
 	cleanBreaks:"CB",
 	defendersBeaten:"DB",
-	offloads:"OL",
-	turnovers:"TO",
-	tacklesMade:"TMA",
-	tacklesMissed:"TMI",
+	offloads:"O",
+	turnovers:"TC",
+	tacklesMade:"TM",
+	tacklesMissed:"MT",
 	lineoutsWonOnThrow:"LW",
 	penaltiesConceded:"PC",
 	yellowCards:"YC",
 	redCards:"RC",
 	timePlayed:"Time"
 }
-const displayName = Object.getOwnPropertyNames(teamStatAbbrMap);
 
 class PostsMatchBody extends Component {
 
@@ -108,7 +73,9 @@ class PostsMatchBody extends Component {
 		
 		// always define an inital state!
 		this.state = {
-			loading: false,
+			loadingMatch: false,
+			loadingPlayer: false,
+			loadingTt: false,
       showTeamStats: -1,
       showPlayerStats: -1
 		};
@@ -127,33 +94,41 @@ class PostsMatchBody extends Component {
     try {
       if (index === 0) {      // Fetch Team Stats
         console.log('fetch match start');
-        this.setState({loading: true, showPlayerStats: -1,});
+        this.setState({
+        	loadingMatch: true,
+	        showPlayerStats: -1,
+
+        });
 
         await loadTeamMatchStats(post.trnId, matches[post.trnId].homeTeamId)
 
 
         console.log('fetch end');
-        this.setState({loading: false});
-        //flash(`Team Match Stats for "${matches[post.trnId].displayName}" fetched!`, 'success');
         this.setState({
-          showTeamStats: 0,
-        })
+        	loadingMatch: false,
+	        showTeamStats: 0,
+        });
 
 
       } else if (index === 1) {     // Fetch Player stats
-	      this.setState({loading: true, showTeamStats: -1,});
+	      this.setState({
+	      	loadingPlayer: true,
+		      showTeamStats: -1,
+
+	      });
         console.log("fetch players start")
 
         await loadPlayerMatchStats(post.trnId, matches[post.trnId].homeTeamId)
 
         console.log("fetch end")
 	      this.setState({
-	        loading: false,
-          showPlayerStats: 0,
+	        loadingPlayer: false,
+		      showPlayerStats: 0,
 	      });
 
 
       } else if (index === 2) {
+      	flash(`Top Ten not implemented, yet.`, 'success');
         //await loadPlayerMatchStats(post.trnId, matches[post.trnId].visitingTeamId)
       }
     } catch(e) {
@@ -262,15 +237,17 @@ class PostsMatchBody extends Component {
       }
 
       teamStats = this.state.showTeamStats != -1 && teamMatchStatsByMatchId && teamMatchStatsByMatchId[post.trnId] && teamMatchStats[teamMatchStatsByMatchId[post.trnId].tmsList[this.state.showTeamStats]] ? this.prepareTeamMatchStats(teamMatchStatsByMatchId[post.trnId].tmsList) : null
-      locPlayerStats = this.state.showPlayerStats != -1 && playerMatchStats&&playerMatchStats[post.trnId]&&playerStats ? this.preparePlayerStats(playerMatchStats[post.trnId].players) : null
+      locPlayerStats = this.state.showPlayerStats != -1 && playerMatchStats && playerMatchStats[post.trnId]        && playerMatchStats[post.trnId].players ? this.preparePlayerStats(playerMatchStats[post.trnId].players) : null
 
       if(teamStats && this.state.showTeamStats != -1){
       	locPlayerStats = null
-	      teamStatsGrid = (<Griddle columns={Object.values(teamStatAbbrMap)} showFilter={true} showSettings={true} results={teamStats}/>)
+	      teamStatsGrid = (<Griddle columns={Object.values(teamStatAbbrMap)} showFilter={true} showSettings={true} results={teamStats} />)
       }
       else if(locPlayerStats && this.state.showPlayerStats != -1){
       	teamStats = null
-	      teamStatsGrid = (<Griddle columns={Object.values(playerMap)} showFilter={true} showSettings={true} results={locPlayerStats}/>)
+
+	      teamStatsGrid = (<Griddle columns={Object.values(playerMap)} showFilter={true} showSettings={true} results={locPlayerStats} resultsPerPage={50}
+	      useFixedHeader={true} />)
         //teamStatsGrid = locPlayerStats[0].toString()
       }
       else{
@@ -305,9 +282,9 @@ class PostsMatchBody extends Component {
           <div className='teamStatsLegend'>{legend}</div>
         </Col></Row></Grid>
         <ButtonGroup justified>
-          <Button bsStyle="info" bsSize="small" onClick={() => this.showStats(0)}>{this.state.loading ? <Components.Loading /> : <span>Team Stats</span>}</Button>
-          <Button bsStyle="info" bsSize="small" onClick={() => this.showStats(1)}>{this.state.loading ? <Components.Loading /> : <span>Player Stats</span>} </Button>
-          <Button bsStyle="info" bsSize="small">Top Ten Performances</Button>
+          <Button bsStyle="info" bsSize="small" onClick={() => this.showStats(0)}>{this.state.loadingMatch ? <Components.Loading /> : <span>Team Stats</span>}</Button>
+          <Button bsStyle="info" bsSize="small" onClick={() => this.showStats(1)}>{this.state.loadingPlayer ? <Components.Loading /> : <span>Player Stats</span>} </Button>
+          <Button bsStyle="info" bsSize="small" onClick={() => this.showStats(2)}>{this.state.loadingTt ? <Components.Loading /> : <span>Top Ten Performances</span>}</Button>
         </ButtonGroup>
       </div>
     )
