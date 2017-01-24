@@ -20,9 +20,11 @@ class PostsMatchIdField extends Component {
   }
 
   prefillFields(match) {
-    //const slug = Telescope.utils.getUnusedSlug(Posts, match.displayName)
-    this.context.addToAutofilledValues({
+    // note: current values have more power than autofilled values
+    // see https://github.com/TelescopeJS/Telescope/blob/master/packages/nova-forms/lib/Form.jsx#L390-L394
+    this.context.updateCurrentValues({ 
       title: match.displayName,
+      postType: 'match',
       //body: result.description,
       //thumbnailUrl: result.thumbnailUrl
     });
@@ -120,7 +122,7 @@ PostsMatchIdField.propTypes = {
 }
 
 PostsMatchIdField.contextTypes = {
-  addToAutofilledValues: React.PropTypes.func,
+  updateCurrentValues: React.PropTypes.func,
   throwError: React.PropTypes.func,
   actions: React.PropTypes.object,
 }
