@@ -46,7 +46,7 @@ TrnPostsCommentsThread.propTypes = {
 };
 
 TrnPostsCommentsThread.fragment = gql`
-  fragment trnCommentsListFragment on Votable {
+  fragment trnCommentsListFragment on Comment {
     _id
     postId
     parentCommentId
