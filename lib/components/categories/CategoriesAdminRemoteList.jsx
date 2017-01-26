@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Modal, Grid, Row, Col } from 'react-bootstrap';
 
-import { Components, registerComponent, Utils, Actions } from 'meteor/nova:core';
+import { Components, registerComponent, Utils, getActions } from 'meteor/nova:core';
 
 class CategoriesAdminRemoteList extends Component {
 
@@ -112,6 +112,6 @@ CategoriesAdminRemoteList.propTypes = {
 
 // extract `config` from state.entities and pass it as props to `CategoriesAdminRemoteList`
 const mapStateToProps = ({entities: { config }}) => ({ config })
-const mapDispatchToProps = dispatch => bindActionCreators({loadConfiguration: Actions.loadConfiguration}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({loadConfiguration: getActions().loadConfiguration}, dispatch);
 
 registerComponent('CategoriesAdminRemoteList', CategoriesAdminRemoteList,  connect(mapStateToProps, mapDispatchToProps));

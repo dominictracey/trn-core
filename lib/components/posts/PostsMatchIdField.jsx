@@ -1,4 +1,4 @@
-import { registerComponent, Components, Actions } from 'meteor/nova:core';
+import { registerComponent, Components, getActions } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import FRC from 'formsy-react-components';
@@ -128,7 +128,7 @@ PostsMatchIdField.contextTypes = {
 }
 
 const mapStateToProps = ({entities: { matches }}) => ({matches})
-const mapDispatchToProps = dispatch => bindActionCreators({loadMatch: Actions.loadMatch}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({loadMatch: getActions().loadMatch}, dispatch);
 
 // note: let's stick to one way to use components in the app :)
 registerComponent('PostsMatchIdField', PostsMatchIdField, connect(mapStateToProps, mapDispatchToProps));

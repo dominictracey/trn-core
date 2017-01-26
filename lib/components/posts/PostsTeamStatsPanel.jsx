@@ -25,6 +25,6 @@ PostsTeamStatsPanel.propTypes = {
 };
 
 const mapStateToProps = ({entities: { teamMatchStatsByMatchId, teamMatchStats }}) => ({teamMatchStatsByMatchId, teamMatchStats});
-//const mapDispatchToProps = dispatch => bindActionCreators({loadConfiguration: Actions.loadConfiguration}, dispatch);
+//const mapDispatchToProps = dispatch => bindActionCreators({loadConfiguration: getActions().loadConfiguration}, dispatch);
 
 registerComponent('PostsTeamStatsPanel', PostsTeamStatsPanel, connect(mapStateToProps));

@@ -2,7 +2,7 @@ import Components from 'meteor/nova:core'
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Actions, registerComponent, withMessages } from 'meteor/nova:core';
+import { getActions, registerComponent, withMessages } from 'meteor/nova:core';
 import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
 import _ from 'lodash'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
@@ -314,7 +314,7 @@ PostsMatchBody.propTypes = {
 const mapStateToProps = ({entities: { matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats, playerMatchStats, playerStats } }) => ({ matches, teams, simpleScoreMatchResults, teamMatchStatsByMatchId, teamMatchStats, playerMatchStats, playerStats });
 
 // note: destructure Actions for more readibility
-const { loadMatch, loadTeamMatchStats, loadPlayerMatchStats } = Actions;
+const { loadMatch, loadTeamMatchStats, loadPlayerMatchStats } = getActions();
 
 const mapDispatchToProps = dispatch => bindActionCreators({ loadMatch, loadTeamMatchStats, loadPlayerMatchStats }, dispatch);
 

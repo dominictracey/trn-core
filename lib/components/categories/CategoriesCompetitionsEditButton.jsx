@@ -5,7 +5,7 @@ import { intlShape } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import { withApollo } from 'react-apollo';
 
-import { Components, registerComponent, getRawComponent, withEdit, withNew, withMessages, Actions, Utils } from 'meteor/nova:core';
+import { Components, registerComponent, getRawComponent, withEdit, withNew, withMessages, getActions, Utils } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
 class CategoriesCompetitionsEditButton extends Component {
@@ -178,6 +178,6 @@ const options = {
 };
 
 const mapStateToProps = ({entities: { comp }}) => ({ comp });
-const mapDispatchToProps = dispatch => bindActionCreators({loadCompetition: Actions.loadCompetition}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({loadCompetition: getActions().loadCompetition}, dispatch);
 
 registerComponent('CategoriesCompetitionsEditButton', CategoriesCompetitionsEditButton, withMessages, withEdit(options), withNew(options), withApollo, connect(mapStateToProps, mapDispatchToProps));
