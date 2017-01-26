@@ -45,7 +45,7 @@ const playerMap = {
 	teamAbbr: "Team",
 	name:"Name",
 	position:"Position",
-	tries:"T",
+	tries: "T",
 	tryAssists:"TA",
 	points:"PTS",
 	kicks:"K",

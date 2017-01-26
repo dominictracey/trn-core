@@ -2,15 +2,18 @@ import React from 'react';
 import { withRouter } from 'react-router'
 import { Components, registerComponent } from 'meteor/nova:core';
 
-const TrnSidebar = () => {
+const TrnSidebar = (context) => {
   //
-  // const currentCategorySlug = router.location.query.cat;
+  const currentCategorySlug = context.params.categoryType && context.params.categoryType == "c" ? context.params.categoryType : null;
   // const newQuery = _.clone(router.location.query);
   // newQuery.cat = category.slug;
+  const standings = currentCategorySlug ? <Components.TrnStandings context={context}/> : null
+
   return (
     <div>
       <Components.TrnSbProfile />
       <Components.TrnSbFixturesAndResults />
+      {standings}
     </div>
   )
 }
