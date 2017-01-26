@@ -17,8 +17,6 @@ const TrnPostsCommentsThread = (props, context) => {
     const resultsClone = _.map(results, _.clone); // we don't want to modify the objects we got from props
     const nestedComments = Utils.unflatten(resultsClone, '_id', 'parentCommentId');
     
-    console.log('comments thread rendering (first item):\n', {upvotes: results[0].upvotes, upvoters: results[0].upvoters});
-    
     return (
       <div className="posts-comments-thread">
         {!!props.currentUser ?
