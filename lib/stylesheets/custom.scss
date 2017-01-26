@@ -124,6 +124,24 @@ div.matchDate {
   background-color: #dddddd;
 }
 
+.standings-container{
+  width:100%;
+  min-height: 200px;
+  margin-bottom: 25px;
+  border-style: solid;
+  border-width: 0px 0px 1px 5px;
+  overflow: auto;
+}
+
+.standings-results strong{
+  margin-right: 5px;
+}
+
+.standings-head{
+  text-align: center;
+  font-weight: bold;
+}
+
 .wait{
   min-height: 300px;
 }
