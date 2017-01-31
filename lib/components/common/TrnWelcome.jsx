@@ -16,16 +16,32 @@ const TrnWelcome = props => {
           <li>Sign up for an account</li>
           <li>Click on the Meta group above and introduce yourself. This is where we talk about the site itself so leave feedback or ideas on things we can do better.</li>
           <li>Get involved with our open source project. Send an email to dominic.tracey@rugby.net if you would like information on getting involved. Some options:</li>
-          <ul>
-            <li>Content contributors</li>
-            <li>Moderators</li>
-            <li>Beta testers</li>
-            <li>Designers</li>
-            <li>Developers</li>
-          </ul>
         </ol>
+          <div className='welcome-container'>
+            <div className='welcome-column'>
+              <div className='welcome-header welcome-header-1'>Content Creators</div>
+              <div className='welcome-content'>Have a blog or Youtube channel? Post your links on here. We are also looking for video highlights creators and sports copywriters so drop us a line!</div>
+            </div>
+            <div className='welcome-column'>
+              <div className='welcome-header welcome-header-2'>Moderators</div>
+              <div className='welcome-content'>Keep an eye on the asylum!</div>
+            </div>
+            <div className='welcome-column'>
+              <div className='welcome-header welcome-header-3'>Beta testers</div>
+              <div className='welcome-content'>Bang away at the new features and file bug reports. Get to see the cool new stuff first!</div>
+            </div>
+            <div className='welcome-column'>
+              <div className='welcome-header welcome-header-4'>Graphic Designers</div>
+              <div className='welcome-content'>We need help looking pretty.</div>
+            </div>
+            <div className='welcome-column'>
+              <div className='welcome-header welcome-header-5'>Developers</div>
+              <div className='welcome-content'>Create PRs and let's get this puppy off the ground!</div>
+            </div>
+          </div>
+
         </p><p>
-        Play on!
+        Thanks for joining in - Play on!
         </p>
       </div>
 

@@ -125,21 +125,39 @@ div.matchDate {
 }
 
 .standings-container{
-  width:100%;
-  min-height: 200px;
-  margin-bottom: 25px;
-  border-style: solid;
-  border-width: 0px 0px 1px 5px;
-  overflow: auto;
-}
-
-.standings-results strong{
-  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  // width:100%;
+  // min-height: 200px;
+  // margin-bottom: 25px;
+  // border-style: solid;
+  // border-width: 0px 0px 1px 5px;
+  // overflow: auto;
 }
 
 .standings-head{
   text-align: center;
   font-weight: bold;
+}
+
+.standings-row {
+  display: flex;
+}
+
+.standings-col {
+  padding: 3px;
+}
+
+.standings-col-ordinal {
+
+}
+
+.standings-col-logo {
+  height: 18px;
+}
+
+.standings-col-name {
+
 }
 
 .wait{
@@ -152,4 +170,60 @@ div.matchDate {
 
 .visitLogo {
   float: right;
+}
+
+.welcome-container {
+  display: flex;
+  padding: 10px;
+  justify-content: space-around;
+  align-items: stretch;
+  @include small{
+    display: block;
+  }
+}
+
+.welcome-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.welcome-header {
+  // flex-grow: 1;
+  padding: 10px;
+  margin-right: 10px;
+  font-weight: 500;
+  border-color: #dddddd;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.welcome-header-1 {
+  background-color: mistyrose;
+}
+
+.welcome-header-2 {
+  background-color: bisque;
+}
+
+.welcome-header-3 {
+  background-color: lavender;
+}
+
+.welcome-header-4 {
+  background-color: lightseagreen;
+}
+
+.welcome-header-5 {
+  background-color: lightskyblue;
+}
+
+.welcome-content {
+  flex-grow: 1;
+  padding: 20px;
+  margin-right: 10px;
+  font-weight: 300;
+  border-color: #dddddd;
+  border-width: 1px;
+  border-style: solid;
 }

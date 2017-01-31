@@ -66,15 +66,12 @@ class TrnStandings extends Component {
 		}
 
 		return (
-			<div className='standings-container'>
+			<div className='standings-container card'>
 				<div className='standings-head'>Standings</div>
 				{
 					retval && retval == -1 ? standingsArr.map((standing, index) => {
 						return  (
-							<div className='standings-results'>
-								<strong>{standing.standing}</strong>
-								{teams[standing.teamId].displayName}
-							</div>
+							<Components.TrnStandingsRow key={standing.id.toString()} standing={standing} team={teams[standing.teamId]} />
 						)
 					}): retval
 				}
@@ -85,9 +82,9 @@ class TrnStandings extends Component {
 
 TrnStandings.fragment = gql`
   fragment standingFragment on Category {
-    _id    
+    _id
     slug
-    trnId    
+    trnId
   }
 `
 
