@@ -9,7 +9,6 @@ const newFragment = gql`
     url
     slug
     thumbnailUrl
-    baseScore
     postedAt
     sticky
     status
@@ -36,6 +35,8 @@ const newFragment = gql`
     }
     upvotes # should be asked only for admins?
     score # should be asked only for admins?
+    downvotes # should be asked only for admins?
+    baseScore # should be asked only for admins?
     viewCount # should be asked only for admins?
     clickCount # should be asked only for admins?
     user {
