@@ -6,8 +6,8 @@ import React, { PropTypes, Component } from 'react';
 import { intlShape } from 'react-intl';
 
 const TrnPostsNewForm = (props, context) => {
-  // grab the current query string in the url corresponding to an eventual category
-  const currentCategorySlug = props.router.params.slug;
+  // grab the current query string in the url corresponding to an eventual category (check categoryType & slug from params!)
+  const currentCategorySlug = props.router.params.categoryType && props.router.params.slug;
 
   // populate prefilled props if relevant
   const prefilledProps = !!currentCategorySlug ? {categories: [{slug: currentCategorySlug}]}: {};

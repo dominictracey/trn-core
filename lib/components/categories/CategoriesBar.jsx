@@ -9,21 +9,21 @@ const CategoriesBar = ({loading, document: category}, context) => {
   return loading || !category ? <Components.Loading /> : (
     <div className="category-bar">
       <div className="category-bar-content">
-        {category.image ? <img src={category.image} title={category.name} className="category-bar-thumbnail" /> : null}
+        {category.abbr ? <img src={Categories.getLogo(category)} title={category.name} className="category-bar-thumbnail" /> : null}
         <h3>{category.name}</h3>
       </div>
       {category.type === 'comp' && category.attachedTeams && category.attachedTeams.length ? <div className="category-bar-teams-wrapper">
         {
           category.attachedTeams.map((team, index) => { 
             
-            // get the slug type of this category type thanks to a collection helper
-            const {slug: slugType} = Categories.availableTypes.find(type => type.value === category.type);
+            const pathname = Categories.getUrl(team);
+            const logo = Categories.getLogo(team);
             
-            return team.image 
+            return team.abbr 
               ? (<Link 
                 key={index} 
-                to={{pathname: `/${slugType}/${team.slug}`}}>
-                  <img src={team.image} title={team.name} className="category-bar-teams-item" />
+                to={{pathname}}>
+                  <img src={logo} title={team.name} className="category-bar-teams-item" />
                </Link>) 
                : null;
           })
