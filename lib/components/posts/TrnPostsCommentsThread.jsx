@@ -1,8 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ModalTrigger, withList, withCurrentUser, Components, registerComponent, Utils } from 'meteor/nova:core';
+import { ModalTrigger, withList, withCurrentUser, Components, registerComponent, Utils, getFragment } from 'meteor/nova:core';
 import Comments from 'meteor/nova:comments';
-import gql from 'graphql-tag';
 
 const TrnPostsCommentsThread = (props, context) => {
 
@@ -45,50 +44,10 @@ TrnPostsCommentsThread.propTypes = {
   currentUser: React.PropTypes.object
 };
 
-TrnPostsCommentsThread.fragment = gql`
-  fragment trnCommentsListFragment on Comment {
-    _id
-    postId
-    parentCommentId
-    topLevelCommentId
-    body
-    htmlBody
-    postedAt
-    user {
-      _id
-      displayName
-      emailHash
-      slug
-      avatar
-    }
-    post {
-      _id
-      commentCount
-      commenters {
-        _id
-        displayName
-        emailHash
-        slug
-      }
-    }
-    userId
-    upvoters {
-      _id
-    }
-    downvoters {
-      _id
-    }
-    upvotes # should be asked only for admins?
-    downvotes # should be asked only for admins?
-    baseScore # should be asked only for admins?
-    score # should be asked only for admins?
-  }
-`;
-
 const options = {
   collection: Comments,
   queryName: 'commentsListQuery',
-  fragment: TrnPostsCommentsThread.fragment,
+  fragment: getFragment('CommentsList'),
   limit: 0,
 };
 
