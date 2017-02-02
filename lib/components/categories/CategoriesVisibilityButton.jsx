@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { intlShape } from 'react-intl';
 import { Button } from 'react-bootstrap';
 
-import { Components, getRawComponent, registerComponent, withEdit, withMessages } from 'meteor/nova:core';
+import { Components, getFragment, registerComponent, withEdit, withMessages } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
 const CategoriesVisibilityButton = ({ category, editMutation, flash }, context) => {
@@ -46,7 +46,7 @@ CategoriesVisibilityButton.contextTypes = {
 
 const options = {
   collection: Categories,
-  fragment: getRawComponent('CategoriesAdminPage').fragment,
+  fragment: getFragment('CategoriesList'),
 };
 
 registerComponent('CategoriesVisibilityButton', CategoriesVisibilityButton, withMessages, withEdit(options));

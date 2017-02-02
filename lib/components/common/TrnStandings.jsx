@@ -2,9 +2,8 @@ import React, {PropTypes, Component} from 'react'
 import { withRouter } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getActions, Components, registerComponent, getRawComponent, withList } from 'meteor/nova:core'
+import { getActions, Components, registerComponent, withList, getFragment } from 'meteor/nova:core'
 import Categories from 'meteor/nova:categories'
-import gql from 'graphql-tag';
 
 
 class TrnStandings extends Component {
@@ -26,11 +25,15 @@ class TrnStandings extends Component {
 			this.props.params.slug = nextProps.params.slug
 			this.getStandings(this.props.results)
 		}
+		else if (nextProps.results && !this.props.results){
+			this.getStandings(nextProps.results)
+		}
 	}
 
 	async componentDidMount() {
 		const {results: categories = []} = this.props
-		await this.getStandings(categories)
+
+		categories.length > 0 ? await this.getStandings(categories) : null
 	}
 
 	async getStandings(categories) {
@@ -41,10 +44,10 @@ class TrnStandings extends Component {
 		if (results != null && results.length > 0) {
 			trnId = results[0].trnId
 		}
-		console.log("Loading Standings")
+		console.log("Loading Standings") // eslint-disable-line
 		await loadCompStandings(trnId)
 		await loadCompetition(trnId)
-		console.log("Load complete")
+		console.log("Load complete") // eslint-disable-line
 		this.setState({trnId: trnId, showStandings: true})
 	}
 
@@ -68,6 +71,16 @@ class TrnStandings extends Component {
 		return (
 			<div className='standings-container card'>
 				<div className='standings-head'>Standings</div>
+				<div className='standings-data'>
+				<div className='standings-row standings-leg'>
+					<div className='standings-col standings-col-ordinal standings-leg'>Rank</div>
+					<div className="standings-col"></div>
+					<div className="standings-col standings-col-name standings-leg">Name</div>
+					<div className="standings-col standings-col-stats standings-leg">Win</div>
+					<div className="standings-col standings-col-stats standings-leg">Loss</div>
+					<div className="standings-col standings-col-stats standings-leg">Draw</div>
+					<div className="standings-col standings-col-stats standings-leg">Points</div>
+				</div>
 				{
 					retval && retval == -1 ? standingsArr.map((standing, index) => {
 						return  (
@@ -75,23 +88,16 @@ class TrnStandings extends Component {
 						)
 					}): retval
 				}
+				</div>
 			</div>
 		)
 	}
 }
 
-TrnStandings.fragment = gql`
-  fragment standingFragment on Category {
-    _id
-    slug
-    trnId
-  }
-`
-
 const options = {
 	collection: Categories,
 	queryName: 'categoriesSingleQuery',
-	fragment: TrnStandings.fragment,
+	fragment: getFragment('CategoriesMinimumInfo'),
 	limit: 0,
 };
 

@@ -1,15 +1,12 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Components, getRawComponent, registerComponent, withList } from 'meteor/nova:core';
+import { Components, replaceComponent } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
 const TrnCategoriesList = ({ loading, results: categories = [], router, typeFilter }, context) => {
   
-  const currentCategorySlug = router.location.query.cat;
-  const currentQuery = _.clone(router.location.query);
-  delete currentQuery.cat;
+  const currentCategorySlug = router.params.categoryType && router.params.slug;
   
   // categories may be filtered by type
   if (typeFilter) {
@@ -28,24 +25,13 @@ const TrnCategoriesList = ({ loading, results: categories = [], router, typeFilt
         categories && categories.length ? categories.map((category, index) => {
           
           // index route that should redirect to /
-          let pathname = '/';
-          
-          if (category._id !== 1) {
-            
-            // get the slug type of this category type thanks to a collection helper
-            const {slug: slugType} = Categories.availableTypes.find(type => type.value === category.type);
-            
-            pathname = `/${slugType}/${category.slug}`;
-          }
+          const pathname = category._id !== 1 ? Categories.getUrl(category) : '/';
           
           return (
             <LinkContainer 
               className="category-list-item" 
               key={index} 
-              to={{
-                pathname,
-                query: {...currentQuery}
-             }}
+              to={{pathname}}
             >
               <NavItem>
                 {currentCategorySlug && currentCategorySlug === category.slug ? <Components.Icon name="voted"/> :  null}
@@ -60,39 +46,4 @@ const TrnCategoriesList = ({ loading, results: categories = [], router, typeFilt
 
 }
 
-// create a new fragment
-TrnCategoriesList.fragment = gql`
-  fragment visibleCategoriesListFragment on Category {
-    _id
-    name
-    description
-    order
-    slug
-    image
-    type
-    visible
-    trnId
-    abbr
-      attachedTeams {
-        _id
-        name
-        description
-        order
-        slug
-        image
-        type
-        visible
-        trnId
-        abbr
-      }
-    }
-`;
-
-const categoriesListOptions = {
-  collection: Categories,
-  queryName: 'visibleCategoriesListQuery',
-  fragment: TrnCategoriesList.fragment,
-  limit: 0,
-};
-
-registerComponent('CategoriesList', TrnCategoriesList, withList(categoriesListOptions));
+replaceComponent('CategoriesList', TrnCategoriesList);

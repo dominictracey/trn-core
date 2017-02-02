@@ -1,7 +1,6 @@
-import { Components, registerComponent, getRawComponent, withCurrentUser, withDocument } from 'meteor/nova:core';
+import { Components, replaceComponent } from 'meteor/nova:core';
 import React from 'react';
 import Posts from "meteor/nova:posts";
-import gql from 'graphql-tag';
 
 const TrnPostsPage = (props) => {
   if (props.loading) {
@@ -46,69 +45,4 @@ const TrnPostsPage = (props) => {
 TrnPostsPage.propTypes = {
   document: React.PropTypes.object
 }
-
-TrnPostsPage.fragment = gql`
-  fragment TrnPostsSingleFragment on Post {
-    _id
-    title
-    url
-    body # extra
-    htmlBody # extra
-    slug
-    thumbnailUrl
-    baseScore
-    postedAt
-    sticky
-    status
-    categories {
-      # ...minimumCategoryInfo
-      _id
-      name
-      slug
-      type
-    }
-    commentCount
-    commenters {
-      # ...avatarUserInfo
-      _id
-      displayName
-      emailHash
-      slug
-      avatar
-    }
-    upvoters {
-      _id
-    }
-    downvoters {
-      _id
-    }
-    upvotes # should be asked only for admins?
-    score # should be asked only for admins?
-    viewCount # should be asked only for admins?
-    clickCount # should be asked only for admins?
-    user {
-      # ...avatarUserInfo
-      _id
-      displayName
-      emailHash
-      slug
-      avatar
-    }
-    userId
-    postType
-    trnId
-    color
-    # embedly related stuff
-    media
-  }
-`;
-
-TrnPostsPage.displayName = "TrnPostsPage";
-
-const options = {
-  collection: Posts,
-  queryName: 'postsSingleQuery',
-  fragment: TrnPostsPage.fragment,
-};
-
-registerComponent('PostsPage', TrnPostsPage, withCurrentUser, withDocument(options));
+replaceComponent('PostsPage', TrnPostsPage);

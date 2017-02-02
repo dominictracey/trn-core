@@ -5,7 +5,8 @@ import { intlShape } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import { withApollo } from 'react-apollo';
 
-import { Components, registerComponent, getRawComponent, withEdit, withNew, withMessages, getActions, Utils, getSetting } from 'meteor/nova:core';
+import { Components, registerComponent, getFragment, withEdit, withNew, withMessages, getActions, Utils, getSetting } from 'meteor/nova:core';
+
 import Categories from 'meteor/nova:categories';
 
 class CategoriesCompetitionsEditButton extends Component {
@@ -176,7 +177,7 @@ CategoriesCompetitionsEditButton.contextTypes = {
 
 const options = {
   collection: Categories,
-  fragment: getRawComponent('CategoriesAdminPage').fragment,
+  fragment: getFragment('CategoriesList'),
 };
 
 const mapStateToProps = ({entities: { comp }}) => ({ comp });
