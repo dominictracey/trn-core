@@ -1,4 +1,4 @@
-import { replaceComponent } from 'meteor/nova:lib';
+import { replaceComponent } from 'meteor/nova:core';
 import React from 'react';
 import Categories from 'meteor/nova:categories';
 import { Link } from 'react-router';

@@ -1,4 +1,4 @@
-import { Components, replaceComponent } from 'meteor/nova:lib';
+import { Components, replaceComponent } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
 
 const TrnPostsHome = (props, context) => {
