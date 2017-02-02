@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { Components, replaceComponent } from 'meteor/nova:lib';
+import { Components, replaceComponent } from 'meteor/nova:core';
 
 const TrnPostsListHeader = ({router}, context) => {
   const onCategoryRoutes = router.params.categoryType && router.params.slug;

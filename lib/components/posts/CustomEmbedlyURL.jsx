@@ -1,4 +1,4 @@
-import { Components, registerComponent } from 'meteor/nova:lib';
+import { Components, registerComponent } from 'meteor/nova:core';
 import { withMutation } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
 import FRC from 'formsy-react-components';
@@ -36,12 +36,12 @@ class CustomEmbedlyURL extends Component {
   async handleBlur() {
     if (!this.state.loading) {
       try {
-        await this.setState({loading: true});
-        
         // value from formsy input ref
         const url = this.input.getValue();
         
         if (url.length) {
+          await this.setState({loading: true});
+          
           // the URL has changed, get new title, body, thumbnail & media for this url
           const result = await this.props.getEmbedlyData({url});
           
@@ -62,11 +62,12 @@ class CustomEmbedlyURL extends Component {
             embedlyFetched: true,
           });
           
+          await this.context.clearForm({ clearErrors: true }); // remove errors & keep the current values 
         }
       } catch(error) {
         await this.setState({loading: false});
-        console.log(error); // eslint-disable-line no-console
-        this.context.throwError({content: error.message, type: "error"});
+        console.error(error); // eslint-disable-line
+        this.context.throwError(error.message);
       }
     }
   }
@@ -128,10 +129,9 @@ CustomEmbedlyURL.propTypes = {
 }
 
 CustomEmbedlyURL.contextTypes = {
-  addToAutofilledValues: React.PropTypes.func,
   updateCurrentValues: React.PropTypes.func,
   throwError: React.PropTypes.func,
-  actions: React.PropTypes.object,
+  clearForm: React.PropTypes.func,
 }
 
 registerComponent('CustomEmbedlyURL', CustomEmbedlyURL, withMutation({name: 'getEmbedlyData', args: {url: 'String'}}));
