@@ -68,6 +68,16 @@ class TrnStandings extends Component {
 		return (
 			<div className='standings-container card'>
 				<div className='standings-head'>Standings</div>
+				<div className='standings-data'>
+				<div className='standings-row standings-leg'>
+					<div className='standings-col standings-col-ordinal standings-leg'>Rank</div>
+					<div className="standings-col"></div>
+					<div className="standings-col standings-col-name standings-leg">Name</div>
+					<div className="standings-col standings-col-stats standings-leg">Win</div>
+					<div className="standings-col standings-col-stats standings-leg">Loss</div>
+					<div className="standings-col standings-col-stats standings-leg">Draw</div>
+					<div className="standings-col standings-col-stats standings-leg">Points</div>
+				</div>
 				{
 					retval && retval == -1 ? standingsArr.map((standing, index) => {
 						return  (
@@ -75,6 +85,7 @@ class TrnStandings extends Component {
 						)
 					}): retval
 				}
+				</div>
 			</div>
 		)
 	}
