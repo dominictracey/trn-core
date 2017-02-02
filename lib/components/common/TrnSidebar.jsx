@@ -10,7 +10,7 @@ const TrnSidebar = (context) => {
   const standings = currentCategorySlug ? <Components.TrnStandings context={context}/> : null
 
   return (
-    <div>
+    <div className='sidebar-container'>
       <Components.TrnSbProfile />
       <Components.TrnSbFixturesAndResults />
       {standings}

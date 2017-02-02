@@ -120,8 +120,7 @@ div.matchDate {
 .placeholder{
   width:100%;
   min-height: 200px;
-  margin-bottom: 25px;
-  background-color: #dddddd;
+  background-color: bisque;
 }
 
 .standings-data{
@@ -227,4 +226,29 @@ div.matchDate {
   border-color: #dddddd;
   border-width: 1px;
   border-style: solid;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.sidebar-card {
+  flex-grow: 1;
+  margin: 10px;
+  border-color: #dddddd;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.sidebar-card-header {
+  background-color: #eeeeee;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px;
+}
+
+.sidebar-card-body {
+  padding: 0 15px 15px 15px;
 }

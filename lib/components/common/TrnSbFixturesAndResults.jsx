@@ -3,7 +3,10 @@ import { Components, registerComponent } from 'meteor/nova:core';
 
 const TrnSbFixturesAndResults = (props, context) => {
   return (
-    <div className='placeholder'>Fixtures & Results</div>
+    <div className='sidebar-card'>
+      <div className='sidebar-card-header'>Fixtures & Results</div>
+      <div className='sidebar-card-body placeholder'>&nbsp;</div>
+    </div>
   );
 };
 
