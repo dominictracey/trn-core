@@ -62,6 +62,14 @@
 }
 
 .users-account-menu, .users-menu{
+  
+  .dropdown-menu {
+    @include medium-large {
+      right: 0;
+      left: auto;
+    }
+  }
+  
   .dropdown-toggle{
     @include flex-center;
     padding: 0;
