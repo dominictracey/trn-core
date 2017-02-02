@@ -1,7 +1,5 @@
 import React, { PropTypes, Component }from 'react';
-import gql from 'graphql-tag';
-
-import { Components, registerComponent, withList, withCurrentUser } from 'meteor/nova:core';
+import { Components, registerComponent, withList, withCurrentUser, getFragment } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 import Users from 'meteor/nova:users';
 
@@ -86,37 +84,11 @@ CategoriesAdminPage.propTypes = {
   results: PropTypes.array,
 };
 
-CategoriesAdminPage.fragment = gql`
-  fragment adminPageCategoriesFragment on Category {
-    _id
-    name
-    description
-    order
-    slug
-    image
-    type
-    visible
-    trnId
-    abbr
-    attachedTeams {
-      _id
-      name
-      description
-      order
-      slug
-      image
-      type
-      visible
-      trnId
-      abbr
-    }
-  }
-`;
 
 const options = {
   collection: Categories,
   queryName: 'adminPageCategoriesListQuery',
-  fragment: CategoriesAdminPage.fragment,
+  fragment: getFragment('CategoriesList'),
   limit: 0,
 };
 

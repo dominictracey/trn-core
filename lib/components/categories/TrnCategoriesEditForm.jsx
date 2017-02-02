@@ -1,37 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { intlShape } from 'react-intl';
-import { Components, registerComponent, getRawComponent } from 'meteor/nova:lib';
-
+import { Components, replaceComponent, getFragment } from 'meteor/nova:core';
 import Categories from "meteor/nova:categories";
-import { withMessages } from 'meteor/nova:core';
-import gql from 'graphql-tag';
-
-const fragment = gql`
-  fragment trnCategoriesEditForm on Category {
-    _id
-name
-description
-order
-slug
-image
-type
-visible
-trnId
-abbr
-    attachedTeams {
-      _id
-name
-description
-order
-slug
-image
-type
-visible
-trnId
-abbr
-    }
-  }
-`;
 
 const CategoriesEditForm = (props, context) => {
 
@@ -40,8 +10,8 @@ const CategoriesEditForm = (props, context) => {
       <Components.SmartForm
         collection={Categories}
         documentId={props.category._id}
-        queryFragment={fragment}
-        mutationFragment={fragment}
+        queryFragment={getFragment('CategoriesList')}
+        mutationFragment={getFragment('CategoriesList')}
         successCallback={category => {
           props.closeCallback();
           props.flash(context.intl.formatMessage({id: 'categories.edit_success'}, {name: category.name}), "success");
@@ -49,7 +19,6 @@ const CategoriesEditForm = (props, context) => {
         removeSuccessCallback={({documentId, documentTitle}) => {
           props.closeCallback();
           props.flash(context.intl.formatMessage({id: 'categories.delete_success'}, {name: documentTitle}), "success");
-          // context.events.track("category deleted", {_id: documentId});
         }}
         showRemove={true}
       />
@@ -66,7 +35,6 @@ CategoriesEditForm.propTypes = {
 
 CategoriesEditForm.contextTypes = {
   intl: intlShape,
-  // events: React.PropTypes.object,
 };
 
-registerComponent('CategoriesEditForm', CategoriesEditForm, withMessages);
+replaceComponent('CategoriesEditForm', CategoriesEditForm);

@@ -1,6 +1,4 @@
-import { Components, replaceComponent, getRawComponent } from 'meteor/nova:core';
-
-import { ShowIf } from 'meteor/nova:core';
+import { Components, replaceComponent, getFragment } from 'meteor/nova:core';
 import Posts from "meteor/nova:posts";
 import React, { PropTypes, Component } from 'react';
 import { intlShape } from 'react-intl';
@@ -20,7 +18,7 @@ const TrnPostsNewForm = (props, context) => {
       <div className="posts-new-form">
         <Components.SmartForm
           collection={Posts}
-          mutationFragment={getRawComponent('PostsPage').fragment}
+          mutationFragment={getFragment('PostsPage')}
           successCallback={post => {
             props.closeModal();
             props.router.push({pathname: Posts.getPageUrl(post)});

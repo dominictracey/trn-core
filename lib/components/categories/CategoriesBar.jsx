@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import gql from 'graphql-tag';
-import { Components, registerComponent, getRawComponent, withDocument } from 'meteor/nova:core';
+import { Components, registerComponent, getFragment, withDocument } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
 const CategoriesBar = ({loading, document: category}, context) => {
@@ -35,37 +34,10 @@ const CategoriesBar = ({loading, document: category}, context) => {
   );
 };
 
-CategoriesBar.fragment = gql`
-  fragment barFragment on Category {
-    _id
-    name
-    description
-    order
-    slug
-    image
-    type
-    visible
-    trnId
-    abbr
-    attachedTeams {
-      _id
-      name
-      description
-      order
-      slug
-      image
-      type
-      visible
-      trnId
-      abbr
-    }
-  }
-`;
-
 const options = {
   collection: Categories,
   queryName: 'categoriesSingleQuery',
-  fragment: CategoriesBar.fragment,
+  fragment: getFragment('CategoriesList'),
 };
 
 registerComponent('CategoriesBar', CategoriesBar, withDocument(options));

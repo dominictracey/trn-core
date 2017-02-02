@@ -2,9 +2,8 @@ import React, {PropTypes, Component} from 'react'
 import { withRouter } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getActions, Components, registerComponent, getRawComponent, withList } from 'meteor/nova:core'
+import { getActions, Components, registerComponent, withList, getFragment } from 'meteor/nova:core'
 import Categories from 'meteor/nova:categories'
-import gql from 'graphql-tag';
 
 
 class TrnStandings extends Component {
@@ -34,7 +33,7 @@ class TrnStandings extends Component {
 	async componentDidMount() {
 		const {results: categories = []} = this.props
 
-		categories.length > 0 ? await this.getStandings(cats) : null
+		categories.length > 0 ? await this.getStandings(categories) : null
 	}
 
 	async getStandings(categories) {
@@ -45,10 +44,10 @@ class TrnStandings extends Component {
 		if (results != null && results.length > 0) {
 			trnId = results[0].trnId
 		}
-		console.log("Loading Standings")
+		console.log("Loading Standings") // eslint-disable-line
 		await loadCompStandings(trnId)
 		await loadCompetition(trnId)
-		console.log("Load complete")
+		console.log("Load complete") // eslint-disable-line
 		this.setState({trnId: trnId, showStandings: true})
 	}
 
@@ -95,18 +94,10 @@ class TrnStandings extends Component {
 	}
 }
 
-TrnStandings.fragment = gql`
-  fragment standingFragment on Category {
-    _id
-    slug
-    trnId
-  }
-`
-
 const options = {
 	collection: Categories,
 	queryName: 'categoriesSingleQuery',
-	fragment: TrnStandings.fragment,
+	fragment: getFragment('CategoriesMinimumInfo'),
 	limit: 0,
 };
 

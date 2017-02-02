@@ -1,8 +1,7 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Components, getRawComponent, registerComponent, withList } from 'meteor/nova:core';
+import { Components, replaceComponent } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
 const TrnCategoriesList = ({ loading, results: categories = [], router, typeFilter }, context) => {
@@ -47,39 +46,4 @@ const TrnCategoriesList = ({ loading, results: categories = [], router, typeFilt
 
 }
 
-// create a new fragment
-TrnCategoriesList.fragment = gql`
-  fragment visibleCategoriesListFragment on Category {
-    _id
-    name
-    description
-    order
-    slug
-    image
-    type
-    visible
-    trnId
-    abbr
-      attachedTeams {
-        _id
-        name
-        description
-        order
-        slug
-        image
-        type
-        visible
-        trnId
-        abbr
-      }
-    }
-`;
-
-const categoriesListOptions = {
-  collection: Categories,
-  queryName: 'visibleCategoriesListQuery',
-  fragment: TrnCategoriesList.fragment,
-  limit: 0,
-};
-
-registerComponent('CategoriesList', TrnCategoriesList, withList(categoriesListOptions));
+replaceComponent('CategoriesList', TrnCategoriesList);
