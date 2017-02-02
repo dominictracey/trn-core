@@ -26,11 +26,15 @@ class TrnStandings extends Component {
 			this.props.params.slug = nextProps.params.slug
 			this.getStandings(this.props.results)
 		}
+		else if (nextProps.results && !this.props.results){
+			this.getStandings(nextProps.results)
+		}
 	}
 
 	async componentDidMount() {
 		const {results: categories = []} = this.props
-		await this.getStandings(categories)
+
+		categories.length > 0 ? await this.getStandings(cats) : null
 	}
 
 	async getStandings(categories) {
