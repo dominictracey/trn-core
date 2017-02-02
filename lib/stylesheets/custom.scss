@@ -252,3 +252,27 @@ div.matchDate {
 .sidebar-card-body {
   padding: 0 15px 15px 15px;
 }
+
+.sidebar-icon {
+  font-size: 2em;
+  color: #abbaab;
+  padding-top: 2px;
+}
+
+.sidebar-sbwelcome-container {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.sidebar-sbwelcome-box {
+  padding: 5px 5px 0 5px;
+  text-align: center;
+}
+
+.sidebar-sbwelcome-box-dividers {
+  border-style: solid;
+  border-width: 0px 1px 0px 1px;
+  border-color: #dddddd;
+}

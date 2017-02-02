@@ -12,6 +12,7 @@ const TrnSidebar = (context) => {
   return (
     <div className='sidebar-container'>
       <Components.TrnSbProfile />
+      <Components.TrnSbWelcome />
       <Components.TrnSbFixturesAndResults />
       {standings}
     </div>
