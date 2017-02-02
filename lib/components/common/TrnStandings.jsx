@@ -1,10 +1,9 @@
 import React, {PropTypes, Component} from 'react'
-import { withRouter } from 'react-router'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { getActions, Components, registerComponent, withList, getFragment } from 'meteor/nova:core'
+import {withRouter} from 'react-router'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {getActions, Components, registerComponent, withList, getFragment} from 'meteor/nova:core'
 import Categories from 'meteor/nova:categories'
-
 
 class TrnStandings extends Component {
 
@@ -16,7 +15,8 @@ class TrnStandings extends Component {
 		this.state = {
 			trnId: -1,
 			loadingComp: false,
-			showStandings: false
+			showStandings: false,
+			teams : null,
 		};
 	}
 
@@ -25,7 +25,7 @@ class TrnStandings extends Component {
 			this.props.params.slug = nextProps.params.slug
 			this.getStandings(this.props.results)
 		}
-		else if (nextProps.results && !this.props.results){
+		else if (nextProps.results && !this.props.results) {
 			this.getStandings(nextProps.results)
 		}
 	}
@@ -37,36 +37,54 @@ class TrnStandings extends Component {
 	}
 
 	async getStandings(categories) {
-		const {loadCompStandings, loadCompetition} = this.props
+		const {loadCompStandings} = this.props
 		var trnId;
 
 		const results = categories ? categories.filter(cat => this.props.params.slug == cat.slug) : null
 		if (results != null && results.length > 0) {
 			trnId = results[0].trnId
 		}
+
 		console.log("Loading Standings") // eslint-disable-line
 		await loadCompStandings(trnId)
-		await loadCompetition(trnId)
+		//await loadCompetition(trnId)
 		console.log("Load complete") // eslint-disable-line
-		this.setState({trnId: trnId, showStandings: true})
+		this.setState({trnId: trnId, showStandings: true, teams: results[0].attachedTeams})
+	}
+
+	getPools(standingsArr) {
+		var pools = {}
+		pools[standingsArr[0].pool] = []
+		standingsArr.map((standing, index) => {
+			if (!pools[standing.pool]) {
+				pools[standing.pool] = []
+			}
+			pools[standing.pool].push(standing)
+		})
+
+		return pools
 	}
 
 	render() {
-		const {compStandingsById, teams} = this.props
+		const { compStandingsById } = this.props
 
 
 		var trnId = this.state.trnId != -1 ? this.state.trnId : null
-		const standingsArr = trnId && compStandingsById && teams && compStandingsById[trnId].standings ? compStandingsById[trnId].standings : null
+		const standingsArr = trnId && compStandingsById && this.state.teams && compStandingsById[trnId].standings ? compStandingsById[trnId].standings : null
 		var retval = null;
-		if(this.state.showStandings && standingsArr){
+		if (this.state.showStandings && standingsArr) {
 			retval = -1
 		}
-		else if(this.state.showStandings && !standingsArr){
+		else if (this.state.showStandings && !standingsArr) {
 			retval = <div>No Standings for this Competition</div>
 		}
-		else{
+		else {
 			retval = <Components.Loading />
 		}
+
+		const pools = standingsArr && standingsArr[0] && standingsArr[0].pool ? this.getPools(standingsArr) : null
+		const poolNames = pools && this.state.showStandings ? Object.getOwnPropertyNames(pools).sort() : null
+
 
 		return (
 			<div className='sidebar-card standings-container'>
@@ -81,13 +99,23 @@ class TrnStandings extends Component {
 						<div className="standings-col standings-col-stats standings-leg">Draw</div>
 						<div className="standings-col standings-col-stats standings-leg">Points</div>
 					</div>
-				{
-					retval && retval == -1 ? standingsArr.map((standing, index) => {
-						return  (
-							<Components.TrnStandingsRow key={standing.id.toString()} standing={standing} team={teams[standing.teamId]} />
-						)
-					}): retval
-				}
+
+					{!poolNames
+						?
+						retval && retval == -1 ? standingsArr.map((standing, index) => {
+								return (
+									<Components.TrnStandingsRow key={standing.id.toString()} standing={standing}
+									                            teams={this.state.teams}/>
+								)
+							}) : retval
+						:
+						poolNames.map((name, index) => {
+							return (
+								<Components.TrnStandingsPool key={index} pool={pools[name]} name={name} teams={this.state.teams}/>
+							)
+						})
+					}
+
 				</div>
 			</div>
 		)
@@ -97,7 +125,7 @@ class TrnStandings extends Component {
 const options = {
 	collection: Categories,
 	queryName: 'categoriesSingleQuery',
-	fragment: getFragment('CategoriesMinimumInfo'),
+	fragment: getFragment('CategoriesList'),
 	limit: 0,
 };
 

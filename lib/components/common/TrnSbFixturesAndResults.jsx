@@ -1,19 +1,28 @@
-import React, { PropTypes, Component } from 'react';
-import { Components, registerComponent } from 'meteor/nova:core';
+import React, {PropTypes, Component} from 'react';
+import {Components, registerComponent} from 'meteor/nova:core';
 
-const TrnSbFixturesAndResults = (props, context) => {
-  return (
-    <div className='sidebar-card'>
-      <div className='sidebar-card-header'>Fixtures & Results</div>
-      <div className='sidebar-card-body placeholder'>&nbsp;</div>
-    </div>
-  );
-};
+class TrnSbFixturesAndResults extends Component {
+	constructor() {
+		super()
+
+		this.state = {}
+	}
+
+	render() {
 
 
-TrnSbFixturesAndResults.propTypes = {
-  // post: React.PropTypes.object.isRequired
-};
+		return (
+			<div className="sidebar-container">
+				<div className="sidebar-card">
+					<div className='sidebar-card-header'>Fixtures and Results</div>
+					<div className='sidebar-card-body'>
+
+					</div>
+				</div>
+			</div>
+		)
+	}
+}
 
 TrnSbFixturesAndResults.displayName = "TrnSbFixturesAndResults";
 

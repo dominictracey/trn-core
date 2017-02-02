@@ -123,13 +123,24 @@ div.matchDate {
   background-color: bisque;
 }
 
-.standings-data{
+.container-header {
+  text-align: center;
+  font-weight: bold;
+}
+
+.fixtures-main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.fixtures-data {
+  display: flex;
   flex-direction: column;
 }
 
-.standings-head{
-  text-align: center;
-  font-weight: bold;
+.standings-data{
+  flex-direction: column;
 }
 
 .standings-leg {
@@ -144,20 +155,12 @@ div.matchDate {
   flex: 1;
 }
 
-.standings-col-ordinal {
-
-}
-
-.standings-col-stats {
-
-}
-
 .standings-col-logo {
   height: 18px;
 }
 
 .standings-col-name {
-  flex-grow: 2;
+  flex-grow: 3;
 }
 
 .wait{
@@ -247,6 +250,13 @@ div.matchDate {
   font-weight: 700;
   text-align: center;
   padding: 5px;
+}
+
+.sidebar-card-divider {
+  background-color: #f9f9f9;
+  font-weight: 300;
+  text-align: center;
+  padding: 3px;
 }
 
 .sidebar-card-body {
