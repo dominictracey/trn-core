@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {withRouter} from 'react-router'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {getActions, Components, registerComponent, withList, getFragment} from 'meteor/nova:core'
+import {getActions, Components, registerComponent, withDocument, getFragment} from 'meteor/nova:core'
 import Categories from 'meteor/nova:categories'
 
 class TrnStandings extends Component {
@@ -14,42 +14,35 @@ class TrnStandings extends Component {
 		// always define an inital state!
 		this.state = {
 			trnId: -1,
-			loadingComp: false,
 			showStandings: false,
 			teams : null,
 		};
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.props.params.slug != nextProps.params.slug) {
-			this.props.params.slug = nextProps.params.slug
-			this.getStandings(this.props.results)
+		if (this.props.document && this.props.document.slug != nextProps.document.slug) {
+			this.setState({showStandings: false})
+			this.getStandings(nextProps.document.trnId)
 		}
-		else if (nextProps.results && !this.props.results) {
-			this.getStandings(nextProps.results)
+		else if (nextProps.document && !this.props.document) {
+			this.getStandings(nextProps.document.trnId)
 		}
 	}
 
 	async componentDidMount() {
-		const {results: categories = []} = this.props
+		const {document: category} = this.props
 
-		categories.length > 0 ? await this.getStandings(categories) : null
+		category ? await this.getStandings(category.trnId) : null
 	}
 
-	async getStandings(categories) {
+	async getStandings(categoryId) {
 		const {loadCompStandings} = this.props
-		var trnId;
-
-		const results = categories ? categories.filter(cat => this.props.params.slug == cat.slug) : null
-		if (results != null && results.length > 0) {
-			trnId = results[0].trnId
-		}
 
 		console.log("Loading Standings") // eslint-disable-line
-		await loadCompStandings(trnId)
+		await loadCompStandings(categoryId)
 		//await loadCompetition(trnId)
 		console.log("Load complete") // eslint-disable-line
-		this.setState({trnId: trnId, showStandings: true, teams: results[0].attachedTeams})
+		this.setState({trnId: categoryId, showStandings: true, teams: this.props.document.attachedTeams})
 	}
 
 	getPools(standingsArr) {
@@ -139,4 +132,4 @@ const mapStateToProps = ({entities: {teams, compStandingsById}}) => ({teams, com
 const {loadCompStandings, loadCompetition} = getActions();
 const mapDispatchToProps = dispatch => bindActionCreators({loadCompStandings, loadCompetition}, dispatch);
 
-registerComponent('TrnStandings', TrnStandings, withRouter, withList(options), connect(mapStateToProps, mapDispatchToProps))
+registerComponent('TrnStandings', TrnStandings, withRouter, withDocument(options), connect(mapStateToProps, mapDispatchToProps))
