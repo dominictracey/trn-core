@@ -21,6 +21,8 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
       postClass += " post-blue"
     }
 
+    const domain = <span className='posts-item-domain'>{Posts.getLinkDomain(post)}</span>
+
     return (
       <div className={postClass}>
 
@@ -34,7 +36,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
 
           <h3 className="posts-item-title">
             <Link to={Posts.getLink(post)} className="posts-item-title-link" target={Posts.getLinkTarget(post)}>
-              {post.postType === 'match' ? <FormattedMessage id="trn.matchThread"/> : null }{post.title}
+              {post.postType === 'match' ? <FormattedMessage id="trn.matchThread"/> : null }{post.title}{domain}
             </Link>
             {this.renderCategories()}
           </h3>

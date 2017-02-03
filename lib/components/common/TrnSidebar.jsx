@@ -5,15 +5,14 @@ import { Components, registerComponent } from 'meteor/nova:core';
 const TrnSidebar = (context) => {
   //
   const currentCategorySlug = context.params.categoryType && context.params.categoryType == "c" ? context.params.categoryType : null;
-  // const newQuery = _.clone(router.location.query);
-  // newQuery.cat = category.slug;
   const standings = currentCategorySlug ? <Components.TrnStandings context={context}/> : null
-
+  const profile = false ? <Components.TrnSbProfile /> : null
+  const fixturesAndResults = false ? <Components.TrnSbFixturesAndResults /> : null
   return (
     <div className='sidebar-container'>
-      <Components.TrnSbProfile />
+      {profile}
       <Components.TrnSbWelcome />
-      <Components.TrnSbFixturesAndResults />
+      {fixturesAndResults}
       {standings}
     </div>
   )

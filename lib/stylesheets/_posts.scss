@@ -102,7 +102,7 @@
 
 .posts-item-vote{
   @include small{
-    float: right;    
+    float: right;
   }
   @include medium-large{
     margin-right: $hmargin;
@@ -158,6 +158,12 @@
       text-decoration: none;
     }
   }
+}
+
+.posts-item-domain{
+  font-size: $smaller-font;
+  padding: 0px 20px 0px 20px;
+  color: lightgrey;
 }
 
 .posts-categories{
@@ -283,7 +289,7 @@
     &:hover{
       background: inherit;
       color: inherit;
-      border: inherit;      
+      border: inherit;
     }
   }
   .posts-no-results{
