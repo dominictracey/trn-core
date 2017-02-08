@@ -30,6 +30,7 @@ cd /packages
 # clone the additional Nova packages
 git clone https://github.com/xavcz/nova-forms-upload.git
 git clone https://github.com/xavcz/nova-social-share.git
+git clone https://github.com/xavcz/nova-wires.git
 
 # clone the TRN packages
 git clone https://github.com/dominictracey/trn-core.git
@@ -47,7 +48,6 @@ The `.meteor/packages` text file should look like:
 
 nova:core                       # core components and wrappers
 nova:forms                      # auto-generated forms
-nova:apollo                     # data layer
 nova:routing                    # routing and server-side rendering
 nova:email                      # email
 nova:users                      # user management and permissions
@@ -92,6 +92,7 @@ accounts-password@1.3.3
 
 xavcz:nova-forms-upload
 xavcz:nova-social-share
+xavcz:nova-wires
 trn:rest-redux
 trn:core
 ```
