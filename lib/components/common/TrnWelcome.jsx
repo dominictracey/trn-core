@@ -11,6 +11,15 @@ const TrnWelcome = props => {
         <p>We are a group of rugby fans developing an exciting new open source platform to define the future of how we engage with the "sport played in heaven".
         We see so much potential for the rapidly changing landscape of social media, mobile, video and broadcast media, games and fantasy sports, stats and analysis and the free-wheeling global rugby calendar from test to social rugby.
         </p><p>
+        We've got a lot going for us already, including:
+        <ul>
+          <li>Detailed feeds of match statistics, standings and player data from the world's biggest competitions.</li>
+          <li>A robust <a href="http://www.rugby.net">analysis platform</a> for rating and comparing player performances.</li>
+          <li>Getting close to 10K in our <a href="http://facebook.com/TheRugbyNet/">Facebook</a> audience.</li>
+          <li>Lots of engagement from professional players on our <a href="http://twitter.com/TheRugbyNet">twitter</a> feed.</li>
+          <li>A good domain name.</li>
+          <li>Lots of rugby friends around the world!</li>
+        </ul>
         Our open community is growing so jump in and help shape the way forward! Here’s how:
         <ol>
           <li>Sign up for an account</li>

@@ -2,7 +2,6 @@ import { registerComponent, Components, getActions } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import FRC from 'formsy-react-components';
-// import Posts from "meteor/nova:posts";
 import { connect } from 'react-redux'
 
 const Input = FRC.Input;
@@ -22,11 +21,9 @@ class PostsMatchIdField extends Component {
   prefillFields(match) {
     // note: current values have more power than autofilled values
     // see https://github.com/TelescopeJS/Telescope/blob/master/packages/nova-forms/lib/Form.jsx#L390-L394
-    this.context.updateCurrentValues({ 
+    this.context.updateCurrentValues({
       title: match.displayName,
       postType: 'match',
-      //body: result.description,
-      //thumbnailUrl: result.thumbnailUrl
     });
     this.setState({
       loading: false,
@@ -34,17 +31,9 @@ class PostsMatchIdField extends Component {
   }
 
   // called whenever the URL input field loses focus
-  handleBlur() {
+  async handleBlur() {
     const { matches, loadMatch } = this.props
-
-
-
     const id = this.input.getValue();
-
-    // controlled component per https://facebook.github.io/react/docs/forms.html#controlled-components
-    // if (id !== this.state.value) {
-    //   this.setState({ value: id, })
-    // }
 
     if (id && id.length) {
 
@@ -52,25 +41,11 @@ class PostsMatchIdField extends Component {
         loading: true,
       })
 
-      // do we need this match
+      // do we need to fetch this match?
       if (!matches || !matches[id]) {
-        loadMatch(id)
-        console.log("waiting for match") // eslint-disable-line
-      } else {
-        this.prefillFields(matches[id])
+        await loadMatch(id)
       }
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { matches } = this.props
-    // hopefully this is our fetched match showing up
-    const id = this.input.getValue();
-
-    if (id && id.length && this.state.loading) {
-      if (matches && matches[id]) {
-        this.prefillFields(matches[id])
-      }
+      this.prefillFields(this.props.matches[id])
     }
   }
 

@@ -9,8 +9,6 @@ class TrnStandings extends Component {
 
 	constructor() {
 		super();
-		//this.getStandings = this.getStandings.bind(this);
-
 		// always define an inital state!
 		this.state = {
 			trnId: -1,

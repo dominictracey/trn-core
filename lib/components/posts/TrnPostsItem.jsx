@@ -18,7 +18,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
     if (post.postType === 'match') {
       postClass += " match-post-item"
     } else if (post.postType === 'video') {
-      postClass += " post-blue"
+      postClass += " video-post-item"
     }
 
     const domain = <span className='posts-item-domain'>{Posts.getLinkDomain(post)}</span>
