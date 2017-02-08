@@ -9,6 +9,8 @@ class TrnStandings extends Component {
 
 	constructor() {
 		super();
+		//this.getStandings = this.getStandings.bind(this);
+
 		// always define an inital state!
 		this.state = {
 			trnId: -1,
@@ -38,6 +40,7 @@ class TrnStandings extends Component {
 
 		console.log("Loading Standings") // eslint-disable-line
 		await loadCompStandings(categoryId)
+		//await loadCompetition(trnId)
 		console.log("Load complete") // eslint-disable-line
 		this.setState({trnId: categoryId, showStandings: true, teams: this.props.document.attachedTeams})
 	}
@@ -95,7 +98,7 @@ class TrnStandings extends Component {
 						retval && retval == -1 ? standingsArr.map((standing, index) => {
 								return (
 									<Components.TrnStandingsRow key={standing.id.toString()} standing={standing}
-																							teams={this.state.teams}/>
+									                            teams={this.state.teams}/>
 								)
 							}) : retval
 						:
@@ -126,7 +129,7 @@ const options = {
 TrnStandings.displayName = "TrnStandings"
 
 const mapStateToProps = ({entities: {teams, compStandingsById}}) => ({teams, compStandingsById})
-const {loadCompStandings} = getActions();
+const {loadCompStandings, loadCompetition} = getActions();
 const mapDispatchToProps = dispatch => bindActionCreators({loadCompStandings}, dispatch);
 
 registerComponent('TrnStandings', TrnStandings, withRouter, withDocument(options), connect(mapStateToProps, mapDispatchToProps))

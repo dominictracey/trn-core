@@ -293,3 +293,27 @@ div.matchDate {
   border-width: 0px 1px 0px 1px;
   border-color: #dddddd;
 }
+
+.FnR-match {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: solid #1e2e4f 1px;
+}
+
+.FnR-matchData {
+  display: flex;
+  justify-content: stretch;
+}
+
+.FnR-headerWarrows {
+  display: flex;
+  justify-content: space-around;
+}
+
+.FnR-arrow {
+  font-weight: 500;
+  font-size: 2em;
+  background-color: #84c6ff;
+}
