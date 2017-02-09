@@ -4,9 +4,9 @@ import { intlShape } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 
-const WiresNewButton = ({ currentUser, prefilledProps = {}, location }, context) => {
+const WiresNewButton = ({ currentUser, className = "", prefilledProps = {}, location }, context) => {
 
-  const button = <Button bsSize="small" className="trn-feedback-button" bsStyle="primary"><Components.Icon name="commenting" /></Button>;
+  const button = <Button bsSize="xsmall" className={className} bsStyle="primary"><Components.Icon name="commenting" /></Button>;
   
   const extendedPrefilledProps = {
     ...prefilledProps,
@@ -14,9 +14,11 @@ const WiresNewButton = ({ currentUser, prefilledProps = {}, location }, context)
   }
   
   return currentUser ? (
-    <Components.ModalTrigger size="large" title={context.intl.formatMessage({id: "wires.submit_feedback"})} component={button}>
-      <Components.WiresNewForm prefilledProps={extendedPrefilledProps} />
-    </Components.ModalTrigger>
+    <div className="trn-feedback-button">
+      <Components.ModalTrigger size="large" title={context.intl.formatMessage({id: "wires.submit_feedback"})} component={button}>
+        <Components.WiresNewForm prefilledProps={extendedPrefilledProps} />
+      </Components.ModalTrigger>
+    </div>
   ) : null;
   
 }

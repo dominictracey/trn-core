@@ -81,7 +81,12 @@ class TrnStandings extends Component {
 
 		return (
 			<div className='sidebar-card standings-container'>
-				<div className='sidebar-card-header'>Standings</div>
+				<div className='sidebar-card-header'>
+					<span>Standings</span>
+					<Components.WiresNewButton
+						prefilledProps={{context: "standings"}}
+					/>
+				</div>
 				<div className='standings-data sidebar-card-body'>
 					<div className='standings-row standings-leg'>
 						<div className='standings-col standings-col-ordinal standings-leg'>Rank</div>

@@ -7,7 +7,6 @@ const TrnWelcome = props => {
 
     <div className="welcome">
       <h3><FormattedMessage id="trn.welcomeBanner"/></h3>
-      <Components.WiresNewButton prefilledProps={{body: 'lol'}}/>
       <div>
         <p>We are a group of rugby fans developing an exciting new open source platform to define the future of how we engage with the "sport played in heaven".
         We see so much potential for the rapidly changing landscape of social media, mobile, video and broadcast media, games and fantasy sports, stats and analysis and the free-wheeling global rugby calendar from test to social rugby.

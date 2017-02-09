@@ -14,7 +14,16 @@ const TrnPostsNewButton = (props, context) => {
   const button = <Button className="posts-new-button" bsStyle="primary" disabled={!allowedToPost}><FormattedMessage id="posts.new_post"/></Button>;
   
   return !allowedToPost ? button : (
-    <Components.ModalTrigger size={size} title={context.intl.formatMessage({id: "posts.new_post"})} component={button}>
+    <Components.ModalTrigger 
+      size={size} 
+      title={
+        <div>
+          <FormattedMessage id="posts.new_post" />
+          <Components.WiresNewButton prefilledProps={{context: `new post form`}} />
+        </div>
+      } 
+      component={button}
+    >
       <Components.PostsNewForm />
     </Components.ModalTrigger>
   )

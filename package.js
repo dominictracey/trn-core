@@ -30,8 +30,7 @@ Package.onUse( function(api) {
   ], ['client']);
 
   api.addAssets([
-    'lib/server/emails/customNewPost.handlebars',
-    'lib/server/emails/customEmail.handlebars'
+    'lib/server/emails/newFeedback.handlebars',
   ], ['server']);
 
 });

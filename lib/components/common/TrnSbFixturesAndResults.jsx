@@ -97,7 +97,10 @@ class TrnSbFixturesAndResults extends Component {
 				<div className="sidebar-card">
 					<span className="FnR-headerWarrows">
 						{currentURO ? <div className='FnR-arrow' onClick={() => this.changeUro(currentURO-1)}>&lt;</div> : null}
-						<div className='sidebar-card-header'>Fixtures and Results</div>
+						<div className='sidebar-card-header'>
+							Fixtures and Results
+							<Components.WiresNewButton prefilledProps={{context: "fixtures sidebar"}} />
+						</div>
 						{currentURO ? <div className='FnR-arrow' onClick={() => this.changeUro(currentURO+1)}>&gt;</div> : null}
 					</span>
 

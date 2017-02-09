@@ -3,7 +3,6 @@ import Posts from "meteor/nova:posts";
 import React, { PropTypes, Component } from 'react';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router';
-import gql from 'graphql-tag';
 
 class TrnPostsItem extends getRawComponent('PostsItem') {
 
@@ -51,6 +50,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
             </div>
             {this.props.currentUser && this.props.currentUser.isAdmin ? <Components.PostsStats post={post} /> : null}
             {Posts.options.mutations.edit.check(this.props.currentUser, post) ? this.renderActions() : null}
+            <Components.WiresNewButton prefilledProps={{context: `post item ${post.title} (id: ${post._id})`}} />
           </div>
 
         </div>
