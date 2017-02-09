@@ -2,19 +2,19 @@ import React from 'react';
 import { withRouter } from 'react-router'
 import { Components, registerComponent } from 'meteor/nova:core';
 
-const TrnSidebar = (context) => {
+const TrnSidebar = (props) => {
 
-  const currentCategorySlug = context.params.categoryType && context.params.categoryType == "c" ? context.params.categoryType : null;
-  const standings = currentCategorySlug ? <Components.TrnStandings context={context} slug={context.params.slug} /> : null
-  const profile = false ? <Components.TrnSbProfile /> : null
-  const fixturesAndResults = context.params ? <Components.TrnSbFixturesAndResults catType={context.params.categoryType} slug={context.params.slug} /> : null
+  const currentCategorySlug = props.params.categoryType && props.params.categoryType == "c" ? props.params.categoryType : null;
+  const standings = currentCategorySlug ? <Components.TrnStandings props={props} slug={props.params.slug} /> : null
+  const profile = /*false ? <Components.TrnSbProfile /> :*/ null
+  const fixturesAndResults = props.params ? <Components.TrnSbFixturesAndResults catType={props.params.categoryType} slug={props.params.slug} /> : null
 
   return (
     <div className='sidebar-container'>
       {profile}
       <Components.TrnSbWelcome />
       {fixturesAndResults}
-      {standings}
+      {/* {standings} */}
     </div>
   )
 }

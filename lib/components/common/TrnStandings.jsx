@@ -9,7 +9,7 @@ class TrnStandings extends Component {
 
 	constructor() {
 		super();
-		//this.getStandings = this.getStandings.bind(this);
+		this.getStandings = this.getStandings.bind(this);
 
 		// always define an inital state!
 		this.state = {
@@ -19,30 +19,50 @@ class TrnStandings extends Component {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (this.props.document && this.props.document.slug != nextProps.document.slug) {
-			this.setState({showStandings: false})
-			this.getStandings(nextProps.document.trnId)
-		}
-		else if (nextProps.document && !this.props.document) {
-			this.getStandings(nextProps.document.trnId)
+	async componentWillReceiveProps(nextProps) {
+		try {
+			if (this.props.document && this.props.document.slug != nextProps.document.slug) {
+				this.setState({showStandings: false})
+				// Should do something but not that
+				// await this.getStandings(nextProps.document.trnId)
+			}
+			else if (nextProps.document && !this.props.document) {
+				// Should do something but not that
+				// await this.getStandings(nextProps.document.trnId)
+			}
+		} catch(e) {
+			console.error('error on will receive props', e);
 		}
 	}
 
 	async componentDidMount() {
-		const {document: category} = this.props
-
-		category ? await this.getStandings(category.trnId) : null
+		try {
+			const {document: category} = this.props
+			if (category) {				
+				await this.getStandings(category.trnId);
+			}
+			
+		} catch(e) {
+			console.error('error on did mount:', e);
+		}
 	}
 
 	async getStandings(categoryId) {
-		const {loadCompStandings} = this.props
-
-		console.log("Loading Standings") // eslint-disable-line
-		await loadCompStandings(categoryId)
-		//await loadCompetition(trnId)
-		console.log("Load complete") // eslint-disable-line
-		this.setState({trnId: categoryId, showStandings: true, teams: this.props.document.attachedTeams})
+		try {
+			const { loadCompStandings } = this.props
+			
+			console.log("Loading Standings") // eslint-disable-line
+			await loadCompStandings(categoryId)
+			//await loadCompetition(trnId)
+			console.log("Load complete") // eslint-disable-line
+			this.setState({
+				trnId: categoryId,
+				showStandings: true,
+				teams: this.props.document.attachedTeams
+			});
+		} catch(e) {
+			console.error('error loading standings', e);
+		}
 	}
 
 	getPools(standingsArr) {
@@ -102,8 +122,7 @@ class TrnStandings extends Component {
 						?
 						retval && retval == -1 ? standingsArr.map((standing, index) => {
 								return (
-									<Components.TrnStandingsRow key={standing.id.toString()} standing={standing}
-									                            teams={this.state.teams}/>
+									<Components.TrnStandingsRow key={standing.id.toString()} standing={standing} teams={this.state.teams}/>
 								)
 							}) : retval
 						:
