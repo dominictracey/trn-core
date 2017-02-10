@@ -255,8 +255,20 @@ div.matchDate {
 .sidebar-card-header {
   background-color: #eeeeee;
   font-weight: 700;
-  padding: 5px;
-  text-align: center;
+  padding: 5px 15px;
+  
+  &.sidebar-card-header--profile {
+    @include flex-center;
+    justify-content: space-between;
+    
+    > a {
+      @include flex-center;
+      
+      img {
+        margin-right: 5px;
+      }
+    }
+  }
 }
 
 .sidebar-card-divider {
@@ -330,4 +342,9 @@ div.matchDate {
   display: flex;
   float: right;
   margin-left: 3px;
+  line-height: 1;
+  
+  &.trn-feedback-button--sidebar {
+    float: inherit;
+  }
 }
