@@ -1,10 +1,12 @@
 import { Components, getRawComponent, replaceComponent } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
+import { withRouter } from 'react-router'
 
 class TrnLayout extends getRawComponent('Layout') {
 
   render() {
+    const { router: { params: {slug, categoryType}}} = this.props
 
     return (
       <div className="wrapper" id="wrapper">
@@ -26,7 +28,7 @@ class TrnLayout extends getRawComponent('Layout') {
                 {this.props.children}
               </Col>
               <Col xs={6} md={3}>
-                <Components.TrnSidebar/>
+                <Components.TrnSidebar slug={slug} categoryType={categoryType}/>
               </Col>
             </Row>
           </Grid>
@@ -42,4 +44,4 @@ class TrnLayout extends getRawComponent('Layout') {
 
 TrnLayout.displayName = "Layout";
 
-replaceComponent('Layout', TrnLayout);
+replaceComponent('Layout', TrnLayout, withRouter);
