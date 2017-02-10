@@ -2,9 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { Components, replaceComponent } from 'meteor/nova:core';
 
-const TrnPostsListHeader = ({router}, context) => {
+const TrnPostsListHeader = ({router}) => {
   const onCategoryRoutes = router.params.categoryType && router.params.slug;
-  
+
   return (
     <div>
       {onCategoryRoutes ? <Components.CategoriesBar slug={router.params.slug} /> : null}

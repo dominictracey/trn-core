@@ -1,33 +1,34 @@
 import React from 'react';
-import { withRouter } from 'react-router'
-import { Components, registerComponent, withCurrentUser } from 'meteor/nova:core';
+import { Components, registerComponent, withDocument, getFragment, withCurrentUser} from 'meteor/nova:core'
+import Categories from 'meteor/nova:categories'
 
-const TrnSidebar = (props) => {
 
-  const currentCategorySlug = props.params.categoryType && props.params.categoryType === "c" ? props.params.slug : null;
+const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
+
+  const currentCategorySlug = categoryType && categoryType == "c" ? categoryType : null;
 
   return (
     <div className='sidebar-container'>
       {
         // show profile sidebar is a user is connected
-        props.currentUser
-        ? <Components.TrnSbProfile documentId={props.currentUser._id} />
+        currentUser
+        ? <Components.TrnSbProfile documentId={currentUser._id} />
         : null
       }
-      
+
       <Components.TrnSbWelcome />
-      
+
       {
         // show the fixtures & results on a competition page
-        currentCategorySlug 
-        ? <Components.TrnSbFixturesAndResults catType={props.params.categoryType} slug={currentCategorySlug} />
+        currentCategorySlug
+        ? <Components.TrnSbFixturesAndResults category={category}/>
         : null
       }
-      
+
       {
         // show the fixtures & results on a competition page
-        currentCategorySlug 
-        ? <Components.TrnStandings props={props} slug={currentCategorySlug} /> 
+        currentCategorySlug
+        ? <Components.TrnStandings category={category} />
         : null
       }
     </div>
@@ -36,4 +37,10 @@ const TrnSidebar = (props) => {
 
 TrnSidebar.displayName = "TrnSidebar";
 
-registerComponent('TrnSidebar', TrnSidebar, withRouter, withCurrentUser);
+const options = {
+	collection: Categories,
+	queryName: 'categoriesSingleQuerySidebar',
+	fragment: getFragment('CategoriesList'),
+};
+
+registerComponent('TrnSidebar', TrnSidebar, withDocument(options), withCurrentUser);

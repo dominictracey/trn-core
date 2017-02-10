@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Components, registerComponent, getFragment, withDocument } from 'meteor/nova:core';
 import Categories from 'meteor/nova:categories';
 
-const CategoriesBar = ({loading, document: category}, context) => {
+const CategoriesBar = ({loading, document: category}) => {
 
   return loading || !category ? <Components.Loading /> : (
     <div className="category-bar">
@@ -13,23 +13,23 @@ const CategoriesBar = ({loading, document: category}, context) => {
       </div>
       {category.type === 'comp' && category.attachedTeams && category.attachedTeams.length ? <div className="category-bar-teams-wrapper">
         {
-          category.attachedTeams.map((team, index) => { 
-            
+          category.attachedTeams.map((team, index) => {
+
             const pathname = Categories.getUrl(team);
             const logo = Categories.getLogo(team);
-            
-            return team.abbr 
-              ? (<Link 
-                key={index} 
+
+            return team.abbr
+              ? (<Link
+                key={index}
                 to={{pathname}}>
                   <img src={logo} title={team.name} className="category-bar-teams-item" />
-               </Link>) 
+               </Link>)
                : null;
           })
         }
       </div>: null}
-        
-      
+
+
     </div>
   );
 };

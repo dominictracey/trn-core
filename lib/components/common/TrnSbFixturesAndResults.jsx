@@ -23,19 +23,19 @@ class TrnSbFixturesAndResults extends Component {
 
 	async componentWillReceiveProps(next) {
 		try {
-			const {loadConfiguration, universalRoundFnR, document: category, slug, catType, config, loadFixturesAndResults} = this.props
+			const {loadConfiguration, universalRoundFnR, category, config, loadFixturesAndResults} = next
 
 			if(Object.keys(config).length == 0) {
-				loadConfiguration()
+				await loadConfiguration()
 				return
 			}
-			if(this.state.dispUro == 0){
+			if(this.state.dispUro == 0 || this.props.category.trnId != next.category.trnId){
 				this.setState({dispUro: config[Object.keys(config)[0]].currentUROrdinal})
 			}
 
-			let fNRKey = config[Object.keys(config)[0]].currentUROrdinal + category.trnId
+			let fNRKey = this.state.dispUro + category.trnId
 			if(!universalRoundFnR || !universalRoundFnR[fNRKey] ) {
-				loadFixturesAndResults(this.state.dispUro, category.trnId)
+				await loadFixturesAndResults(this.state.dispUro, category.trnId)
 			}
 			
 		} catch(e) {
@@ -77,7 +77,7 @@ class TrnSbFixturesAndResults extends Component {
 			}
 			let key = uro+trnId
 			if (universalRoundFnR && !universalRoundFnR[key]) {
-				loadFixturesAndResults(uro, trnId)
+				await loadFixturesAndResults(uro, trnId)
 			}
 
 		} catch(e) {
@@ -87,7 +87,7 @@ class TrnSbFixturesAndResults extends Component {
 	}
 
 	render() {
-		const {universalRoundFnR, config, document: category} = this.props
+		const {universalRoundFnR, config, category} = this.props
 
 		let currentURO = Object.keys(config)[0] ? config[Object.keys(config)[0]].currentUROrdinal : null
 		let dispUro = 0
@@ -100,22 +100,16 @@ class TrnSbFixturesAndResults extends Component {
 		if(universalRoundFnR && category && Object.keys(config)[0]){
 			console.log("I have the Fixtures and Results.")
 			if(dispUro == currentURO){
-				console.log("Display current URO")
 				fixAndRes = this.resultsForComp(config[Object.keys(config)[0]].currentUROrdinal, category.trnId,  universalRoundFnR)
 				when = <div className="sidebar-card-divider">Current</div>
-				console.log(`Ordinal: ${config[Object.keys(config)[0]].currentUROrdinal}, ID: ${category.trnId}, Thing: ${universalRoundFnR[currentURO.toString()+category.trnId.toString()].compFandRs[0].compId}`)
-			}
+		}
 			else if(dispUro == currentURO-1){
-				console.log("Display previous URO")
 				fixAndRes = this.resultsForComp(dispUro, category.trnId,  universalRoundFnR)
 				when = <div className="sidebar-card-divider">Last</div>
-				console.log(`Ordinal: ${dispUro}, ID: ${category.trnId}`)
 			}
 			else if(dispUro == currentURO+1){
-				console.log("Display next URO")
 				fixAndRes = this.resultsForComp(dispUro, category.trnId,  universalRoundFnR)
 				when = <div className="sidebar-card-divider">Next</div>
-				console.log(`Ordinal: ${dispUro}, ID: ${category.trnId}`)
 			}
 		}
 
@@ -143,17 +137,10 @@ class TrnSbFixturesAndResults extends Component {
 	}
 }
 
-const options = {
-	collection: Categories,
-	queryName: 'categoriesSingleQuery',
-	fragment: getFragment('CategoriesList'),
-
-};
-
 TrnSbFixturesAndResults.displayName = "TrnSbFixturesAndResults";
 
 const mapStateToProps = ({entities: {universalRoundFnR, config}}) => ({universalRoundFnR, config})
 const {loadFixturesAndResults, loadConfiguration} = getActions()
 const mapDispatchToProps = dispatch => bindActionCreators({loadFixturesAndResults, loadConfiguration}, dispatch);
 
-registerComponent('TrnSbFixturesAndResults', TrnSbFixturesAndResults, withRouter, withDocument(options), connect(mapStateToProps, mapDispatchToProps));
+registerComponent('TrnSbFixturesAndResults', TrnSbFixturesAndResults, connect(mapStateToProps, mapDispatchToProps));

@@ -1,47 +1,23 @@
 import React, {PropTypes, Component} from 'react'
-import {withRouter} from 'react-router'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {getActions, Components, registerComponent, withDocument, getFragment} from 'meteor/nova:core'
-import Categories from 'meteor/nova:categories'
+import {getActions, Components, registerComponent} from 'meteor/nova:core'
 
 class TrnStandings extends Component {
 
 	constructor() {
 		super();
-		this.getStandings = this.getStandings.bind(this);
-
-		// always define an inital state!
-		this.state = {
-			trnId: -1,
-			showStandings: false,
-			teams : null,
-		};
+		this.getStandings = this.getStandings.bind(this)
+		this.getPools = this.getPools.bind(this)
 	}
 
-	async componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps(next) {
 		try {
-			if (this.props.document && this.props.document.slug != nextProps.document.slug) {
-				this.setState({showStandings: false})
-				// Should do something but not that
-				// await this.getStandings(nextProps.document.trnId)
+			const {category : {trnId}, compStandingsById} = next
+			if (trnId && (!compStandingsById || !compStandingsById[trnId])) {
+				this.getStandings(trnId);
 			}
-			else if (nextProps.document && !this.props.document) {
-				// Should do something but not that
-				// await this.getStandings(nextProps.document.trnId)
-			}
-		} catch(e) {
-			console.error('error on will receive props', e);
-		}
-	}
 
-	async componentDidMount() {
-		try {
-			const {document: category} = this.props
-			if (category) {				
-				await this.getStandings(category.trnId);
-			}
-			
 		} catch(e) {
 			console.error('error on did mount:', e);
 		}
@@ -50,16 +26,10 @@ class TrnStandings extends Component {
 	async getStandings(categoryId) {
 		try {
 			const { loadCompStandings } = this.props
-			
+
 			console.log("Loading Standings") // eslint-disable-line
 			await loadCompStandings(categoryId)
-			//await loadCompetition(trnId)
 			console.log("Load complete") // eslint-disable-line
-			this.setState({
-				trnId: categoryId,
-				showStandings: true,
-				teams: this.props.document.attachedTeams
-			});
 		} catch(e) {
 			console.error('error loading standings', e);
 		}
@@ -79,25 +49,18 @@ class TrnStandings extends Component {
 	}
 
 	render() {
-		const { compStandingsById } = this.props
+		const { compStandingsById, category } = this.props
 
-
-		var trnId = this.state.trnId != -1 ? this.state.trnId : null
-		const standingsArr = trnId && compStandingsById && this.state.teams && compStandingsById[trnId].standings ? compStandingsById[trnId].standings : null
-		var retval = null;
-		if (this.state.showStandings && standingsArr) {
-			retval = -1
-		}
-		else if (this.state.showStandings && !standingsArr) {
-			retval = <div>No Standings for this Competition</div>
-		}
-		else {
-			retval = <Components.Loading />
+		if (!category || !compStandingsById || !compStandingsById[category.trnId]) {
+			return <Components.Loading />
 		}
 
-		const pools = standingsArr && standingsArr[0] && standingsArr[0].pool ? this.getPools(standingsArr) : null
-		const poolNames = pools && this.state.showStandings ? Object.getOwnPropertyNames(pools).sort() : null
+		if (!compStandingsById[category.trnId].standings) {
+			return (<div>No Standings for this Competition</div>)
+		}
 
+		const pools = compStandingsById[category.trnId].standings[0].pool ? this.getPools(compStandingsById[category.trnId].standings) : null
+		const poolNames = pools ? Object.getOwnPropertyNames(pools).sort() : null
 
 		return (
 			<div className='sidebar-card standings-container'>
@@ -118,17 +81,15 @@ class TrnStandings extends Component {
 						<div className="standings-col standings-col-stats standings-leg">Points</div>
 					</div>
 
-					{!poolNames
-						?
-						retval && retval == -1 ? standingsArr.map((standing, index) => {
+					{!poolNames ? compStandingsById[category.trnId].standings.map((standing, index) => {
 								return (
-									<Components.TrnStandingsRow key={standing.id.toString()} standing={standing} teams={this.state.teams}/>
+									<Components.TrnStandingsRow key={standing.id.toString()} standing={standing} teams={category.attachedTeams}/>
 								)
-							}) : retval
+							})
 						:
 						poolNames.map((name, index) => {
 							return (
-								<Components.TrnStandingsPool key={index} pool={pools[name]} name={name} teams={this.state.teams}/>
+								<Components.TrnStandingsPool key={index} pool={pools[name]} name={name} teams={category.attachedTeams}/>
 							)
 						})
 					}
@@ -139,21 +100,10 @@ class TrnStandings extends Component {
 	}
 }
 
-const options = {
-	collection: Categories,
-	queryName: 'categoriesSingleQuery',
-	fragment: getFragment('CategoriesList'),
-	limit: 0,
-};
-
-// TrnStandings.propTypes = {
-//   // post: React.PropTypes.object.isRequired
-// };
-
 TrnStandings.displayName = "TrnStandings"
 
 const mapStateToProps = ({entities: {teams, compStandingsById}}) => ({teams, compStandingsById})
-const {loadCompStandings, loadCompetition} = getActions();
+const {loadCompStandings} = getActions();
 const mapDispatchToProps = dispatch => bindActionCreators({loadCompStandings}, dispatch);
 
-registerComponent('TrnStandings', TrnStandings, withRouter, withDocument(options), connect(mapStateToProps, mapDispatchToProps))
+registerComponent('TrnStandings', TrnStandings, connect(mapStateToProps, mapDispatchToProps))
