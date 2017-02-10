@@ -1,29 +1,46 @@
 import React from 'react';
-import { Components, registerComponent, withDocument, getFragment} from 'meteor/nova:core'
+import { Components, registerComponent, withDocument, getFragment, withCurrentUser} from 'meteor/nova:core'
 import Categories from 'meteor/nova:categories'
 
-const TrnSidebar = ({slug, categoryType, document: category}) => {
+
+const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
 
   const currentCategorySlug = categoryType && categoryType == "c" ? categoryType : null;
-  const standings = currentCategorySlug ? <Components.TrnStandings category={category}/> : null
-  const profile = /*false ? <Components.TrnSbProfile /> :*/ null
-  const fixturesAndResults = categoryType ? <Components.TrnSbFixturesAndResults category={category}/> : null
 
   return (
     <div className='sidebar-container'>
-      {profile}
+      {
+        // show profile sidebar is a user is connected
+        currentUser
+        ? <Components.TrnSbProfile documentId={currentUser._id} />
+        : null
+      }
+
       <Components.TrnSbWelcome />
-      {fixturesAndResults}
-      {standings}
+
+      {
+        // show the fixtures & results on a competition page
+        currentCategorySlug
+        ? <Components.TrnSbFixturesAndResults category={category}/>
+        : null
+      }
+
+      {
+        // show the fixtures & results on a competition page
+        currentCategorySlug
+        ? <Components.TrnStandings category={category} />
+        : null
+      }
     </div>
   )
 }
 
 TrnSidebar.displayName = "TrnSidebar";
+
 const options = {
 	collection: Categories,
 	queryName: 'categoriesSingleQuerySidebar',
 	fragment: getFragment('CategoriesList'),
 };
-//registerComponent('TrnSidebar', TrnSidebar, withRouter, withDocument(options));
-registerComponent('TrnSidebar', TrnSidebar, withDocument(options));
+
+registerComponent('TrnSidebar', TrnSidebar, withDocument(options), withCurrentUser);
