@@ -1,14 +1,12 @@
 import React, {PropTypes, Component} from 'react';
-import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {getActions, Components, registerComponent, withDocument, getFragment} from 'meteor/nova:core'
-import Categories from 'meteor/nova:categories'
+import {getActions, Components, registerComponent} from 'meteor/nova:core'
 
 class TrnSbFixturesAndResults extends Component {
 	constructor() {
 		super()
-		
+
 		this.changeUro = this.changeUro.bind(this);
 		this.resultsForComp = this.resultsForComp.bind(this);
 
@@ -37,7 +35,7 @@ class TrnSbFixturesAndResults extends Component {
 			if(!universalRoundFnR || !universalRoundFnR[fNRKey] ) {
 				await loadFixturesAndResults(this.state.dispUro, category.trnId)
 			}
-			
+
 		} catch(e) {
 			console.error('will receive props error', e);
 		}
@@ -45,7 +43,7 @@ class TrnSbFixturesAndResults extends Component {
 
 	resultsForComp(uro, catId, rawResults) {
 		const key = uro+catId
-		
+
 		if(rawResults && Object.keys(rawResults).length > 0){
 			if(rawResults[key] && rawResults[key].compFandRs) {
 				return (rawResults[key].compFandRs.map((comp, index) => {

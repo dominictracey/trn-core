@@ -14,6 +14,18 @@ addRoute({
 })
 
 addRoute({
+  name: "users.single",
+  path: "u/:slug",
+  component: getComponent("UsersSingle"),
+})
+//{name:'users.single',   path:'users/:slug',           componentName: 'UsersSingle'},
+addRoute({
+  name: "users.edit",
+  path: "u/:slug/edit",
+  component: getComponent("UsersAccount"),
+})
+//{name:'users.edit',     path:'users/:slug/edit',      componentName: 'UsersAccount'},
+addRoute({
   name:"adminRoute",
   path:"/admin",
   component: getComponent("CategoriesAdminPage"),

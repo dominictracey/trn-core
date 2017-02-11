@@ -14,7 +14,7 @@ const TrnUsersMenu = ({currentUser, client}, context) => (
         <div>{Users.getDisplayName(currentUser)}</div>
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <LinkContainer to={`/users/${currentUser.slug}`}>
+        <LinkContainer to={`/u/${currentUser.slug}`}>
           <MenuItem className="dropdown-item" eventKey="1"><FormattedMessage id="users.profile"/></MenuItem>
         </LinkContainer>
         <LinkContainer to={`/account`}>

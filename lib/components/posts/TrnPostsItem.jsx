@@ -21,6 +21,7 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
     }
 
     const domain = <span className='posts-item-domain'>{Posts.getLinkDomain(post)}</span>
+    const local = post.postType !== 'match' && post.postType !== 'video'
 
     return (
       <div className={postClass}>
@@ -34,15 +35,16 @@ class TrnPostsItem extends getRawComponent('PostsItem') {
         <div className="posts-item-content">
 
           <h3 className="posts-item-title">
-            <Link to={Posts.getLink(post)} className="posts-item-title-link" target={Posts.getLinkTarget(post)}>
+            <Link to={Posts.getLink(post, false, local)} className="posts-item-title-link" target={Posts.getLinkTarget(post)}>
               {post.postType === 'match' ? <FormattedMessage id="trn.matchThread"/> : null }{post.title}{domain}
             </Link>
             {this.renderCategories()}
           </h3>
 
           <div className="posts-item-meta">
-            {post.user? <div className="posts-item-user"><Components.UsersAvatar user={post.user} size="small"/><Components.UsersName user={post.user}/></div> : null}
-            <div className="posts-item-date"><FormattedRelative value={post.postedAt}/></div>
+            <span className="posts-item-date">
+              Submitted by {post.user? <Components.UsersName user={post.user}/> : null} <FormattedRelative value={post.postedAt}/>
+            </span>
             <div className="posts-item-comments">
               <Link to={Posts.getPageUrl(post)}>
                 <FormattedMessage id="comments.count" values={{count: post.commentCount}}/>
