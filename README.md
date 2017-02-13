@@ -36,6 +36,7 @@ git clone https://github.com/xavcz/nova-wires.git
 # clone the TRN packages
 git clone https://github.com/dominictracey/trn-core.git
 git clone https://github.com/dominictracey/trn-rest-redux.git
+git clone https://github.com/dominictracey/trn-region-country-user.git
 
 # go to next section of the readme to tell Nova to start the app with them :)
 ```
