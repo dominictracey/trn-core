@@ -1,41 +1,40 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import { Components, registerComponent, withDocument, getFragment } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/nova:core';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import Users from 'meteor/nova:users';
 
-const TrnSbProfile = ({ document: user, loading }, context) => {
-  return loading ? <Components.Loading /> : (
-      <div className='sidebar-card'>
-        <div className='sidebar-card-header sidebar-card-header--profile'>
-          <Link to='/account'>
-            <Components.UsersAvatar size='small' user={user} link={false} />
-            <div>{Users.getDisplayName(user)}</div>
-          </Link> 
-          <Components.WiresNewButton
-            prefilledProps={{context: 'profile sidebar'}}
-            className="profile-feedback"
-          />
-        </div>
-        <div className='sidebar-card-body'>
-          {
-            ['Posts', 'Comments'].map(type => {
-              
-              // upvotedPosts \\ upvotedComments  
-              const dataType = `upvoted${type}`;  
-              
-              // extract the field define above, default value empty array
-              const votesArray = user[dataType] || []; 
-              
-              return (
-                <div className='users-profile-votes' key={type}>
-                  <FormattedMessage id={`users.upvoted${type}`} values={{total: votesArray.length}} />
-                </div>
-              )
-            })
-          }
-          
-        </div>
+const TrnSbProfile = ({ loading, currentUser, data: { postsList = [], commentsUsersList = [] }}, context) => {
+  if (loading) {
+    return <Components.Loading />;
+  }
+  
+  // loop over a list of posts / comments, and accumulate each upvotes
+  const upvotesTotalList = [postsList, commentsUsersList].map(list => list.reduce((total, item) => total + item.upvotes, 0));
+  
+  return (
+    <div className='sidebar-card'>
+      <div className='sidebar-card-header sidebar-card-header--profile'>
+        <Link to='/account'>
+          <Components.UsersAvatar size='small' user={currentUser} link={false} />
+          <div>{Users.getDisplayName(currentUser)}</div>
+        </Link> 
+        <Components.WiresNewButton
+          prefilledProps={{context: 'profile sidebar'}}
+          className="profile-feedback"
+        />
+      </div>
+      <div className='sidebar-card-body'>
+        {
+          ['posts', 'comments'].map((type, index) => (
+            <div className='users-profile-votes' key={type}>
+              <FormattedMessage id={`profile.${type}Karma`} values={{total: upvotesTotalList[index]}} />
+            </div>
+          )) 
+        }
+      </div>
     </div>
   );
 };
@@ -47,11 +46,15 @@ TrnSbProfile.propTypes = {
 
 TrnSbProfile.displayName = 'TrnSbProfile';
 
-const options = {
-  collection: Users,
-  fragment: getFragment('UsersProfile'),
-  queryName: 'usersProfileSidebar',
-  pollInterval: 5000,
-};
+const withData = graphql(gql`
+  query usersStats($terms: JSON) {
+    postsList(terms: $terms) {
+      upvotes
+    }
+    commentsUsersList(terms: $terms) {
+      upvotes
+    }
+  }
+`);
 
-registerComponent('TrnSbProfile', TrnSbProfile, [withDocument, options]);
+registerComponent('TrnSbProfile', TrnSbProfile, withData);
