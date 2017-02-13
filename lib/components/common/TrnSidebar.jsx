@@ -12,7 +12,7 @@ const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
       {
         // show profile sidebar is a user is connected
         currentUser
-        ? <Components.TrnSbProfile documentId={currentUser._id} />
+        ? <Components.TrnSbProfile currentUser={currentUser} terms={{userId: currentUser._id, limit: 0}} />
         : null
       }
 
