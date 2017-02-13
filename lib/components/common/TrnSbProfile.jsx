@@ -6,13 +6,10 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Users from 'meteor/nova:users';
 
-const TrnSbProfile = ({ loading, currentUser, data: { postsList = [], commentsUsersList = [] }}, context) => {
+const TrnSbProfile = ({ loading, currentUser, data }, context) => {
   if (loading) {
     return <Components.Loading />;
   }
-  
-  // loop over a list of posts / comments, and accumulate each upvotes
-  const upvotesTotalList = [postsList, commentsUsersList].map(list => list.reduce((total, item) => total + item.upvotes, 0));
   
   return (
     <div className='sidebar-card'>
@@ -28,11 +25,17 @@ const TrnSbProfile = ({ loading, currentUser, data: { postsList = [], commentsUs
       </div>
       <div className='sidebar-card-body'>
         {
-          ['posts', 'comments'].map((type, index) => (
-            <div className='users-profile-votes' key={type}>
-              <FormattedMessage id={`profile.${type}Karma`} values={{total: upvotesTotalList[index]}} />
-            </div>
-          )) 
+          ['Posts', 'Comments'].map((collectionType, index) => {
+            
+            const totalKarmaValue = data[`total${collectionType}Karma`];
+            const intlId = totalKarmaValue ? `profile.total${collectionType}Karma` : `profile.no${collectionType}Karma`;
+            
+            return (
+              <div className='users-profile-votes' key={collectionType}>
+                <FormattedMessage id={intlId} values={{totalKarmaValue}} />
+              </div>
+            );
+          }) 
         }
       </div>
     </div>
@@ -46,15 +49,17 @@ TrnSbProfile.propTypes = {
 
 TrnSbProfile.displayName = 'TrnSbProfile';
 
+// ask for total karma on posts & comments, aliasing the field name (same query with different args)
 const withData = graphql(gql`
-  query usersStats($terms: JSON) {
-    postsList(terms: $terms) {
-      upvotes
-    }
-    commentsUsersList(terms: $terms) {
-      upvotes
-    }
+  query userTotalPostsAndCommentsKarma($userId: String!) {
+    totalPostsKarma: userTotalKarma(userId: $userId, collectionType: "Posts")
+    totalCommentsKarma: userTotalKarma(userId: $userId, collectionType: "Comments")
   }
-`);
+`, {
+  // destructure props
+  options: ({ userId }) => ({
+    variables: { userId },
+  })
+});
 
 registerComponent('TrnSbProfile', TrnSbProfile, withData);
