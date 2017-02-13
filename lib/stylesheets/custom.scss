@@ -308,26 +308,67 @@ div.matchDate {
 
 .FnR-match {
   display: flex;
-  flex-direction: column;
+  //flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border: solid #1e2e4f 1px;
+  border: solid #eeeeee 1px;
 }
 
 .FnR-matchData {
   display: flex;
-  justify-content: stretch;
+  font-size: small;
+  padding: 0px 5px;
+}
+
+.FnR-match-teamLogo {
+  height: 30px;
+  padding-left: 2px;
+}
+
+.FnR-match-team {
+  display: flex;
+  justify-content: space-between;
+  flex-shrink: 1;
+}
+
+.FnR-match-scores {
+  display: flex;
+  flex-shrink: 1;
+  justify-content: space-between;
+  padding: 0px 5px;
+  //background-color: #b6b6b6;
+}
+
+.FnR-match-teamScore {
+  font-weight: bold;
+}
+
+.FnR-match-date {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.FnR-match-time {
+  font-size: smaller;
 }
 
 .FnR-headerWarrows {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .FnR-arrow {
-  font-weight: 500;
-  font-size: 2em;
-  background-color: #84c6ff;
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  padding: 5px 5px;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-xs,

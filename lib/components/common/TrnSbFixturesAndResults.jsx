@@ -1,7 +1,9 @@
 import React, {PropTypes, Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import { Button } from 'react-bootstrap'
 import {getActions, Components, registerComponent} from 'meteor/nova:core'
+import { Utils } from 'meteor/nova:lib'
 
 class TrnSbFixturesAndResults extends Component {
 	constructor() {
@@ -14,10 +16,6 @@ class TrnSbFixturesAndResults extends Component {
 			dispUro: 0
 		}
 	}
-
-	// componentDidMount() {
-	// 	const { config} = this.props
-	// }
 
 	async componentWillReceiveProps(next) {
 		try {
@@ -81,7 +79,7 @@ class TrnSbFixturesAndResults extends Component {
 		} catch(e) {
 			console.error('change uro', e);
 		}
-		console.log('New fixtures');
+		//console.log('New fixtures');
 	}
 
 	render() {
@@ -90,24 +88,20 @@ class TrnSbFixturesAndResults extends Component {
 		let currentURO = Object.keys(config)[0] ? config[Object.keys(config)[0]].currentUROrdinal : null
 		let dispUro = 0
 		let fixAndRes = null
-		let when = null
 
 		if(this.state.dispUro != 0){
 			dispUro = this.state.dispUro
 		}
 		if(universalRoundFnR && category && Object.keys(config)[0]){
-			console.log("I have the Fixtures and Results.")
+			//console.log("I have the Fixtures and Results.")
 			if(dispUro == currentURO){
 				fixAndRes = this.resultsForComp(config[Object.keys(config)[0]].currentUROrdinal, category.trnId,  universalRoundFnR)
-				when = <div className="sidebar-card-divider">Current</div>
 		}
 			else if(dispUro == currentURO-1){
 				fixAndRes = this.resultsForComp(dispUro, category.trnId,  universalRoundFnR)
-				when = <div className="sidebar-card-divider">Last</div>
 			}
 			else if(dispUro == currentURO+1){
 				fixAndRes = this.resultsForComp(dispUro, category.trnId,  universalRoundFnR)
-				when = <div className="sidebar-card-divider">Next</div>
 			}
 		}
 
@@ -115,15 +109,14 @@ class TrnSbFixturesAndResults extends Component {
 		return (
 			<div className="sidebar-container">
 				<div className="sidebar-card">
-					<span className="FnR-headerWarrows">
-						{currentURO && category ? <div className='FnR-arrow' onClick={() => this.changeUro(-1, category.trnId)}>&lt;</div> : null}
+					<span className="FnR-headerWarrows sidebar-card-header">
+						{currentURO && category ? <div className='FnR-arrow' onClick={() => this.changeUro(-1, category.trnId)}><Components.Icon name='angle-left'/></div> : null}
 						<div className='sidebar-card-header'>
 							Fixtures and Results
 							<Components.WiresNewButton prefilledProps={{context: "fixtures sidebar"}} />
 						</div>
-						{currentURO && category ? <div className='FnR-arrow' onClick={() => this.changeUro(+1, category.trnId)}>&gt;</div> : null}
+						{currentURO && category ? <div className='FnR-arrow' onClick={() => this.changeUro(+1, category.trnId)}><Components.Icon name='angle-right'/></div> : null}
 					</span>
-					{when ? when : null}
 					<div className='sidebar-card-body'>
 						{
 							fixAndRes ? fixAndRes : <Components.Loading/>
