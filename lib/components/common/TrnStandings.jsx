@@ -52,7 +52,17 @@ class TrnStandings extends Component {
 		const { compStandingsById, category } = this.props
 
 		if (!category || !compStandingsById || !compStandingsById[category.trnId]) {
-			return <Components.Loading />
+			return (
+				<div className='sidebar-card standings-container'>
+					<div className='sidebar-card-header'>
+						<span>Standings</span>
+						<Components.WiresNewButton prefilledProps={{context: "standings-loading"}} />
+					</div>
+					<div className='standings-data sidebar-card-body'>
+						<Components.Loading />
+					</div>
+				</div>
+			)
 		}
 
 		if (!compStandingsById[category.trnId].standings) {

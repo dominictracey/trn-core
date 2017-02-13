@@ -253,9 +253,11 @@ div.matchDate {
 }
 
 .sidebar-card-header {
+  display: flex;
   background-color: #eeeeee;
   font-weight: 700;
   padding: 5px 15px;
+  justify-content: center;
   
   &.sidebar-card-header--profile {
     @include flex-center;

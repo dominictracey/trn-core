@@ -40,12 +40,13 @@ class TrnSbFixturesAndResults extends Component {
 	}
 
 	resultsForComp(uro, catId, rawResults) {
+		const { category } = this.props
 		const key = uro+catId
 
 		if(rawResults && Object.keys(rawResults).length > 0){
 			if(rawResults[key] && rawResults[key].compFandRs) {
 				return (rawResults[key].compFandRs.map((comp, index) => {
-					return <Components.TrnSingleFnR comp={comp} key={comp.compId}/>
+					return <Components.TrnSingleFnR comp={comp} key={comp.compId} category={category}/>
 					})
 				)
 			}
