@@ -348,11 +348,13 @@ div.matchDate {
 .FnR-match-date {
   display: flex;
   flex-direction: column;
-
 }
 
 .FnR-match-time {
   font-size: smaller;
+  height: 20px;
+  width: 100px;
+  margin: auto;
 }
 
 .FnR-headerWarrows {
@@ -390,4 +392,18 @@ div.matchDate {
   &.trn-feedback-button--sidebar {
     float: inherit;
   }
+}
+
+.playerStats-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.playerStats-row-name {
+  flex: 2;
+  padding: 0px 3px;
+}
+.playerStats-rowData {
+  flex: 1;
 }
