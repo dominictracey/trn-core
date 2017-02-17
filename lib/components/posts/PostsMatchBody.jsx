@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { getActions, registerComponent, withMessages } from 'meteor/nova:core';
 import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
 import _ from 'lodash'
-import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
+import { Grid, Col, Row, Button, ButtonGroup, Tooltip } from 'react-bootstrap'
 import Griddle from 'griddle-react'
+import ReactTable from 'react-table'
 
 const teamStatAbbrMap = {
 	teamAbbr: "Team",
@@ -64,6 +65,19 @@ const playerMap = {
 	redCards:"RC",
 	timePlayed:"Time"
 }
+let playerStatMeta = [
+	// {
+	// 	key: "Team",
+	// 	name: "Team",
+	// 	sortable: true
+	// },
+	// {
+	// 	key: "Name",
+	// 	name: "Name",
+	// 	sortable: true,
+	// },
+]
+let teamStatsMeta = []
 
 class PostsMatchBody extends Component {
 
@@ -111,20 +125,20 @@ class PostsMatchBody extends Component {
 
 
       } else if (index === 1) {     // Fetch Player stats
-	      this.setState({
-	      	loadingPlayer: true,
-		      showTeamStats: -1,
 
-	      });
-        console.log("fetch players start")
-
-        await loadPlayerMatchStats(post.trnId, matches[post.trnId].homeTeamId)
-
-        console.log("fetch end")
-	      this.setState({
-	        loadingPlayer: false,
-		      showPlayerStats: 0,
-	      });
+	      if (this.state.showPlayerStats !== 0) {
+		      this.setState({
+			      loadingPlayer: true,
+			      showTeamStats: -1,
+		      });
+		      console.log("fetch players start")
+		      await loadPlayerMatchStats(post.trnId, matches[post.trnId].homeTeamId)
+		      console.log("fetch end")
+		      this.setState({
+			      loadingPlayer: false,
+			      showPlayerStats: 0,
+		      });
+	      }
 
 
       } else if (index === 2) {
@@ -139,10 +153,11 @@ class PostsMatchBody extends Component {
   prepareTeamMatchStats(tmsList) {
     const { teamMatchStats={} } = this.props
 
-    var retval = []
+    let retval = []
+	  let tmsComb = {}
     tmsList.map(function(tmsId) {
       const tms = teamMatchStats[tmsId]
-      var tmsComb = {
+      tmsComb = {
       	teamAbbr: tms.teamAbbr,
         tries: tms.tries,
         conversions: tms.conversionsMade +"/"+ tms.conversionsAttempted,
@@ -167,12 +182,32 @@ class PostsMatchBody extends Component {
         redCards: tms.redCards,
       }
 
-      var cleansed = {}
+      let cleansed = {}
       Object.keys(teamStatAbbrMap).map(function(key) {
         cleansed[teamStatAbbrMap[key]] = tmsComb[key]
       })
       retval.push(cleansed)
     })
+
+	  teamStatsMeta = []
+	  Object.keys(teamStatAbbrMap).map((key) => {
+		  if(key == "runs" || key == "name"){
+			  teamStatsMeta.push({
+				  accessor: teamStatAbbrMap[key],
+				  header: props => <span data-toggle="tooltip" data-placement="top" title={key}>{teamStatAbbrMap[key]}</span>,
+				  sortable: true,
+				  minWidth: 80,
+			  })
+		  }
+		  else{
+			  teamStatsMeta.push({
+				  accessor: teamStatAbbrMap[key],
+				  header: props => <span data-toggle="tooltip" title={key}>{teamStatAbbrMap[key]}</span>,
+				  sortable: true,
+				  minWidth: 60,
+			  })
+		  }
+	  })
 
     return retval
   }
@@ -181,6 +216,7 @@ class PostsMatchBody extends Component {
 		const { playerStats={} } = this.props
 
 		var retval = []
+
 		playerList.map(function(playerId) {
 		  const pms = playerStats[playerId]
 
@@ -189,6 +225,26 @@ class PostsMatchBody extends Component {
 			  cleansed[playerMap[key]] = pms[key]
 			})
 			retval.push(cleansed)
+		})
+
+		playerStatMeta = []
+		Object.keys(playerMap).map((key) => {
+				if(key == "position" || key == "name"){
+					playerStatMeta.push({
+						accessor: playerMap[key],
+						header: props => <span data-toggle="tooltip" data-placement="top" title={key}>{playerMap[key]}</span>,
+						sortable: true,
+						minWidth: 125,
+					})
+				}
+				else{
+					playerStatMeta.push({
+						accessor: playerMap[key],
+						header: props => <span data-toggle="tooltip" title={key}>{playerMap[key]}</span>,
+						sortable: true,
+						minWidth: 50,
+					})
+				}
 		})
 
 		return retval
@@ -241,14 +297,14 @@ class PostsMatchBody extends Component {
 
       if(teamStats && this.state.showTeamStats != -1){
       	locPlayerStats = null
-	      teamStatsGrid = (<Griddle columns={Object.values(teamStatAbbrMap)} showFilter={true} showSettings={true} results={teamStats} />)
+	      teamStatsGrid = (<ReactTable columns={teamStatsMeta} data={teamStats} defaultPageSize={teamStats.length} noDataText={''} />)
+		      //(<Griddle columns={Object.values(teamStatAbbrMap)} showFilter={true} showSettings={true} results={teamStats} />)
       }
       else if(locPlayerStats && this.state.showPlayerStats != -1){
       	teamStats = null
 
-	      teamStatsGrid = (<Griddle columns={Object.values(playerMap)} showFilter={true} showSettings={true} results={locPlayerStats} resultsPerPage={50}
-	      useFixedHeader={true} />)
-        //teamStatsGrid = locPlayerStats[0].toString()
+	      teamStatsGrid = (<ReactTable columns={playerStatMeta} data={locPlayerStats} defaultPageSize={locPlayerStats.length} noDataText={''} />)
+	      //<Components.StatsGrid columns={playerStatMeta} data={locPlayerStats} />
       }
       else{
 	      teamStatsGrid = null
@@ -278,7 +334,7 @@ class PostsMatchBody extends Component {
           <div className="matchVenue">{venueName}<br/>{venueCity}</div>
           <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div>
         </Col></Row><Row><Col>
-          <div className='teamStatsPanel'>{teamStatsGrid}</div>
+	        {teamStatsGrid ? <div className='teamStatsPanel'>{teamStatsGrid}</div> : <div className='teamStatsPanel'></div>}
           <div className='teamStatsLegend'>{legend}</div>
         </Col></Row></Grid>
         <ButtonGroup justified>
@@ -290,6 +346,7 @@ class PostsMatchBody extends Component {
     )
   }
 }
+
 
 PostsMatchBody.propTypes = {
   matches: React.PropTypes.object,
