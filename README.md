@@ -11,12 +11,12 @@ Needed to run the app:
 - griddle-react
 - react-dropzone
 - isomorphic-fetch
-- griddle-react
+- react-table
 
 **--save**
 
 ```bash
-npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-dnd-html5-backend griddle-react react-dropzone isomorphic-fetch griddle-react
+npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-dnd-html5-backend react-dropzone isomorphic-fetch react-table
 ```
 
 ## Meteor packages dependencies
