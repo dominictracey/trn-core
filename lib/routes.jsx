@@ -8,6 +8,12 @@ addRoute({
 })
 
 addRoute({
+  name: "matchPlayerStatsRoutes",
+  path: "/x/:slug/stats/:statsType",
+  component: getComponent("PostsMatchStats"),
+})
+
+addRoute({
   name: "categoriesRoutes",
   path: "/:categoryType/:slug",
   component: getComponent("PostsHome"),

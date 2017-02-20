@@ -15,7 +15,7 @@ const TrnPostsPage = (props) => {
     if (!post.postType || post.postType === 'link') {
       body = <Components.PostsLinkBody post={post}/>
     } else if (post.postType === 'match') {
-      body = <Components.PostsMatchBody post={post}/>
+      body = <Components.PostsMatchBody post={post} type={props.type ? props.type : null}/>
     } else if (post.postType === 'video') { 
       body = <Components.PostsVideoBody post={post}/>
     }
