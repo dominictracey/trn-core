@@ -12,7 +12,7 @@ const TrnPostsList = (props) => {
   if (error) {
 
     // chrome error when socket forcibly closed - just reload the page for now
-    if (error.message && error.message.includes('Network Error: Failed to fetch')) {
+    if (error.message && error.message.includes('Network error: Failed to fetch')) {
       window.reload()
       return
     }
