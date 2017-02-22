@@ -20,7 +20,7 @@
     //align-items: stretch;
     //width: 100%;
     border-collapse: collapse;
-    //overflow: auto
+    overflow-x: scroll;
 }
 
 .ReactTable .rt-thead {
@@ -30,8 +30,17 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
-    flex-direction: row;
-    justify-content: space-between;
+}
+
+.th-larger {
+    flex: 2 1;
+    margin: auto;
+    min-width: 105px;
+}
+.th-smaller {
+    flex: 1 1;
+    margin: auto;
+    min-width: 45px;
 }
 
 .ReactTable .rt-thead.-headerGroups {
@@ -81,7 +90,7 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    align-items: baseline;
+    align-items: stretch;
 }
 
 .ReactTable .rt-tbody .rt-tr-group {
@@ -97,7 +106,7 @@
 }
 
 .ReactTable .rt-tbody .rt-td:last-child {
-    border-right: 0
+    //border-right: 0
 }
 
 .ReactTable .rt-tbody .rt-pivot {
@@ -105,14 +114,14 @@
 }
 
 .ReactTable .rt-tr-group {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    //-webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    justify-content: space-between;
+    //display: -webkit-box;
+    //display: -ms-flexbox;
+
+    //flex: 1 1 100%;
+    ////-webkit-box-orient: vertical;
+    //-webkit-box-direction: normal;
+    //-ms-flex-direction: row;
 
     //-webkit-box-align: stretch;
     //-ms-flex-align: stretch;
@@ -120,27 +129,41 @@
 }
 
 .ReactTable .rt-tr {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
     display: flex;
-    justify-content: space-between;
+    //display: -webkit-inline-box;
+    //display: -ms-inline-flexbox;
+
+    flex: 1 1 100%;
 }
 
 .ReactTable .rt-th, .ReactTable .rt-td {
-    display: flex;
-    -webkit-box-flex: 1;
-    -ms-flex: 1 0 0px;
-    flex: 1 1 0;
-    justify-content: space-between;
-    align-items: center;
+    //display: flex;
+    //-webkit-box-flex: 1;
+    //-ms-flex: 1 0 0px;
+    //flex: 1 1 100% ;
     //white-space: nowrap;
     //text-overflow: ellipsis;
     padding: 5px 5px;
-    //overflow: hidden;
+    text-align: center;
+    //min-width: 25px;
+    //overflow: scroll;
     -webkit-transition: .3s ease;
     transition: .3s ease;
     -webkit-transition-property: width, min-width, padding, opacity;
     transition-property: width, min-width, padding, opacity;
+}
+
+.td-larger {
+    flex: 2 1;
+    margin: auto;
+    text-align: center;
+    min-width: 105px;
+}
+.td-smaller {
+    flex: 1 1;
+    margin: auto;
+    text-align: center;
+    min-width: 45px;
 }
 
 .ReactTable .rt-th.-hidden, .ReactTable .rt-td.-hidden {

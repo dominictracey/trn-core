@@ -169,17 +169,21 @@ class MatchStats extends Component {
 			if(key == "position" || key == "name"){
 				playerStatMeta.push({
 					accessor: playerMap[key],
-					header: props => <span data-toggle="tooltip" data-placement="top" title={key}>{playerMap[key]}</span>,
+					header: props => <span data-toggle="tooltip" data-placement="top" title={key} >{playerMap[key]}</span>,
 					sortable: true,
-					minWidth: 125,
+					minWidth: undefined,
+					className: 'td-larger',
+					headerClassName: 'th-larger',
 				})
 			}
 			else{
 				playerStatMeta.push({
 					accessor: playerMap[key],
-					header: props => <span data-toggle="tooltip" title={key}>{playerMap[key]}</span>,
+					header: props => <span data-toggle="tooltip" title={key} >{playerMap[key]}</span>,
 					sortable: true,
-					minWidth: 50,
+					minWidth: undefined,
+					className: 'td-smaller',
+					headerClassName: 'th-smaller',
 				})
 			}
 		})
@@ -201,11 +205,11 @@ class MatchStats extends Component {
 
 		if(teamStats && type == "teams"){
 			locPlayerStats = null
-			teamStatsGrid = (<ReactTable columns={teamStatsMeta} data={teamStats} defaultPageSize={teamStats.length} noDataText={''} />)
+			teamStatsGrid = (<ReactTable columns={teamStatsMeta} data={teamStats} defaultPageSize={teamStats.length} noDataText={''}  />)
 		}
 		else if(locPlayerStats && type == "players"){
 			teamStats = null
-			teamStatsGrid = (<ReactTable columns={playerStatMeta} data={locPlayerStats} defaultPageSize={locPlayerStats.length} noDataText={''} />)
+			teamStatsGrid = (<ReactTable columns={playerStatMeta} data={locPlayerStats} defaultPageSize={locPlayerStats.length} noDataText={''}  />)
 		}
 		else{
 			teamStatsGrid = null

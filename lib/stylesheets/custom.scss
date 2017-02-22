@@ -352,8 +352,10 @@ div.matchDate {
 
 .FnR-match-time {
   font-size: smaller;
+  align-items: center;
+  flex: 1 1;
   height: 20px;
-  width: 100px;
+  width: 120px;
   margin: auto;
 }
 
