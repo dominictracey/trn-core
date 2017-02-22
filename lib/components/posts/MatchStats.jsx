@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import Components from 'meteor/nova:core'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getActions, registerComponent, withMessages } from 'meteor/nova:core';
-import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
+import { getActions, registerComponent } from 'meteor/nova:core';
+import { FormattedMessage } from 'react-intl'
 import ReactTable from 'react-table'
 
 const teamStatAbbrMap = {
@@ -78,12 +78,12 @@ class MatchStats extends Component {
     const { type, trnId, match, loadPlayerMatchStats, loadTeamMatchStats } = this.props;
 
     if(type != next.type){
-	    if(next.type == "players"){
-		    loadPlayerMatchStats(trnId, match.homeTeamId)
-	    }
-	    else if(next.type == "teams"){
-		    loadTeamMatchStats(trnId, match.homeTeamId)
-	    }
+      if(next.type == "players"){
+        loadPlayerMatchStats(trnId, match.homeTeamId)
+      }
+      else if(next.type == "teams"){
+        loadTeamMatchStats(trnId, match.homeTeamId)
+      }
     }
   }
 

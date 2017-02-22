@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getActions, Components, registerComponent, withMessages } from 'meteor/nova:core';
-import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
+import { FormattedDate, FormattedTime } from 'react-intl'
 import _ from 'lodash'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
 
@@ -50,7 +50,7 @@ class PostsMatchBody extends Component {
       if(match.venue){
         venue = match.venue
         venueCity = venue.venueCity != null ? venue.venueCity : null
-	      venueName = venue.venueName != null ? venue.venueName : null
+        venueName = venue.venueName != null ? venue.venueName : null
       }
       date = new Date(match.date)
       if (_.includes(status,'FINAL') && match.simpleScoreMatchResultId) {
@@ -72,16 +72,16 @@ class PostsMatchBody extends Component {
           <div className="matchVenue">{venueName}<br/>{venueCity}</div>
           <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div>
         </Col></Row><Row><Col>
-	        <ButtonGroup justified>
-		        <Button bsStyle="info" bsSize="small" ><Link to={`/x/${post.slug}/stats/teams`}>Team Stats</Link></Button>
-		        <Button bsStyle="info" bsSize="small" ><Link to={`/x/${post.slug}/stats/players`}>Player Stats</Link></Button>
-		        <Button bsStyle="info" bsSize="small" ><Link to={``}>Top Ten</Link></Button>
-	        </ButtonGroup>
+          <ButtonGroup justified>
+            <Button bsStyle="info" bsSize="small" ><Link to={`/x/${post.slug}/stats/teams`}>Team Stats</Link></Button>
+            <Button bsStyle="info" bsSize="small" ><Link to={`/x/${post.slug}/stats/players`}>Player Stats</Link></Button>
+            <Button bsStyle="info" bsSize="small" ><Link to={``}>Top Ten</Link></Button>
+          </ButtonGroup>
         </Col></Row>
         <Row><Col>
-	        {
-		        match && type ? <Components.MatchStats trnId={post.trnId} match={match} type={type} /> : null
-	        }
+          {
+            match && type ? <Components.MatchStats trnId={post.trnId} match={match} type={type} /> : null
+          }
         </Col></Row></Grid>
       </div>
     )
