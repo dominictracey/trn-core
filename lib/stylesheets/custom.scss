@@ -353,6 +353,7 @@ div.matchDate {
 .FnR-match-time {
   font-size: smaller;
   align-items: center;
+  text-align: center;
   flex: 1 1;
   height: 20px;
   width: 120px;
@@ -375,6 +376,11 @@ div.matchDate {
   padding: 5px 5px;
   justify-content: center;
   align-items: center;
+}
+
+.FnR-link {
+  text-decoration: underline;
+  color: #0963ac;
 }
 
 .btn-xs,

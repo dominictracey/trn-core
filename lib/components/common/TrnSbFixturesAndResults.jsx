@@ -118,7 +118,7 @@ class TrnSbFixturesAndResults extends Component {
 						</div>
 						{currentURO && category ? <div className='FnR-arrow' onClick={() => this.changeUro(+1, category.trnId)}><Components.Icon name='angle-right'/></div> : null}
 					</span>
-					<div className='sidebar-card-body'>
+					<div >
 						{
 							fixAndRes ? fixAndRes : <Components.Loading/>
 						}
