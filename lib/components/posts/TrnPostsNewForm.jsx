@@ -9,7 +9,16 @@ const TrnPostsNewForm = (props, context) => {
   const trnId = props.trnId ? props.trnId : null
 
   // populate prefilled props if relevant
-  const prefilledProps = !!currentCategorySlug ? {categories: [{slug: currentCategorySlug}], trnId: trnId || null}: {};
+  let prefilledProps = null
+  if(props.teams && !!currentCategorySlug){
+    let teams = props.teams
+    prefilledProps = {categories: [{slug: currentCategorySlug}, {slug: teams[0].slug}, {slug: teams[1].slug}], trnId: trnId || null}
+  }
+  else if(!!currentCategorySlug) {
+    prefilledProps = {categories: [{slug: currentCategorySlug}], trnId: trnId || null}
+  }
+  else {prefilledProps = {}}
+
   
   return (
     <Components.ShowIf
