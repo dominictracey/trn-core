@@ -281,7 +281,7 @@ div.matchDate {
 }
 
 .sidebar-card-body {
-  padding: 0 15px 15px 15px;
+  padding: 1px 0px;
 }
 
 .sidebar-icon {
@@ -308,12 +308,21 @@ div.matchDate {
   border-color: #dddddd;
 }
 
+.FnR-body {
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+}
+
 .FnR-match {
   display: flex;
   //flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   border: solid #eeeeee 1px;
+
+  .modal-trigger, .FnR-noLink {
+    min-width: 50px;
+    margin: auto;
+  }
 }
 
 .FnR-matchData {
@@ -324,13 +333,27 @@ div.matchDate {
 
 .FnR-match-teamLogo {
   height: 30px;
-  padding-left: 2px;
+  padding: 0px 5px;
+}
+
+.FnR-link {
+  width: 50px;
+  margin: auto;
+
+  text-decoration: underline;
+  color: #0963ac;
 }
 
 .FnR-match-team {
-  display: flex;
-  justify-content: space-between;
-  flex-shrink: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  //flex: 2 1;
+  width: 70px;
+  //height: 35px;
+  margin: auto;
+
+  font-size: small;
 }
 
 .FnR-match-scores {
@@ -352,12 +375,15 @@ div.matchDate {
 
 .FnR-match-time {
   font-size: smaller;
-  align-items: center;
-  text-align: center;
-  flex: 1 1;
-  height: 20px;
+  justify-content: center;
   width: 120px;
   margin: auto;
+
+  .modal-trigger, .FnR-link {
+    width: 120px;
+    margin: auto;
+    text-align: center;
+  }
 }
 
 .FnR-headerWarrows {
@@ -376,11 +402,6 @@ div.matchDate {
   padding: 5px 5px;
   justify-content: center;
   align-items: center;
-}
-
-.FnR-link {
-  text-decoration: underline;
-  color: #0963ac;
 }
 
 .btn-xs,
