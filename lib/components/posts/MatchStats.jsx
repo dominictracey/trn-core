@@ -195,30 +195,34 @@ class MatchStats extends Component {
 	render() {
 		const { type, trnId, teamMatchStatsByMatchId={}, teamMatchStats={}, playerMatchStats={} } = this.props
 
-		let teamStats = null
-		let teamStatsGrid = null
-		let locPlayerStats = null
-		let legend = null
+		let teamStats
+		let teamStatsGrid = {}
+		let locPlayerStats
+		let legend
 
 		teamStats = type == "teams" && teamMatchStatsByMatchId && teamMatchStatsByMatchId[trnId] && teamMatchStats[teamMatchStatsByMatchId[trnId].tmsList[0]] ? this.prepareTeamMatchStats(teamMatchStatsByMatchId[trnId].tmsList) : null
 		locPlayerStats = type == "players" && playerMatchStats && playerMatchStats[trnId]        && playerMatchStats[trnId].players                           ? this.preparePlayerStats(playerMatchStats[trnId].players)           : null
 
 		if(teamStats && type == "teams"){
 			locPlayerStats = null
-			teamStatsGrid = (<ReactTable columns={teamStatsMeta} data={teamStats} defaultPageSize={teamStats.length} noDataText={''}  />)
+			teamStatsGrid =
+				<ReactTable columns={teamStatsMeta} data={teamStats} defaultPageSize={teamStats.length} page={0} pageSize={teamStats.length}
+							noDataText={''} pageSizeOptions={[2]}  />
 		}
 		else if(locPlayerStats && type == "players"){
 			teamStats = null
-			teamStatsGrid = (<ReactTable columns={playerStatMeta} data={locPlayerStats} defaultPageSize={locPlayerStats.length} noDataText={''}  />)
+			teamStatsGrid = (
+				<ReactTable columns={playerStatMeta} data={locPlayerStats} defaultPageSize={locPlayerStats.length} page={0} pageSize={locPlayerStats.length}
+							noDataText={''} pageSizeOptions={[10,23,46]}  />)
 		}
 		else{
 			teamStatsGrid = null
 		}
 
-		if(teamStatsGrid){
+		if(teamStatsGrid && type == "teams"){
 			legend = (<FormattedMessage id="teamMatchStats.legend"/>)
 		}
-		else if(teamStatsGrid){
+		else if(teamStatsGrid && type == "players"){
 			legend = (<FormattedMessage id="playerMatchStats.legend"/>)
 		}
 		else{

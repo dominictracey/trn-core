@@ -74,6 +74,12 @@ div.main{
   border-width: 2px;
 }
 
+div.vote.voted.upvoted {
+  background: #0d8acd;
+  border: 1px solid #dddddd;
+  border-radius: .30rem;
+}
+
 // div.posts-list-header{
 //   display: block;
 //   padding-top: 5px;

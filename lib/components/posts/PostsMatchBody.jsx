@@ -10,8 +10,29 @@ import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
 
 class PostsMatchBody extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    switch(props.type){
+        case 'players' : this.state = {
+            toggleTeam : false,
+            togglePlayer : true,
+        }
+        break
+        case 'teams' : this.state = {
+            toggleTeam : true,
+            togglePlayer : false,
+        }
+        break
+        default : this.state = {
+            toggleTeam : false,
+            togglePlayer : false,
+        }
+    }
+    // this.state = {
+    //   toggleTeam : false,
+    //   togglePlayer : false,
+    // }
   }
 
   async componentDidMount() {
@@ -59,6 +80,16 @@ class PostsMatchBody extends Component {
         status = 'Final'
       }
     }
+    let matchStats
+      if(match && type == 'teams' && this.state.toggleTeam){
+        matchStats = <Components.MatchStats trnId={post.trnId} match={match} type={type} />
+      }
+      else if(match && type == 'players' && this.state.togglePlayer){
+          matchStats = <Components.MatchStats trnId={post.trnId} match={match} type={type} />
+      }
+      else{
+        matchStats = null
+      }
 
     return (
       <div>
@@ -73,14 +104,18 @@ class PostsMatchBody extends Component {
           <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div>
         </Col></Row><Row><Col>
           <ButtonGroup justified>
-            <Button bsStyle="info" bsSize="small" ><Link to={`/x/${post.slug}/stats/teams`}>Team Stats</Link></Button>
-            <Button bsStyle="info" bsSize="small" ><Link to={`/x/${post.slug}/stats/players`}>Player Stats</Link></Button>
+            <Button bsStyle="info" bsSize="small" onClick={() => this.setState({toggleTeam: !this.state.toggleTeam, togglePlayer: false,})} >
+              <Link to={`/x/${post.slug}/stats/teams`}>Team Stats</Link>
+            </Button>
+            <Button bsStyle="info" bsSize="small" onClick={() => this.setState({togglePlayer: !this.state.togglePlayer, toggleTeam: false,})} >
+              <Link to={`/x/${post.slug}/stats/players`}>Player Stats</Link>
+            </Button>
             <Button bsStyle="info" bsSize="small" ><Link to={``}>Top Ten</Link></Button>
           </ButtonGroup>
         </Col></Row>
         <Row><Col>
           {
-            match && type ? <Components.MatchStats trnId={post.trnId} match={match} type={type} /> : null
+            match && type && matchStats ? matchStats : null
           }
         </Col></Row></Grid>
       </div>
