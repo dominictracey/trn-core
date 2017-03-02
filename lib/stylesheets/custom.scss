@@ -485,9 +485,14 @@ div.matchDate {
   }
 }
 
-@media (min-width: 544px) {
+@media (max-width: 544px) {
   .container {
     max-width: 100%;
+  }
+
+  div.category-bar {
+    display: flex;
+    flex-direction: column;
   }
 
   .commentHelp-item {

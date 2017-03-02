@@ -74,10 +74,35 @@ class PostsMatchBody extends Component {
         venueName = venue.venueName != null ? venue.venueName : null
       }
       date = new Date(match.date)
-      if (_.includes(status,'FINAL') && match.simpleScoreMatchResultId) {
+      if (match.simpleScoreMatchResultId) {
         const result = simpleScoreMatchResults[match.simpleScoreMatchResultId]
-        score = ' ' + result.homeScore + ' - ' + result.visitScore + ' '
-        status = 'Final'
+
+          if(_.includes(status,'FINAL')) {
+	          score = ` ${result.homeScore} - ${result.visitScore} `
+	          status = 'Final'
+            date = null
+          }
+	        else if(_.includes(status,'FIRST')) {
+		        score = ` ${result.homeScore} - ${result.visitScore} `
+		        status = 'First half'
+	          date = null
+	        }
+	        else if(_.includes(status,'HALFTIME')) {
+		        score = ` ${result.homeScore} - ${result.visitScore} `
+		        status = 'Halftime'
+	          date = null
+	        }
+	        else if(_.includes(status,'SECOND')) {
+		        score = ` ${result.homeScore} - ${result.visitScore} `
+		        status = 'Second half'
+	          date = null
+	        }
+          else {
+            score = null
+            status = 'Scheduled'
+          }
+
+
       }
     }
     let matchStats
@@ -101,7 +126,7 @@ class PostsMatchBody extends Component {
         </Col></Row><Row><Col md={12}>
           <div className='matchStatus'>{status}</div>
           <div className="matchVenue">{venueName}<br/>{venueCity}</div>
-          <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div>
+          { date ? <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div> : null}
         </Col></Row><Row><Col>
           <ButtonGroup justified>
             <Button bsStyle="info" bsSize="small" onClick={() => this.setState({toggleTeam: !this.state.toggleTeam, togglePlayer: false,})} >
