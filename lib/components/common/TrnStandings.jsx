@@ -85,10 +85,10 @@ class TrnStandings extends Component {
 						<div className='standings-col standings-col-ordinal standings-leg'>Rank</div>
 						<div className="standings-col"></div>
 						<div className="standings-col standings-col-name standings-leg">Name</div>
-						<div className="standings-col standings-col-stats standings-leg">Win</div>
-						<div className="standings-col standings-col-stats standings-leg">Loss</div>
-						<div className="standings-col standings-col-stats standings-leg">Draw</div>
-						<div className="standings-col standings-col-stats standings-leg">Points</div>
+						<div className="standings-col standings-col-stats standings-leg">W</div>
+						<div className="standings-col standings-col-stats standings-leg">L</div>
+						<div className="standings-col standings-col-stats standings-leg">D</div>
+						<div className="standings-col standings-col-stats standings-leg">Pts</div>
 					</div>
 
 					{!poolNames ? compStandingsById[category.trnId].standings.map((standing, index) => {

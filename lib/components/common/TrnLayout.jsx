@@ -27,7 +27,7 @@ class TrnLayout extends getRawComponent('Layout') {
 
                 {this.props.children}
               </Col>
-              <Col xs={6} md={3}>
+              <Col xs={12} md={3}>
                 <Components.TrnSidebar slug={slug} categoryType={categoryType}/>
               </Col>
             </Row>
