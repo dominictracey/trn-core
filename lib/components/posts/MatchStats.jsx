@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import Components from 'meteor/nova:core'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getActions, registerComponent } from 'meteor/nova:core';
+import { Utils, getActions, registerComponent } from 'meteor/nova:core';
 import { FormattedMessage } from 'react-intl'
 import ReactTable from 'react-table'
 
@@ -95,7 +95,7 @@ class MatchStats extends Component {
 		tmsList.map(function(tmsId) {
 			const tms = teamMatchStats[tmsId]
 			tmsComb = {
-				teamAbbr: tms.teamAbbr,
+				teamAbbr: <div className='teamStatsPanel-teamLogo'><img src={Utils.getLogoFromAbbr(tms.teamAbbr)} title={tms.teamAbbr} /></div>,
 				tries: tms.tries,
 				conversions: tms.conversionsMade +"/"+ tms.conversionsAttempted,
 				penalties: tms.penaltiesMade +"/"+ tms.penaltiesAttempted,
@@ -128,22 +128,27 @@ class MatchStats extends Component {
 
 		teamStatsMeta = []
 		Object.keys(teamStatAbbrMap).map((key) => {
-			if(key == "runs" || key == "name"){
-				teamStatsMeta.push({
-					accessor: teamStatAbbrMap[key],
-					header: props => <span data-toggle="tooltip" data-placement="top" title={key}>{teamStatAbbrMap[key]}</span>,
-					sortable: true,
-					minWidth: 80,
-				})
-			}
-			else{
+			// if(key == "teamAbbr"){
+			// 	let team = key.toString().toUpperCase()
+			// 	teamStatsMeta.push({
+			// 		accessor: teamStatAbbrMap[key],
+			// 		//header: props => <span data-toggle="tooltip" data-placement="top" title={key}>{teamStatAbbrMap[key]}</span>,
+			// 		sortable: true,
+			// 		minWidth: undefined,
+			// 		className: {team},
+			// 		//headerClassName: 'th-larger',
+			// 	})
+			// }
+			// else{
 				teamStatsMeta.push({
 					accessor: teamStatAbbrMap[key],
 					header: props => <span data-toggle="tooltip" title={key}>{teamStatAbbrMap[key]}</span>,
 					sortable: true,
-					minWidth: 60,
+					minWidth: undefined,
+					className: 'td-smaller',
+					headerClassName: 'th-smaller',
 				})
-			}
+			// }
 		})
 
 		return retval
@@ -156,11 +161,15 @@ class MatchStats extends Component {
 
 		playerList.map(function(playerId) {
 			const pms = playerStats[playerId]
+			let teamAbbr = playerStats[playerId].teamAbbr
+
+			pms.teamAbbr = <div className='teamStatsPanel-teamLogo'><img src={Utils.getLogoFromAbbr(pms.teamAbbr)} title={pms.teamAbbr} /></div>
 
 			var cleansed = {}
 			Object.keys(playerMap).map(function(key) {
 				cleansed[playerMap[key]] = pms[key]
 			})
+
 			retval.push(cleansed)
 		})
 

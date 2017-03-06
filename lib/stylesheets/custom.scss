@@ -53,7 +53,7 @@ div.main{
 }
 
 div.vote.voted.upvoted {
-  background: #0d8acd;
+  background: #ffa849;
   border: 1px solid #dddddd;
   border-radius: .30rem;
 }
@@ -139,6 +139,18 @@ div.matchDate {
   display: flex;
   flex-direction: column;
 }
+
+//.posts-comments-thread {
+//  border-top: 1px solid #dddddd;
+//  margin-top: 15px;
+//  padding-top: 15px;
+//
+//  .modal-trigger{
+//    position: absolute;
+//    top: 0;
+//    right: 0;
+//  }
+//}
 
 .standings-data{
   flex-direction: column;
@@ -289,6 +301,13 @@ div.matchDate {
   flex: 1;
   justify-content: space-around;
   align-items: stretch;
+
+  @media screen and (max-width: 500px) {
+    font-size: small;
+  }
+  @media screen and (max-width: 360px) {
+    font-size: smaller;
+  }
 }
 
 .sidebar-sbwelcome-box {
@@ -302,6 +321,16 @@ div.matchDate {
   border-color: #dddddd;
 }
 
+.teamStatsPanel {
+  padding-top: 10px;
+}
+.teamStatsLegend {
+  font-size: .8em;
+}
+.teamStatsPanel-teamLogo img{
+  height: 25px;
+}
+
 .FnR-body {
   display: flex;
   flex-direction: column;
@@ -312,6 +341,19 @@ div.matchDate {
   display: flex;
   //flex-direction: column;
   border: solid #eeeeee 1px;
+  height: 35px;
+
+  .modal-trigger, .FnR-noLink {
+    min-width: 50px;
+    margin: auto;
+  }
+}
+.FnR-match-active {
+  display: flex;
+  //flex-direction: column;
+  border: solid #eeeeee 1px;
+  height: 35px;
+  background-color: #eafaf1;
 
   .modal-trigger, .FnR-noLink {
     min-width: 50px;
@@ -352,14 +394,18 @@ div.matchDate {
 
 .FnR-match-scores {
   display: flex;
-  flex-shrink: 1;
-  justify-content: space-between;
-  padding: 0px 5px;
-  //background-color: #b6b6b6;
+  width: 80px;
+  margin: auto;
+  align-items: center;
+
+  .FnR-match-status {
+    font-size: .7em;
+    padding-left: 5px;
+  }
 }
 
 .FnR-match-teamScore {
-  font-weight: bold;
+  font-size: 1em;
 }
 
 .FnR-match-date {
@@ -398,6 +444,22 @@ div.matchDate {
   align-items: center;
 }
 
+.statbtn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+
+  background-color: #eafaf1;
+  color: #000;
+}
+.statbtn-lg.active{
+  background-color: #a4b0aa;
+}
+.statbtn-info.active:hover, .statbtn-info.active:focus {
+  background-color: #a4b0aa;
+}
+
+
 .btn-xs,
 .btn-group-xs > .btn {
   padding: 1px 5px;
@@ -431,8 +493,15 @@ div.matchDate {
   flex: 1;
 }
 
+.commentHelp-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dddddd;
+}
+
 .commentHelp-link {
   text-decoration: underline;
+  font-size: 1em;
   color: #0963ac;
 }
 .commentHelp-close {
@@ -441,10 +510,10 @@ div.matchDate {
 }
 .commentHelp-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: nowrap;
   padding: 2px 4px;
-
+  border-bottom: .8px solid black;
 }
 .commentHelp-command{
   font-weight: bold;
@@ -505,6 +574,18 @@ div.matchDate {
     max-width: 100%;
   }
 
+  .sidebar-card {
+    font-size: .8em;
+
+    .FnR-match-team{
+      font-size: smaller;
+    }
+  }
+
+  .sidebar-sbwelcome-container {
+     font-size: small;
+   }
+
   .commentHelp-item {
     font-size: x-small;
   }
@@ -524,6 +605,18 @@ div.matchDate {
   .container {
     max-width: 100%;
   }
+
+  .sidebar-card {
+    font-size: 1em;
+
+    .FnR-match-team{
+      font-size: small;
+    }
+  }
+
+  .sidebar-sbwelcome-container {
+     font-size: 1em;
+   }
 
   .commentHelp-item {
     font-size: small;

@@ -12,7 +12,8 @@ const TrnPostsNewForm = (props, context) => {
   let prefilledProps = null
   if(props.teams && !!currentCategorySlug){
     let teams = props.teams
-    prefilledProps = {title: props.title, categories: [{slug: currentCategorySlug}, {slug: teams[0].slug}, {slug: teams[1].slug}], trnId: trnId || null}
+    prefilledProps = {title: props.title, postType: 'match',
+      categories: [{slug: currentCategorySlug}, {slug: teams[0].slug}, {slug: teams[1].slug}], trnId: trnId || null}
   }
   else if(!!currentCategorySlug) {
     prefilledProps = {categories: [{slug: currentCategorySlug}], trnId: trnId || null}

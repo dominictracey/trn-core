@@ -33,7 +33,7 @@
 }
 
 .th-larger {
-    flex: 2 1;
+    flex: 3 1;
     margin: auto;
     min-width: 105px;
 }
@@ -115,6 +115,7 @@
 
 .ReactTable .rt-tr-group {
     display: flex;
+    font-size: .95em;
     //display: -webkit-box;
     //display: -ms-flexbox;
 
@@ -143,10 +144,11 @@
     //flex: 1 1 100% ;
     //white-space: nowrap;
     //text-overflow: ellipsis;
-    padding: 5px 5px;
-    text-align: center;
+    //text-align: center;
     //min-width: 25px;
     //overflow: scroll;
+
+     padding: 5px 3px;
     -webkit-transition: .3s ease;
     transition: .3s ease;
     -webkit-transition-property: width, min-width, padding, opacity;
@@ -154,9 +156,9 @@
 }
 
 .td-larger {
-    flex: 2 1;
+    flex: 3 1;
     margin: auto;
-    text-align: center;
+    text-align: left;
     min-width: 105px;
 }
 .td-smaller {

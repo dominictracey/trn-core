@@ -129,13 +129,19 @@ class PostsMatchBody extends Component {
           { date ? <div className='matchDate'><FormattedDate value={date}/> <FormattedTime value={date}/></div> : null}
         </Col></Row><Row><Col>
           <ButtonGroup justified>
-            <Button bsStyle="info" bsSize="small" onClick={() => this.setState({toggleTeam: !this.state.toggleTeam, togglePlayer: false,})} >
-              <Link to={`/x/${post.slug}/stats/teams`}>Team Stats</Link>
-            </Button>
-            <Button bsStyle="info" bsSize="small" onClick={() => this.setState({togglePlayer: !this.state.togglePlayer, toggleTeam: false,})} >
-              <Link to={`/x/${post.slug}/stats/players`}>Player Stats</Link>
-            </Button>
-            <Button bsStyle="info" bsSize="small" ><Link to={``}>Top Ten</Link></Button>
+
+                <Link to={`/x/${post.slug}/stats/teams`}>
+                  <Button bsClass="statbtn" bsSize="large" bsStyle="info" onClick={() => this.setState({toggleTeam: !this.state.toggleTeam, togglePlayer: false,})}
+                          active={this.state.toggleTeam}>
+                    Team Stats
+                  </Button>
+                </Link>
+                <Link to={`/x/${post.slug}/stats/players`}>
+                  <Button bsClass="statbtn" bsSize="large" bsStyle="info" onClick={() => this.setState({togglePlayer: !this.state.togglePlayer, toggleTeam: false,})}
+                          active={this.state.togglePlayer}>
+                    Player Stats
+                  </Button>
+                </Link>
           </ButtonGroup>
         </Col></Row>
         <Row><Col>
