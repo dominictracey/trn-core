@@ -516,7 +516,11 @@ div.matchDate {
   border-bottom: .8px solid black;
 }
 .commentHelp-command{
+  flex: 1 1;
   font-weight: bold;
+}
+.commentHelp-result {
+  flex: 1 1;
 }
 
 //Most mobile screens
