@@ -1,17 +1,19 @@
-import { Components, getRawComponent, replaceComponent } from 'meteor/nova:core';
+import { Components, getRawComponent, replaceComponent, registerComponent, withDocument, getFragment } from 'meteor/nova:core';
 import React, { PropTypes, Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
-import { withRouter } from 'react-router'
-
-class TrnLayout extends getRawComponent('Layout') {
+//import { withRouter } from 'react-router'
+import Categories from 'meteor/nova:categories'
+class LayoutWithCategory extends Component {//getRawComponent('Layout') {
 
   render() {
-    const { router: { params: {slug, categoryType}}} = this.props
+    const { slug, categoryType, document: category } = this.props
+
+    const cat = !!category ? category : null
 
     return (
       <div className="wrapper" id="wrapper">
 
-        <Components.HeadTags />
+        <Components.HeadTags {...this.props} />
 
         <Components.UsersProfileCheck {...this.props} />
 
@@ -28,7 +30,7 @@ class TrnLayout extends getRawComponent('Layout') {
                 {this.props.children}
               </Col>
               <Col xs={12} md={3}>
-                <Components.TrnSidebar slug={slug} categoryType={categoryType}/>
+                <Components.TrnSidebar {...this.props}/>
               </Col>
             </Row>
           </Grid>
@@ -42,6 +44,12 @@ class TrnLayout extends getRawComponent('Layout') {
   }
 }
 
-TrnLayout.displayName = "Layout";
+LayoutWithCategory.displayName = "Layout";
 
-replaceComponent('Layout', TrnLayout, withRouter);
+const options = {
+	collection: Categories,
+	queryName: 'categoriesSingleQuerySidebar',
+	fragment: getFragment('CategoriesList'),
+};
+
+registerComponent('LayoutWithCategory', LayoutWithCategory, withDocument(options) );

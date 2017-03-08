@@ -1,7 +1,5 @@
 import React from 'react';
-import { Components, registerComponent, withDocument, getFragment, withCurrentUser} from 'meteor/nova:core'
-import Categories from 'meteor/nova:categories'
-
+import { Components, registerComponent, withCurrentUser} from 'meteor/nova:core'
 
 const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
 
@@ -37,10 +35,4 @@ const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
 
 TrnSidebar.displayName = "TrnSidebar";
 
-const options = {
-	collection: Categories,
-	queryName: 'categoriesSingleQuerySidebar',
-	fragment: getFragment('CategoriesList'),
-};
-
-registerComponent('TrnSidebar', TrnSidebar, withDocument(options), withCurrentUser);
+registerComponent('TrnSidebar', TrnSidebar, withCurrentUser);
