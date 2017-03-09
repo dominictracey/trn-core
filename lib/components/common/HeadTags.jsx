@@ -6,8 +6,9 @@ class HeadTags extends Component {
 	render() {
 
 		const url = !!this.props.url ? this.props.url : Utils.getSiteUrl();
-		const title = !!this.props.title ? this.props.title : getSetting("title", "Nova");
+		const title = !!this.props.title ? this.props.title : getSetting("title", "The Rugby Net");
 		const description = !!this.props.description ? this.props.description : getSetting("tagline");
+		const body = !!this.props.body ? this.props.body : null
 
 		// default image meta: logo url, else site image defined in settings
 		let image = !!getSetting("siteImage") ? getSetting("siteImage"): getSetting("logoUrl");
@@ -30,7 +31,7 @@ class HeadTags extends Component {
 			{ name: "viewport", content:"width=device-width, initial-scale=1" },
 			// facebook
 			{ property: "og:type", content: "article" },
-			{ property: "og:url", content: url },
+			{ property: "og:url", content: Utils.getSiteUrl() + url },
 			{ property: "og:image", content: image },
 			{ property: "og:title", content: title },
 			{ property: "og:description", content: description },
@@ -46,10 +47,26 @@ class HeadTags extends Component {
 			{ rel: "canonical", href: Utils.getSiteUrl() },
 			{ rel: "shortcut icon", href: getSetting("faviconUrl", "/img/favicon.ico") }
 		]);
+		//<Helmet defaultTitle={getSetting("title", "The Rugby Net")} titleTemplate={"%s - " + getSetting("title", "The Rugby Net")} base={{href: Utils.getSiteUrl()}} />
+		let helmetComponent
+		if(!this.props.slug && !this.props.url && !this.props.title){
+			helmetComponent = <Helmet title={getSetting('title')} meta={meta} link={link} script={Headtags.script} />
+		}
+		else if(!this.props.slug && this.props.url && this.props.title) {
+			helmetComponent = <Helmet title={title} meta={meta} link={link} script={Headtags.script} />
+		}
+		else {
+			helmetComponent = null
+		}
 
 		return (
 			<div>
-				<Helmet title={title} meta={meta} link={link} script={Headtags.script} />
+				{
+					helmetComponent
+						? helmetComponent
+						: null //<Helmet title={getSetting('title')} meta={meta} link={link} script={Headtags.script} />
+				}
+
 			</div>
 		);
 	}
@@ -60,6 +77,7 @@ HeadTags.propTypes = {
 	title: React.PropTypes.string,
 	description: React.PropTypes.string,
 	image: React.PropTypes.string,
+	body: React.PropTypes.string,
 };
 
 registerComponent('HeadTags', HeadTags);

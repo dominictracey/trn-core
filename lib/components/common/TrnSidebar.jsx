@@ -4,6 +4,17 @@ import { Components, registerComponent, withCurrentUser} from 'meteor/nova:core'
 const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
 
   const currentCategorySlug = categoryType && categoryType == "c" ? categoryType : null;
+  let fNRComponent
+
+  if(!categoryType && !slug){
+    fNRComponent = <Components.TrnSbFixturesAndResults category="all"/>
+  }
+  else if(categoryType && categoryType == "c"){
+    fNRComponent = <Components.TrnSbFixturesAndResults category={category}/>
+  }
+  else {
+    fNRComponent = null
+  }
 
   return (
     <div className='sidebar-container'>
@@ -17,10 +28,8 @@ const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
       <Components.TrnSbWelcome />
 
       {
-        // show the fixtures & results on a competition page
-        currentCategorySlug
-        ? <Components.TrnSbFixturesAndResults category={category}/>
-        : <Components.TrnSbFixturesAndResults category="all"/>
+        // show the fixtures & results on a competition page and main page
+        fNRComponent
       }
 
       {
