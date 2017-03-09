@@ -2,18 +2,29 @@ import React, {PropTypes, Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { Button } from 'react-bootstrap'
-import {getActions, Components, registerComponent} from 'meteor/nova:core'
+import {getActions, Components, registerComponent, getFragment, withList} from 'meteor/nova:core'
 import { Utils } from 'meteor/nova:lib'
+import Categories from 'meteor/nova:categories'
 
 class TrnSbFixturesAndResults extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
+
+		const { loadConfiguration, config } = props
 
 		this.changeUro = this.changeUro.bind(this);
 		this.resultsForComp = this.resultsForComp.bind(this);
 
 		this.state = {
 			dispUro: 0
+		}
+
+		try {
+			if (Object.keys(config).length == 0) {
+				loadConfiguration()
+			}
+		} catch (e) {
+			console.error('Constructor error', e)
 		}
 	}
 
@@ -25,13 +36,22 @@ class TrnSbFixturesAndResults extends Component {
 				await loadConfiguration()
 				return
 			}
-			if(this.state.dispUro == 0 || this.props.category.trnId != next.category.trnId){
-				this.setState({dispUro: config[Object.keys(config)[0]].currentUROrdinal})
+			if(this.state.dispUro == 0 || (next.category && this.props.category && this.props.category != "all" && this.props.category.trnId != next.category.trnId)){
+				this.state = {dispUro: config[Object.keys(config)[0]].currentUROrdinal}
 			}
 
-			let fNRKey = this.state.dispUro + category.trnId
-			if(!universalRoundFnR || !universalRoundFnR[fNRKey] ) {
-				await loadFixturesAndResults(this.state.dispUro, category.trnId)
+			let fNRKey = null
+			if(this.state.dispUro != 0 && category && category == 'all'){
+				fNRKey = this.state.dispUro + config[Object.keys(config)[0]].compsForClient.join()
+			}
+			else if(this.state.dispUro != 0 && category && category != 'all'){
+				fNRKey = this.state.dispUro + category.trnId
+			}
+
+			if((!universalRoundFnR || !universalRoundFnR[fNRKey]) && fNRKey) {
+				category && category != 'all'
+					? await loadFixturesAndResults(this.state.dispUro, category.trnId)
+					: await loadFixturesAndResults(this.state.dispUro, config[Object.keys(config)[0]].compsForClient.join())
 			}
 
 		} catch(e) {
@@ -40,13 +60,21 @@ class TrnSbFixturesAndResults extends Component {
 	}
 
 	resultsForComp(uro, catId, rawResults) {
-		const { category } = this.props
+		const { category, results: categories = [] } = this.props
 		const key = uro+catId
 
 		if(rawResults && Object.keys(rawResults).length > 0){
 			if(rawResults[key] && rawResults[key].compFandRs) {
 				return (rawResults[key].compFandRs.map((comp, index) => {
-					return <Components.TrnSingleFnR comp={comp} key={comp.compId} category={category}/>
+					return (
+						<div className="FnR-body" key={index}>
+							{
+								category!='all'
+								? <Components.TrnSingleFnR comp={comp} key={comp.compId} category={category}/>
+								: <Components.TrnSingleFnR comp={comp} key={comp.compId} category={categories}/>
+							}
+						</div>
+					)
 					})
 				)
 			}
@@ -93,16 +121,27 @@ class TrnSbFixturesAndResults extends Component {
 		if(this.state.dispUro != 0){
 			dispUro = this.state.dispUro
 		}
-		if(universalRoundFnR && category && Object.keys(config)[0]){
+		if(universalRoundFnR && category && category != 'all' && Object.keys(config)[0]){
 			//console.log("I have the Fixtures and Results.")
 			if(dispUro == currentURO){
 				fixAndRes = this.resultsForComp(config[Object.keys(config)[0]].currentUROrdinal, category.trnId,  universalRoundFnR)
-		}
+			}
 			else if(dispUro == currentURO-1){
 				fixAndRes = this.resultsForComp(dispUro, category.trnId,  universalRoundFnR)
 			}
 			else if(dispUro == currentURO+1){
 				fixAndRes = this.resultsForComp(dispUro, category.trnId,  universalRoundFnR)
+			}
+		}
+		else if(universalRoundFnR && category && category == 'all' && Object.keys(config)[0]){
+			if(dispUro == currentURO){
+				fixAndRes = this.resultsForComp(config[Object.keys(config)[0]].currentUROrdinal, config[Object.keys(config)[0]].compsForClient.join(),  universalRoundFnR)
+			}
+			else if(dispUro == currentURO-1){
+				fixAndRes = this.resultsForComp(dispUro, config[Object.keys(config)[0]].compsForClient.join(),  universalRoundFnR)
+			}
+			else if(dispUro == currentURO+1){
+				fixAndRes = this.resultsForComp(dispUro, config[Object.keys(config)[0]].compsForClient.join(),  universalRoundFnR)
 			}
 		}
 
@@ -111,12 +150,12 @@ class TrnSbFixturesAndResults extends Component {
 			<div className="sidebar-container">
 				<div className="sidebar-card">
 					<span className="FnR-headerWarrows sidebar-card-header">
-						{currentURO && category ? <div className='FnR-arrow' onClick={() => this.changeUro(-1, category.trnId)}><Components.Icon name='angle-left'/></div> : null}
+						{currentURO && category  && category!='all' ? <div className='FnR-arrow' onClick={() => this.changeUro(-1, category.trnId)}><Components.Icon name='angle-left'/></div> : null}
 						<div className='sidebar-card-header'>
 							Fixtures and Results
 							<Components.WiresNewButton prefilledProps={{context: "fixtures sidebar"}} />
 						</div>
-						{currentURO && category ? <div className='FnR-arrow' onClick={() => this.changeUro(+1, category.trnId)}><Components.Icon name='angle-right'/></div> : null}
+						{currentURO && category && category!='all' ? <div className='FnR-arrow' onClick={() => this.changeUro(+1, category.trnId)}><Components.Icon name='angle-right'/></div> : null}
 					</span>
 					<div className='sidebar-card-body'>
 						{
@@ -131,8 +170,14 @@ class TrnSbFixturesAndResults extends Component {
 
 TrnSbFixturesAndResults.displayName = "TrnSbFixturesAndResults";
 
+const options = {
+	collection: Categories,
+	queryName: 'categoriesSingleQueryTnR',
+	fragment: getFragment('CategoriesList'),
+};
+
 const mapStateToProps = ({entities: {universalRoundFnR, config}}) => ({universalRoundFnR, config})
 const {loadFixturesAndResults, loadConfiguration} = getActions()
 const mapDispatchToProps = dispatch => bindActionCreators({loadFixturesAndResults, loadConfiguration}, dispatch);
 
-registerComponent('TrnSbFixturesAndResults', TrnSbFixturesAndResults, connect(mapStateToProps, mapDispatchToProps));
+registerComponent('TrnSbFixturesAndResults', TrnSbFixturesAndResults, withList(options), connect(mapStateToProps, mapDispatchToProps));

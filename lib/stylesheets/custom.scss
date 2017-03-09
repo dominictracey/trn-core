@@ -53,7 +53,7 @@ div.main{
 }
 
 div.vote.voted.upvoted {
-  background: #ffa849;
+  background: #ffcc97;
   border: 1px solid #dddddd;
   border-radius: .30rem;
 }
@@ -445,15 +445,15 @@ div.matchDate {
 }
 
 .statbtn-lg {
-  padding: 0.75rem 1.5rem;
-  font-size: 1.25rem;
-  border-radius: 0.3rem;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  border-radius: 0.15rem;
 
-  background-color: #eafaf1;
+  background-color: #ffffff;
   color: #000;
 }
 .statbtn-lg.active{
-  background-color: #a4b0aa;
+  background-color: #eafaf1;
 }
 .statbtn-info.active:hover, .statbtn-info.active:focus {
   background-color: #a4b0aa;

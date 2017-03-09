@@ -20,7 +20,7 @@ const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
         // show the fixtures & results on a competition page
         currentCategorySlug
         ? <Components.TrnSbFixturesAndResults category={category}/>
-        : null
+        : <Components.TrnSbFixturesAndResults category="all"/>
       }
 
       {
