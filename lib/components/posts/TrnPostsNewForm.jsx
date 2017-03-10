@@ -2,6 +2,7 @@ import { Components, replaceComponent, getFragment } from 'meteor/nova:core';
 import Posts from "meteor/nova:posts";
 import React, { PropTypes, Component } from 'react';
 import { intlShape } from 'react-intl';
+import _ from 'lodash'
 
 const TrnPostsNewForm = (props, context) => {
   // grab the current query string in the url corresponding to an eventual category (check categoryType & slug from params!)
@@ -14,6 +15,11 @@ const TrnPostsNewForm = (props, context) => {
     let teams = props.teams
     prefilledProps = {title: props.title, postType: 'match',
       categories: [{slug: currentCategorySlug}, {slug: teams[0].slug}, {slug: teams[1].slug}], trnId: trnId || null}
+  }
+  else if(!currentCategorySlug && _.size(props.teams) > 2) {
+      let teams = props.teams
+      prefilledProps = {title: props.title, postType: 'match',
+          categories: [{slug: teams[0].slug}, {slug: teams[1].slug}, {slug: teams[2].slug}], trnId: trnId || null}
   }
   else if(!!currentCategorySlug) {
     prefilledProps = {categories: [{slug: currentCategorySlug}], trnId: trnId || null}
