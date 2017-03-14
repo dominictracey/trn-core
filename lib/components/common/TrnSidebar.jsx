@@ -1,11 +1,20 @@
 import React from 'react';
-import { Components, registerComponent, withDocument, getFragment, withCurrentUser} from 'meteor/nova:core'
-import Categories from 'meteor/nova:categories'
-
+import { Components, registerComponent, withCurrentUser} from 'meteor/nova:core'
 
 const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
 
   const currentCategorySlug = categoryType && categoryType == "c" ? categoryType : null;
+  let fNRComponent
+
+  if(!categoryType && !slug){
+    fNRComponent = <Components.TrnSbFixturesAndResults category="all"/>
+  }
+  else if(categoryType && categoryType == "c"){
+    fNRComponent = <Components.TrnSbFixturesAndResults category={category}/>
+  }
+  else {
+    fNRComponent = null
+  }
 
   return (
     <div className='sidebar-container'>
@@ -19,10 +28,8 @@ const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
       <Components.TrnSbWelcome />
 
       {
-        // show the fixtures & results on a competition page
-        currentCategorySlug
-        ? <Components.TrnSbFixturesAndResults category={category}/>
-        : null
+        // show the fixtures & results on a competition page and main page
+        fNRComponent
       }
 
       {
@@ -37,10 +44,4 @@ const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
 
 TrnSidebar.displayName = "TrnSidebar";
 
-const options = {
-	collection: Categories,
-	queryName: 'categoriesSingleQuerySidebar',
-	fragment: getFragment('CategoriesList'),
-};
-
-registerComponent('TrnSidebar', TrnSidebar, withDocument(options), withCurrentUser);
+registerComponent('TrnSidebar', TrnSidebar, withCurrentUser);
