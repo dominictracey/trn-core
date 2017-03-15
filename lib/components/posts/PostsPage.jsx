@@ -32,10 +32,15 @@ class PostsPage extends Component {
 
       return (
         <div className="posts-page">
-          <Components.HeadTags url={Posts.getPageUrl(post)} title={post.title} image={post.thumbnailUrl} description={post.excerpt} />
+          <Components.HeadTags url={Posts.getPageUrl(post, true)} title={post.title} image={post.thumbnailUrl} description={post.excerpt} />
 
           <Components.PostsItem post={post} currentUser={this.props.currentUser} />
-
+          
+          <div className="posts-page-social-buttons">
+            <Components.SocialButton type="facebook" post={post} />
+            <Components.SocialButton type="twitter" post={post} />
+          </div>
+          
           {/* {post.htmlBody ? <div className="posts-page-body" dangerouslySetInnerHTML={htmlBody}></div> : null} */}
           { body }
 

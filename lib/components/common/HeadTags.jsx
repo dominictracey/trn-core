@@ -31,13 +31,13 @@ class HeadTags extends Component {
 			{ name: "viewport", content:"width=device-width, initial-scale=1" },
 			// facebook
 			{ property: "og:type", content: "article" },
-			{ property: "og:url", content: Utils.getSiteUrl() + url },
+			{ property: "og:url", content: url },
 			{ property: "og:image", content: image },
 			{ property: "og:title", content: title },
 			{ property: "og:description", content: description },
 			//twitter
 			{ name: "twitter:card", content: "summary" },
-			{ name: "twitter:image:src", content: image },
+			{ name: "twitter:image", content: image },
 			{ name: "twitter:title", content: title },
 			{ name: "twitter:description", content: description }
 		]);
