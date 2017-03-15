@@ -65,7 +65,7 @@ class PostsPage extends Component {
       // a post id has been found & it's has not been seen yet on this client session
       if (slug && !postsViewed.includes(slug)) {
 
-        // trigger the asynchronous mutation with postId as an argument
+        // trigger the asynchronous mutation with slug as an argument
         await increasePostViewCountBySlug({slug: slug});
 
         // once the mutation is done, update the redux store

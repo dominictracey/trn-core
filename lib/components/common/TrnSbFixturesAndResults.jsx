@@ -13,8 +13,9 @@ class TrnSbFixturesAndResults extends Component {
 
 		const { loadConfiguration, config } = props
 
-		this.changeUro = this.changeUro.bind(this);
-		this.resultsForComp = this.resultsForComp.bind(this);
+		this.changeUro = this.changeUro.bind(this)
+		this.resultsForComp = this.resultsForComp.bind(this)
+		// this.getConfig = this.getConfig.bind(this)
 
 		this.state = {
 			dispUro: 0
@@ -178,6 +179,16 @@ class TrnSbFixturesAndResults extends Component {
 			</div>
 		)
 	}
+
+	// async getConfig() {
+	// 	try {
+	// 		const { config } = this.props
+	//
+	// 		return config
+	// 	} catch (ex) {
+	// 		console.log("Problems fetching config")
+	// 	}
+	// }
 }
 
 TrnSbFixturesAndResults.displayName = "TrnSbFixturesAndResults";
