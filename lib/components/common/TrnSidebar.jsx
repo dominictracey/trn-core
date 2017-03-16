@@ -7,10 +7,9 @@ const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
   let fNRComponent
 
   if(!categoryType && !slug){
-    fNRComponent = <Components.TrnSbFixturesAndResults category="all"/>
-  }
-  else if(categoryType && categoryType == "c"){
-    fNRComponent = <Components.TrnSbFixturesAndResults category={category}/>
+    fNRComponent = <Components.FnRPanel category="all"/>
+  } else if(categoryType && categoryType == "c"){
+    fNRComponent = <Components.FnRPanel category={category}/>
   }
   else {
     fNRComponent = null
