@@ -444,10 +444,21 @@ div.matchDate {
   align-items: center;
 }
 
+.btn-group-matchStats{
+  display: flex;
+  align-content: center;
+}
+
 .statbtn-lg {
-  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5rem .75rem;
   font-size: 1.1rem;
   border-radius: 0.15rem;
+  height: 55px;
 
   background-color: #ffffff;
   color: #000;
@@ -457,6 +468,12 @@ div.matchDate {
 }
 .statbtn-info.active:hover, .statbtn-info.active:focus {
   background-color: #a4b0aa;
+}
+.statbtn-lg img{
+  height: 20px;
+}
+.statbtn-lg .match-post-stream-time {
+  font-size: .6em;
 }
 
 
