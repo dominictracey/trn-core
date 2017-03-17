@@ -11,20 +11,20 @@ const TrnPostsNewForm = (props, context) => {
 
   // populate prefilled props if relevant
   let prefilledProps = null
-  if(props.teams && !!currentCategorySlug){
+  if(props.teams && !!currentCategorySlug){ // If team categories are passed, with category slug
     let teams = props.teams
     prefilledProps = {title: props.title, postType: 'match',
       categories: [{slug: currentCategorySlug}, {slug: teams[0].slug}, {slug: teams[1].slug}], trnId: trnId || null}
   }
-  else if(!currentCategorySlug && _.size(props.teams) > 2) {
+  else if(!currentCategorySlug && _.size(props.teams) > 2) {  // If no category slug, but 2 teams and a comp category are passed
       let teams = props.teams
       prefilledProps = {title: props.title, postType: 'match',
           categories: [{slug: teams[0].slug}, {slug: teams[1].slug}, {slug: teams[2].slug}], trnId: trnId || null}
   }
-  else if(!!currentCategorySlug) {
+  else if(!!currentCategorySlug) {          // If only the category slug is passed
     prefilledProps = {categories: [{slug: currentCategorySlug}], trnId: trnId || null}
   }
-  else {prefilledProps = {}}
+  else {prefilledProps = {}}            // No prefilled.
 
   
   return (

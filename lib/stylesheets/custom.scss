@@ -280,14 +280,28 @@ div.matchDate {
 }
 
 .sidebar-card-divider {
+  display: flex;
+
   background-color: #f9f9f9;
   font-weight: 300;
   text-align: center;
   padding: 3px;
 }
+.header-placeholder {
+  display: flex;
+  flex: 1;
+
+}
+.sidebar-card-divider-name {
+  display: flex;
+  flex: 3;
+
+  justify-content: center;
+}
 
 .sidebar-card-body {
-  padding: 1px 0px;
+  padding: 1px 5px;
+
 }
 
 .sidebar-icon {
@@ -339,26 +353,39 @@ div.matchDate {
 
 .FnR-match {
   display: flex;
+  padding: 0 3px;
   //flex-direction: column;
-  border: solid #eeeeee 1px;
-  height: 35px;
+  border-width: 1px 0 1px 0;
+  border-color: #eeeeee;
+  border-style: solid ;
+  height: 38px;
 
   .modal-trigger, .FnR-noLink {
     min-width: 50px;
-    margin: auto;
   }
 }
 .FnR-match-active {
   display: flex;
+  padding: 0 3px;
   //flex-direction: column;
-  border: solid #eeeeee 1px;
-  height: 35px;
+  border-width: 1px 0 1px 0;
+  border-color: #eeeeee;
+  border-style: solid ;
+  height: 38px;
+
   background-color: #eafaf1;
 
   .modal-trigger, .FnR-noLink {
     min-width: 50px;
-    margin: auto;
   }
+}
+
+.FnR-match-teamData {
+  display: flex;
+  flex: 3;
+
+  justify-content: space-around;
+  align-items: center;
 }
 
 .FnR-matchData {
@@ -373,30 +400,19 @@ div.matchDate {
 }
 
 .FnR-link {
-  width: 50px;
-  margin: auto;
-
-  text-decoration: underline;
-  color: #0963ac;
+  //text-decoration: underline;
+  color: #0089c5;
 }
 
 .FnR-match-team {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  //flex: 2 1;
-  width: 70px;
-  //height: 35px;
-  margin: auto;
-
   font-size: small;
+
 }
 
 .FnR-match-scores {
   display: flex;
-  width: 80px;
-  margin: auto;
   align-items: center;
+  font-size: .9em;
 
   .FnR-match-status {
     font-size: .7em;
@@ -404,24 +420,39 @@ div.matchDate {
   }
 }
 
-.FnR-match-teamScore {
-  font-size: 1em;
+.FnR-match-guts {
+  width: 150px;
 }
 
-.FnR-match-date {
+.FnR-match-generated {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+
 }
 
-.FnR-match-time {
-  font-size: smaller;
+.FnR-match-espn {
+  display: flex;
+  flex: 1;
+
+  align-items: center;
   justify-content: center;
-  width: 120px;
+
+  img {
+    width: 55px;
+  }
+}
+
+.FnR-match-time-group {
+  display: flex;
+}
+.FnR-match-time {
+  width: 67px;
   margin: auto;
+  text-align: right;
+
+  font-size: .9em;
 
   .modal-trigger, .FnR-link {
-    width: 120px;
-    margin: auto;
     text-align: center;
   }
 }
@@ -488,7 +519,7 @@ div.matchDate {
 .trn-feedback-button {
   display: flex;
   float: right;
-  margin-left: 3px;
+  margin-left: 10px;
   line-height: 1;
   
   &.trn-feedback-button--sidebar {
