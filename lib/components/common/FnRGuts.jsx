@@ -13,10 +13,10 @@ const FnRGuts = (props, context) => {
       return <Components.FnRNewPost {...props} />
     }
     else {
-      return <div className="FnR-noLink">{component}</div>
+      return <div className="FnR-match-guts"><div className="FnR-match-generated"><div className="FnR-noLink">{component}</div></div></div>
     }
   } else {
-    return <div className="FnR-link"><Link to={`x/${refPost.slug}`}>{component}</Link></div>
+    return <div className="FnR-match-guts"><div className="FnR-match-generated"><div className="FnR-link"><Link to={`x/${refPost.slug}`}>{component}</Link></div></div></div>
   }
 
 }
