@@ -184,7 +184,7 @@ FnRPanel.displayName = "FnRPanel";
 
 const options = {
 	collection: Categories,
-	queryName: 'categoriesSingleQueryTnR',
+	queryName: 'categoriesSingleQueryFnR',
 	fragment: getFragment('CategoriesList'),
 };
 
