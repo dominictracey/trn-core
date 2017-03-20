@@ -5,7 +5,7 @@ const FnRTeam = (props, context) => {
 
   return (
     <div className="FnR-match-team">
-      <img className="FnR-match-teamLogo" src={props.logo} title={props.name}/>
+      <img className="FnR-match-teamLogo" src={props.logo} title={props.title}/>
       {props.abbr}
     </div>
   )
