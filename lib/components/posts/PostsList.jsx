@@ -1,7 +1,6 @@
 import { Components, getRawComponent, registerComponent, withList, withCurrentUser } from 'meteor/nova:core';
 import React from 'react';
 import Posts from 'meteor/nova:posts';
-import { Alert } from 'react-bootstrap';
 
 const TrnPostsList = (props) => {
 
@@ -9,24 +8,7 @@ const TrnPostsList = (props) => {
 
   const loadingMore = networkStatus === 2;
 
-  if (error) {
-
-    // chrome error when socket forcibly closed - just reload the page for now
-    if (error.message && error.message.includes('Network error: Failed to fetch')) {
-      console.log('reloaded after network error (PostsList)')
-      window.reload()
-      return
-    }
-
-    return (
-      <div className="posts-list">
-        <Alert className="flash-message" bsStyle="danger">
-          {error.message}
-        </Alert>
-      </div>
-    )
-
-  } else if (results && results.length) {
+  if (results && results.length) {
 
     const hasMore = totalCount > results.length;
 
