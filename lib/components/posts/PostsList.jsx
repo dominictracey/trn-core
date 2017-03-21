@@ -1,14 +1,16 @@
-import { Components, getRawComponent, registerComponent, withList, withCurrentUser } from 'meteor/nova:core';
+import { Components, replaceComponent } from 'meteor/nova:core';
 import React from 'react';
-import Posts from 'meteor/nova:posts';
+import { Alert } from 'react-bootstrap';
 
 const TrnPostsList = (props) => {
 
   const {results, loading, count, totalCount, loadMore, showHeader = true, networkStatus, currentUser, error, terms} = props;
 
   const loadingMore = networkStatus === 2;
-
-  if (results && results.length) {
+  
+  if (error && error.message.includes('Failed to fetch')) {
+    return <Alert bsStyle="info">You have been disconnected, please refresh the page.</Alert>
+  } else if (results && results.length) {
 
     const hasMore = totalCount > results.length;
 
@@ -56,10 +58,4 @@ TrnPostsList.propTypes = {
   showHeader: React.PropTypes.bool,
 };
 
-const options = {
-  collection: Posts,
-  queryName: 'postsListQuery',
-  fragmentName: 'PostsList',
-};
-
-registerComponent('TrnPostsList', TrnPostsList, withCurrentUser, [withList, options]);
+replaceComponent('PostsList', TrnPostsList);
