@@ -90,8 +90,11 @@ class FnRPanel extends Component {
 					})
 				)
 			}
+			else if(rawResults[key] && !rawResults[key].compFandRs) {
+				return <div className="FnR-noData">No results for this week.</div>
+			}
 			else{
-				return <div className="FnR-matchData">No results for this week.</div>
+				return <Components.Loading />
 			}
 		}
 		else {

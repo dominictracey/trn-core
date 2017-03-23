@@ -475,6 +475,11 @@ div.matchDate {
   align-items: center;
 }
 
+.FnR-noData {
+  text-align: center;
+  font-style: italic;
+}
+
 .btn-group-matchStats{
   display: flex;
   align-content: center;
@@ -547,6 +552,46 @@ div.matchDate {
   border: 1px solid #dddddd;
 }
 
+.commentHelp-body {
+  display: flex;
+  flex-direction: column;
+
+  //padding: 10px 0;
+  box-shadow: 0 5px 15px 0 grey;
+  //align-items: center;
+
+  background: #ffffff;
+  //color: #ffffff;
+}
+
+.commentHelp-header {
+  display: flex;
+  flex-direction: column;
+  background: #313975;
+  //width: 75%;
+  box-shadow: 0 1px 5px 0 #313975;
+
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.3em;
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+
+.commentHelp-footer {
+  text-align: center;
+  //width: 75%;
+  background: #eeeeee;
+  //box-shadow: 0 3px 9px 0 #313975;
+  padding: 5px 3px 8px 3px;
+
+  font-size: 1.1em;
+
+  a:hover {
+    background: #313975;
+    color: #ffffff
+  }
+}
+
 .commentHelp-link {
   text-decoration: underline;
   font-size: 1em;
@@ -554,22 +599,51 @@ div.matchDate {
 }
 .commentHelp-close {
   display: flex;
+  align-content: flex-start;
   justify-content: flex-end;
 }
 .commentHelp-item {
   display: flex;
   justify-content: space-around;
+  //width: 75%;
+  background: #ffffff;
+
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 1.15em;
+  //border: solid #eeeeee .95px;
   flex-wrap: nowrap;
-  padding: 2px 4px;
-  border-bottom: .8px solid black;
+  padding: 5px 5px;
+  //box-shadow: 0 1px 5px 0 #313975;
 }
 .commentHelp-command{
   flex: 1 1;
-  font-weight: bold;
+
+  //font-weight: bold;
+
+  border: solid #eeeeee .95px;
+  padding: 5px 5px;
 }
 .commentHelp-result {
   flex: 1 1;
+
+  border: solid #eeeeee .95px;
+  padding: 5px 5px;
+
+  .i {
+    font-style: italic;
+  }
+  .b {
+    font-weight: bold;
+  }
 }
+.itemHeader {
+  text-align: center;
+
+  font-size: 1em;
+  font-weight: bold;
+
+  border: none;
+ }
 
 //Most mobile screens
 @media screen and (max-width: 400px) {

@@ -1,12 +1,15 @@
-//import Components from 'meteor/nova:core'
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getActions, getSetting, Components, registerComponent, withMessages } from 'meteor/nova:core';
 import { FormattedDate, FormattedTime } from 'react-intl'
-import _ from 'lodash'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
+
+import { getActions, getSetting, Components, registerComponent, withMessages } from 'meteor/nova:core';
+import { runAsync } from 'meteor/nova:lib'
+
+import _ from 'lodash'
+
 
 let setPollCnt = 0   //Global var to track how many times the polling has been set
 class PostsMatchBody extends Component {
@@ -124,6 +127,7 @@ class PostsMatchBody extends Component {
 	          date = null
               //Set polling for score and status
             if(getSetting('trnPollTime') && getSetting('trnPollTime') > 0) {
+
 	            this.matchScorePoll()
             }
 	        }
