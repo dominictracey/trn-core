@@ -1,5 +1,5 @@
 import React from 'react';
-import { Components, registerComponent, withCurrentUser} from 'meteor/nova:core'
+import { Components, registerComponent, withCurrentUser} from 'meteor/vulcan:core'
 
 const TrnSidebar = ({slug, categoryType, currentUser, document: category}) => {
 

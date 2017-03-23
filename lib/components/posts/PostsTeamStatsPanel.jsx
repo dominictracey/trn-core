@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
-import { Components, registerComponent } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
 class PostsTeamStatsPanel extends Component {
 

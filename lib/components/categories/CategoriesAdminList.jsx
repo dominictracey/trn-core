@@ -2,7 +2,7 @@ import React, { PropTypes, Component }from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Modal, Grid, Row, Col, Button } from 'react-bootstrap';
 
-import { Components, registerComponent } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
 class CategoriesAdminList extends Component {
 
@@ -22,9 +22,9 @@ class CategoriesAdminList extends Component {
       openModal: 0,
     });
   }
-  
+
   openCategoryEditModal(index) {
-    // edit category modals are numbered from 1 to 
+    // edit category modals are numbered from 1 to
     this.setState({openModal: index});
   }
 
@@ -44,7 +44,7 @@ class CategoriesAdminList extends Component {
       </Modal>
     );
   }
-  
+
   renderCategoryEditModal(category, index) {
     return (
       <Modal key={index} show={this.state.openModal === index+1} onHide={this.closeModal}>
@@ -59,16 +59,16 @@ class CategoriesAdminList extends Component {
   }
 
   render() {
-    
+
     const { categories, type, showNewCategoryButton, specificActionButton = null } = this.props;
-    
+
     // to be refactored
     const ActionButton = specificActionButton || Button;
-    
+
     return (
       <div>
-      {!categories.length 
-      ? <p>No {type} categories</p> 
+      {!categories.length
+      ? <p>No {type} categories</p>
       : <Grid>
           {categories.map((cat, index) =>
             <Row key={cat._id + index}>
@@ -76,12 +76,12 @@ class CategoriesAdminList extends Component {
                 <span>{cat.name}</span>
               </Col>
               <Col xs={2}>
-                { specificActionButton 
+                { specificActionButton
                   ? <ActionButton
                       category={cat}
                       openCategoryEditModal={_.partial(this.openCategoryEditModal, index+1)}
                    />
-                  : <ActionButton 
+                  : <ActionButton
                       bsStyle="primary"
                       onClick={_.partial(this.openCategoryEditModal, index+1)}>
                       Edit
@@ -98,13 +98,13 @@ class CategoriesAdminList extends Component {
       }
 
       {showNewCategoryButton ? <Components.CategoriesCompetitionsNewButton createCategory={this.openCategoryNewModal()} /> : null}
-      
+
       <div>
         {categories && categories.length > 0 ? categories.map((category, index) => this.renderCategoryEditModal(category, index)) : null}
       </div>
-      
+
       {this.renderCategoryNewModal()}
-      
+
       </div>
     )
 

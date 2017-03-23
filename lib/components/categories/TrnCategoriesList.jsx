@@ -1,8 +1,8 @@
 import React from 'react';
 import {Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
-import {Components, replaceComponent} from 'meteor/nova:core';
-import Categories from 'meteor/nova:categories';
+import {Components, replaceComponent} from 'meteor/vulcan:core';
+import Categories from 'meteor/vulcan:categories';
 
 const TrnCategoriesList = ({loading, results: categories = [], router, typeFilter}, context) => {
 

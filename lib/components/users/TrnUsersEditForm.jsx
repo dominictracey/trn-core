@@ -1,7 +1,7 @@
-import { Components, replaceComponent } from 'meteor/nova:core';
+import { Components, replaceComponent } from 'meteor/vulcan:core';
 import React, { PropTypes, Component } from 'react';
 import { FormattedMessage, intlShape } from 'react-intl';
-import Users from 'meteor/nova:users';
+import Users from 'meteor/vulcan:users';
 
 const TrnUsersEditForm = (props, context) => {
   return (
@@ -15,8 +15,8 @@ const TrnUsersEditForm = (props, context) => {
           <FormattedMessage id="users.edit_account"/>
           <Components.WiresNewButton prefilledProps={{context: "users edit form"}} />
         </h2>
-        <Components.SmartForm 
-          collection={Users} 
+        <Components.SmartForm
+          collection={Users}
           {...props.terms}
           successCallback={user => {
             props.flash(context.intl.formatMessage({id: "users.edit_success"}, {name: Users.getDisplayName(user)}), 'success')

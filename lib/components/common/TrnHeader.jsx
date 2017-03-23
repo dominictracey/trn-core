@@ -1,11 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { getSetting, Components, replaceComponent } from 'meteor/nova:core';
+import { getSetting, Components, replaceComponent } from 'meteor/vulcan:core';
 
 const TrnHeader = (props, context) => {
-  
+
   const logoUrl = getSetting("logoUrl");
-  const siteTitle = getSetting("title", "Nova");
+  const siteTitle = getSetting("title", "The Rugby Net");
   const tagline = getSetting("tagline");
 
   return (
@@ -17,9 +17,9 @@ const TrnHeader = (props, context) => {
           <Components.Logo logoUrl={logoUrl} siteTitle={siteTitle} />
           {tagline ? <h2 className="tagline">{tagline}</h2> : "" }
         </div>
-        
+
         <div className="nav">
-          
+
           <div className="nav-user">
             {!!props.currentUser ? <Components.UsersMenu/> : <Components.UsersAccountMenu/>}
           </div>
@@ -31,7 +31,7 @@ const TrnHeader = (props, context) => {
         </div>
 
       </header>
-      
+
       <div className="header-secondary">
       {
         // note (jan 13rd 2017): when having twice the same query, if you update the list, you duplicate the result for the client...

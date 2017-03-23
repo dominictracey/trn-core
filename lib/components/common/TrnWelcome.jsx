@@ -1,4 +1,4 @@
-import { registerComponent, Components } from 'meteor/nova:core';
+import { registerComponent, Components } from 'meteor/vulcan:core';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 

@@ -2,13 +2,13 @@ import React, { PropTypes, Component } from 'react';
 import ReactTagInput from 'react-tag-input';
 import { Button } from 'react-bootstrap';
 
-import { Components, registerComponent } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const ReactTags = ReactTagInput.WithContext;
 
 const PostsCategoriesSelector = (props, context) => {
-  
-  const { 
+
+  const {
     categoryType, // used for the label
     tags, // current tags to show
     categoriesSuggestions, // used for suggestions

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import Helmet from 'react-helmet';
-import { registerComponent, Utils, getSetting, Headtags } from 'meteor/nova:core';
+import { registerComponent, Utils, getSetting, Headtags } from 'meteor/vulcan:core';
 
 const HeadTags = props => {
 
@@ -10,10 +10,10 @@ const HeadTags = props => {
 
 	// default image meta: logo url, else site image defined in settings
 	let image = !!getSetting("siteImage") ? getSetting("siteImage"): getSetting("logoUrl");
-	
-	// overwrite default image if one is passed as props 
+
+	// overwrite default image if one is passed as props
 	if (!!props.image) {
-		image = props.image; 
+		image = props.image;
 	}
 
 	// add site url base if the image is stored locally

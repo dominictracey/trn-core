@@ -1,9 +1,9 @@
-//import Components from 'meteor/nova:core'
+//import Components from 'meteor/vulcan:core'
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getActions, getSetting, Components, registerComponent, withMessages } from 'meteor/nova:core';
+import { getActions, getSetting, Components, registerComponent, withMessages } from 'meteor/vulcan:core';
 import { FormattedDate, FormattedTime } from 'react-intl'
 import _ from 'lodash'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'

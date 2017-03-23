@@ -1,5 +1,5 @@
-import { Components, registerComponent, withDocument, withCurrentUser, getActions, withMutation } from 'meteor/nova:core';
-import Posts from 'meteor/nova:posts';
+import { Components, registerComponent, withDocument, withCurrentUser, getActions, withMutation } from 'meteor/vulcan:core';
+import Posts from 'meteor/vulcan:posts';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -35,12 +35,12 @@ class PostsPage extends Component {
           <Components.HeadTags url={Posts.getPageUrl(post, true)} title={post.title} image={post.thumbnailUrl} description={post.excerpt} />
 
           <Components.PostsItem post={post} currentUser={this.props.currentUser} />
-          
+
           <div className="posts-page-social-buttons">
             <Components.SocialButton type="facebook" post={post} />
             <Components.SocialButton type="twitter" post={post} />
           </div>
-          
+
           {/* {post.htmlBody ? <div className="posts-page-body" dangerouslySetInnerHTML={htmlBody}></div> : null} */}
           { body }
 
@@ -108,7 +108,7 @@ const mapStateToProps = state => ({ postsViewed: state.postsViewed });
 const mapDispatchToProps = dispatch => bindActionCreators(getActions().postsViewed, dispatch);
 
 registerComponent(
-  // component name used by Nova
+  // component name used by vulcan
   'PostsPage',
   // React component
   PostsPage,

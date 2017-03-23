@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import Components from 'meteor/nova:core'
+import Components from 'meteor/vulcan:core'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Utils, getActions, registerComponent } from 'meteor/nova:core';
+import { Utils, getActions, registerComponent } from 'meteor/vulcan:core';
 import { FormattedMessage } from 'react-intl'
 import ReactTable from 'react-table'
 

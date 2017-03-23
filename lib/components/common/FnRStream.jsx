@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { registerComponent } from 'meteor/nova:core'
+import { registerComponent } from 'meteor/vulcan:core'
 import { Link } from 'react-router';
 
 const FnRStream = (props, context) => {

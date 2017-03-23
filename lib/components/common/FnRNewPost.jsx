@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 
-import { Components, registerComponent } from 'meteor/nova:core'
+import { Components, registerComponent } from 'meteor/vulcan:core'
 
 const FnRNewPost = (props) => {
   const { match, teams, component } = props

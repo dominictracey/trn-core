@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {getActions, Components, registerComponent} from 'meteor/nova:core'
+import {getActions, Components, registerComponent} from 'meteor/vulcan:core'
 
 class TrnStandings extends Component {
 

@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Components, registerComponent, Utils } from 'meteor/nova:core';
+import { Components, registerComponent, Utils } from 'meteor/vulcan:core';
 import { getTeamLogoUrl } from '../../helpers';
-import Categories from 'meteor/nova:categories';
+import Categories from 'meteor/vulcan:categories';
 
 const TrnStandingsRow = (props) => {
 
   const { standing, teams } = props
-  
+
   // the team received as a prop is not a team from our db but from TRN API (redux)
   // to grab the logo, we explicitly declares the category type related to our db
   const team = teams ? teams.filter(team => standing.teamId == team.trnId)[0] : null
   const logo = teams ? Categories.getLogo(team, 'team') : null
   const pathname = team ? Categories.getUrl(team) : null
-  
+
   return (
     <div className="standings-row">
       <div className="standings-col standings-col-ordinal">{standing.standing}</div>

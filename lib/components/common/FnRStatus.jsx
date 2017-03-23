@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { registerComponent } from 'meteor/nova:core'
+import { registerComponent } from 'meteor/vulcan:core'
 
 const FnRStatus = (props, context) => {
   const { status } = props

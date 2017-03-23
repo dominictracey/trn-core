@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { Components, replaceComponent } from 'meteor/nova:core';
+import { Components, replaceComponent } from 'meteor/vulcan:core';
 
 const TrnPostsListHeader = ({router}) => {
   const onCategoryRoutes = router.params.categoryType && router.params.slug;

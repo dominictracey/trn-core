@@ -1,5 +1,5 @@
-import { Components, registerComponent } from 'meteor/nova:core';
-import { withMutation } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
+import { withMutation } from 'meteor/vulcan:core';
 import React, { PropTypes, Component } from 'react';
 import FRC from 'formsy-react-components';
 
@@ -11,16 +11,16 @@ class CustomEmbedlyURL extends Component {
     super(props);
     this.handleBlur = this.handleBlur.bind(this);
     this.successEmbedlyCallback = this.successEmbedlyCallback.bind(this);
-    
+
     // if a value is passed by the form or a title is already present in the document, consider that embedly data has been already fetched to avoid overwriting the user data unexpectedly
     const existingDocument = props.value || props.document && props.document.title;
-    
+
     this.state = {
       loading: false,
-      embedlyFetched: existingDocument ? true : false, 
+      embedlyFetched: existingDocument ? true : false,
     };
   }
-  
+
   // clean the media property of the document if it exists: this field is handled server-side in an async callback
   async componentDidMount() {
     try {
@@ -38,31 +38,31 @@ class CustomEmbedlyURL extends Component {
       try {
         // value from formsy input ref
         const url = this.input.getValue();
-        
+
         if (url.length) {
           await this.setState({loading: true});
-          
+
           // the URL has changed, get new title, body, thumbnail & media for this url
           const result = await this.props.getEmbedlyData({url});
-          
+
           // uncomment for debug
           console.log('Embedly Data', result);
-          
+
           await this.context.updateCurrentValues({
             title: result.data.getEmbedlyData.title || "",
             body: result.data.getEmbedlyData.description || "",
             thumbnailUrl: result.data.getEmbedlyData.thumbnailUrl || "",
           });
-          
+
           // this could be a modification on the core EmbedlyURL
           await this.successEmbedlyCallback(result);
-          
+
           await this.setState({
             loading: false,
             embedlyFetched: true,
           });
-          
-          await this.context.clearForm({ clearErrors: true }); // remove errors & keep the current values 
+
+          await this.context.clearForm({ clearErrors: true }); // remove errors & keep the current values
         }
       } catch(error) {
         await this.setState({loading: false});
@@ -71,7 +71,7 @@ class CustomEmbedlyURL extends Component {
       }
     }
   }
-  
+
   async successEmbedlyCallback(result) {
     try {
       if (result.data.getEmbedlyData.media && result.data.getEmbedlyData.media.type === 'video') {
@@ -100,13 +100,13 @@ class CustomEmbedlyURL extends Component {
     // see https://facebook.github.io/react/warnings/unknown-prop.html
     const {document: currentDoc, control, getEmbedlyData, ...rest} = this.props; // eslint-disable-line no-unused-vars
     const onBlur = this.state.embedlyFetched ? f => f : this.handleBlur;
-    
+
     const buttonAfter = this.state.embedlyFetched ? (
       <button className="btn btn-default" type="button" onClick={this.handleBlur}>
         <Components.Icon name={this.state.loading ? "spinner" : "refresh"} />
       </button>
     ) : null;
-    
+
     return (
       <div className="embedly-url-field" style={wrapperStyle}>
         <Input

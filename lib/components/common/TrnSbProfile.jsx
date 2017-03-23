@@ -1,23 +1,23 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import { Components, registerComponent } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import Users from 'meteor/nova:users';
+import Users from 'meteor/vulcan:users';
 
 const TrnSbProfile = ({ loading, currentUser, data }, context) => {
   if (loading) {
     return <Components.Loading />;
   }
-  
+
   return (
     <div className='sidebar-card'>
       <div className='sidebar-card-header sidebar-card-header--profile'>
         <Link to='/account'>
           <Components.UsersAvatar size='small' user={currentUser} link={false} />
           <div>{Users.getDisplayName(currentUser)}</div>
-        </Link> 
+        </Link>
         <Components.WiresNewButton
           prefilledProps={{context: 'profile sidebar'}}
           className="profile-feedback"
@@ -26,16 +26,16 @@ const TrnSbProfile = ({ loading, currentUser, data }, context) => {
       <div className='sidebar-card-body'>
         {
           ['Posts', 'Comments'].map((collectionType, index) => {
-            
+
             const totalKarmaValue = data[`total${collectionType}Karma`];
             const intlId = totalKarmaValue ? `profile.total${collectionType}Karma` : `profile.no${collectionType}Karma`;
-            
+
             return (
               <div className='users-profile-votes' key={collectionType}>
                 <FormattedMessage id={intlId} values={{totalKarmaValue}} />
               </div>
             );
-          }) 
+          })
         }
       </div>
     </div>

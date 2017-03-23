@@ -1,7 +1,7 @@
-import { Components, replaceComponent, getRawComponent } from 'meteor/nova:core';
+import { Components, replaceComponent, getRawComponent } from 'meteor/vulcan:core';
 import React, { PropTypes, Component } from 'react';
 import { intlShape, FormattedMessage, FormattedRelative } from 'react-intl';
-import Comments from 'meteor/nova:comments';
+import Comments from 'meteor/vulcan:comments';
 
 class TrnCommentsItem extends getRawComponent('CommentsItem') {
 

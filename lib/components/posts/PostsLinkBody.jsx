@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { registerComponent, Components } from 'meteor/nova:core';
+import { registerComponent, Components } from 'meteor/vulcan:core';
 
 class PostsLinkBody extends Component {
 
