@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { getActions, getSetting, Components, registerComponent, withMessages } from 'meteor/vulcan:core';
 import { FormattedDate, FormattedTime } from 'react-intl'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
-import { runAsync } from 'meteor/nova:lib'
 import _ from 'lodash'
 
 
