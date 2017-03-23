@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { Components, registerComponent } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 import { Link } from 'react-router';
 
 const TrnSbWelcome = (props, context) => {

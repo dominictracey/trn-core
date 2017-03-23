@@ -1,5 +1,5 @@
-import { Components, replaceComponent, getFragment } from 'meteor/nova:core';
-import Posts from "meteor/nova:posts";
+import { Components, replaceComponent, getFragment } from 'meteor/vulcan:core';
+import Posts from "meteor/vulcan:posts";
 import React, { PropTypes, Component } from 'react';
 import { intlShape } from 'react-intl';
 import _ from 'lodash'
@@ -26,7 +26,7 @@ const TrnPostsNewForm = (props, context) => {
   }
   else {prefilledProps = {}}            // No prefilled.
 
-  
+
   return (
     <Components.ShowIf
       check={Posts.options.mutations.new.check}

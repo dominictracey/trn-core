@@ -33,6 +33,7 @@ cd /packages
 git clone https://github.com/xavcz/nova-forms-upload.git
 git clone https://github.com/xavcz/nova-social-share.git
 git clone https://github.com/xavcz/nova-wires.git
+git clone https://github.com/xavcz/nova-trophies.git
 
 # clone the TRN packages
 git clone https://github.com/dominictracey/trn-core.git
@@ -43,7 +44,7 @@ git clone https://github.com/dominictracey/trn-region-country-user.git
 ```
 
 #### Changes in `.meteor/packages` 📃
-You'll need to disable `nova:base-styles` and add `xavcz:nova-social-share`, `xavcz:nova-forms-upload`, `trn-core` & `trn-rest-redux`.
+You'll need to disable `nova:base-styles` and add `xavcz:nova-social-share`, `xavcz:nova-forms-upload`, `xavcz:nova-wires`, `xavcz:nova-trophies`, `trn-core` & `trn-rest-redux`.
 The `.meteor/packages` text file should look like:
 
 ```
@@ -96,6 +97,7 @@ accounts-password@1.3.3
 xavcz:nova-forms-upload
 xavcz:nova-social-share
 xavcz:nova-wires
+xavcz:nova-trophies
 trn:rest-redux
 trn:core
 ```

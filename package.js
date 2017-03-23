@@ -1,6 +1,6 @@
 Package.describe({
   name: "trn:core",
-  version: "1.0.0",
+  version: "1.3.0",
 });
 
 Package.onUse( function(api) {
@@ -10,13 +10,14 @@ Package.onUse( function(api) {
   api.use([
     'fourseven:scss',
 
-    'nova:core',
-    'nova:posts',
-    'nova:users',
-    'xavcz:nova-forms-upload',
-    'xavcz:nova-social-share',
-    'xavcz:nova-wires',
-    'nova:base-components',
+    'vulcan:core',
+    'vulcan:posts',
+    'vulcan:users',
+    'xavcz:vulcan-forms-upload',
+    'xavcz:vulcan-social-share',
+    'xavcz:vulcan-wires',
+    'xavcz:vulcan-trophies',
+    'vulcan:base-components',
     'trn:rest-redux',
   ]);
 

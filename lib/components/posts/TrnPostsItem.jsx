@@ -1,5 +1,5 @@
-import { Components, getRawComponent, replaceComponent } from 'meteor/nova:core';
-import Posts from "meteor/nova:posts";
+import { Components, getRawComponent, replaceComponent } from 'meteor/vulcan:core';
+import Posts from "meteor/vulcan:posts";
 import React, { PropTypes, Component } from 'react';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router';

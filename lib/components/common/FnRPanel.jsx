@@ -2,8 +2,8 @@ import React, {PropTypes, Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import _ from 'lodash'
-import {getActions, Components, registerComponent, getFragment, withList} from 'meteor/nova:core'
-import Categories from 'meteor/nova:categories'
+import {getActions, Components, registerComponent, getFragment, withList} from 'meteor/vulcan:core'
+import Categories from 'meteor/vulcan:categories'
 
 // This component maintains in it's state the universal round ordinal (uro is the number of weeks since the first wednesday in 1970)
 //	the forward and backward arrows modify the state key 'dispUro'

@@ -1,6 +1,6 @@
-import { Components, registerComponent } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 import React from 'react';
-//import Posts from "meteor/nova:posts";
+//import Posts from "meteor/vulcan:posts";
 
 const PostsSingle = (props, context) => {
   return <Components.PostsPage slug={props.params.slug} />

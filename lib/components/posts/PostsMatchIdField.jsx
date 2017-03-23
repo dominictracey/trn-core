@@ -1,4 +1,4 @@
-import { registerComponent, Components, getActions } from 'meteor/nova:core';
+import { registerComponent, Components, getActions } from 'meteor/vulcan:core';
 import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import FRC from 'formsy-react-components';
@@ -20,7 +20,7 @@ class PostsMatchIdField extends Component {
 
   prefillFields(match) {
     // note: current values have more power than autofilled values
-    // see https://github.com/TelescopeJS/Telescope/blob/master/packages/nova-forms/lib/Form.jsx#L390-L394
+    // see https://github.com/TelescopeJS/Telescope/blob/master/packages/vulcan-forms/lib/Form.jsx#L390-L394
     this.context.updateCurrentValues({
       title: match.displayName,
       postType: 'match',

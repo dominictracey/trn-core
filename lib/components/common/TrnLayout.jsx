@@ -1,8 +1,8 @@
-import { Components, getRawComponent, replaceComponent, registerComponent, withDocument, getFragment } from 'meteor/nova:core';
+import { Components, getRawComponent, replaceComponent, registerComponent, withDocument, getFragment } from 'meteor/vulcan:core';
 import React, { PropTypes, Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
 //import { withRouter } from 'react-router'
-import Categories from 'meteor/nova:categories'
+import Categories from 'meteor/vulcan:categories'
 class LayoutWithCategory extends Component {//getRawComponent('Layout') {
 
   render() {

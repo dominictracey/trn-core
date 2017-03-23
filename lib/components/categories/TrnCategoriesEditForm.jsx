@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { intlShape } from 'react-intl';
-import { Components, replaceComponent, getFragment } from 'meteor/nova:core';
-import Categories from "meteor/nova:categories";
+import { Components, replaceComponent, getFragment } from 'meteor/vulcan:core';
+import Categories from "meteor/vulcan:categories";
 
 const CategoriesEditForm = (props, context) => {
 

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ReactTagInput from 'react-tag-input';
 
-import { Components, registerComponent } from 'meteor/nova:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const ReactTags = ReactTagInput.WithContext;
 

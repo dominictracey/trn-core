@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Components, registerComponent, withCurrentUser } from 'meteor/nova:core'
+import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core'
 import { Link } from 'react-router';
 
-import Users from 'meteor/nova:users'
+import Users from 'meteor/vulcan:users'
 
 const FnRGuts = (props, context) => {
   const { match, teams, component, refPost, currentUser } = props

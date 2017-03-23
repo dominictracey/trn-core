@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Modal, Grid, Row, Col } from 'react-bootstrap';
 
-import { Components, registerComponent, Utils, getActions } from 'meteor/nova:core';
+import { Components, registerComponent, Utils, getActions } from 'meteor/vulcan:core';
 
 class CategoriesAdminRemoteList extends Component {
 
@@ -38,9 +38,9 @@ class CategoriesAdminRemoteList extends Component {
       },
     });
   }
-  
+
   openCategoryEditModal(index) {
-    // edit category modals are numbered from 1 to 
+    // edit category modals are numbered from 1 to
     this.setState({openModal: index});
   }
 
@@ -60,24 +60,24 @@ class CategoriesAdminRemoteList extends Component {
       </Modal>
     );
   }
-  
+
   renderRemoteCompetitions() {
-    
+
     const { categories = [], config} = this.props;
     // console.log('results',results);
     // console.log('cat',categories);
     if (_.isEmpty(config)) {
       return <Components.Loading />;
     }
-    
+
     // config = { 12345: { compsForClient, competitionMap, ... } }, we want cFC & cM
     const { compsForClient, competitionMap } = config[Object.keys(config)[0]];
-    
+
     // we don't want competitions which are already added as categories
     const filteredComps = compsForClient.filter(trnId => !categories.find(cat => cat.trnId === trnId));
-    
-    return !filteredComps.length 
-      ? <p>No new remote competitions</p> 
+
+    return !filteredComps.length
+      ? <p>No new remote competitions</p>
       : (<Grid>
         {filteredComps.map(trnId =>
           <Row key={trnId}>

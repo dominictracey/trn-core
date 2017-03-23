@@ -1,7 +1,7 @@
-import { replaceComponent } from 'meteor/nova:core';
+import { replaceComponent } from 'meteor/vulcan:core';
 import React from 'react';
 import { IndexLink } from 'react-router';
-import Users from 'meteor/nova:users';
+import Users from 'meteor/vulcan:users';
 
 const TrnLogo = ({logoUrl, siteTitle, currentUser}) => {
   if (logoUrl) {

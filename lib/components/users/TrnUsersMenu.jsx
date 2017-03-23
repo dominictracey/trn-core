@@ -1,10 +1,10 @@
-import { Components, replaceComponent } from 'meteor/nova:core';
+import { Components, replaceComponent } from 'meteor/vulcan:core';
 import React, { PropTypes, Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Meteor } from 'meteor/meteor';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import Users from 'meteor/nova:users';
+import Users from 'meteor/vulcan:users';
 
 const TrnUsersMenu = ({currentUser, client}, context) => (
   <div className="users-menu">

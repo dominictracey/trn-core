@@ -1,13 +1,12 @@
+
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { getActions, getSetting, Components, registerComponent, withMessages } from 'meteor/vulcan:core';
 import { FormattedDate, FormattedTime } from 'react-intl'
 import { Grid, Col, Row, Button, ButtonGroup } from 'react-bootstrap'
-
-import { getActions, getSetting, Components, registerComponent, withMessages } from 'meteor/nova:core';
 import { runAsync } from 'meteor/nova:lib'
-
 import _ from 'lodash'
 
 
@@ -50,7 +49,7 @@ class PostsMatchBody extends Component {
   // Ugly function that will refresh matches
   async matchScorePoll() {
     const { post, loadMatch } = this.props
-	  let match = await this.props.matches[post.trnId]
+    let match = await this.props.matches[post.trnId]
     let pollInt = getSetting('trnPollTime') && getSetting('trnPollTime') != 0 ? getSetting('trnPollTime', 600)*1000 : null
 
     setPollCnt += 1    //Increment polling count
@@ -58,14 +57,14 @@ class PostsMatchBody extends Component {
       ? setInterval( async () => {
         const {matches} = this.props
 
-        if(!_.includes(match.status, 'FINAL') || !_.includes(match.status, 'SCHEDULED')){
-	        await loadMatch(post.trnId)         // Load match from Api
-	        match = await matches[post.trnId]   // Update var for .status
-	        if(_.includes(match.status, 'FINAL') || _.includes(match.status, 'SCHEDULED')){
-		        clearInterval(poll)               // Clear polling.
+        if (!_.includes(match.status, 'FINAL') || !_.includes(match.status, 'SCHEDULED')){
+          await loadMatch(post.trnId)         // Load match from Api
+          match = await matches[post.trnId]   // Update var for .status
+          if (_.includes(match.status, 'FINAL') || _.includes(match.status, 'SCHEDULED')){
+            clearInterval(poll)               // Clear polling.
             console.log("Polling ended.")
             return
-	        }
+          }
 
           console.log("Refreshed match")
         }
@@ -117,39 +116,38 @@ class PostsMatchBody extends Component {
 
         // The match's status display depends on TRN foundation status.
           if(_.includes(status,'FINAL')) {
-	          score = ` ${result.homeScore} - ${result.visitScore} `
-	          status = 'Final'
+            score = ` ${result.homeScore} - ${result.visitScore} `
+            status = 'Final'
             date = null
           }
-	        else if(_.includes(status,'FIRST')) {
-		        score = ` ${result.homeScore} - ${result.visitScore} `
-		        status = 'First half'
-	          date = null
+          else if(_.includes(status,'FIRST')) {
+            score = ` ${result.homeScore} - ${result.visitScore} `
+            status = 'First half'
+            date = null
               //Set polling for score and status
             if(getSetting('trnPollTime') && getSetting('trnPollTime') > 0) {
 
-	            this.matchScorePoll()
+              this.matchScorePoll()
             }
-	        }
-	        else if(_.includes(status,'HALFTIME')) {
-		        score = ` ${result.homeScore} - ${result.visitScore} `
-		        status = 'Halftime'
-	          date = null
-              //Set polling for score and status
-	          if(getSetting('trnPollTime') && getSetting('trnPollTime') > 0) {
-		          this.matchScorePoll()
-	          }
           }
-	        else if(_.includes(status,'SECOND')) {
-		        score = ` ${result.homeScore} - ${result.visitScore} `
-		        status = 'Second half'
-	          date = null
+          else if (_.includes(status,'HALFTIME')) {
+            score = ` ${result.homeScore} - ${result.visitScore} `
+            status = 'Halftime'
+            date = null
               //Set polling for score and status
-	          if(getSetting('trnPollTime') && getSetting('trnPollTime') > 0) {
-		          this.matchScorePoll()
-	          }
+              if(getSetting('trnPollTime') && getSetting('trnPollTime') > 0) {
+                this.matchScorePoll()
+              }
+          } else if(_.includes(status,'SECOND')) {
+            score = ` ${result.homeScore} - ${result.visitScore} `
+            status = 'Second half'
+            date = null
+              //Set polling for score and status
+              if (getSetting('trnPollTime') && getSetting('trnPollTime') > 0) {
+                this.matchScorePoll()
+              }
           }
-	        // Only matches that are "scheduled" will display the match time
+          // Only matches that are "scheduled" will display the match time
           else {
             score = null
             status = 'Scheduled'
@@ -171,7 +169,7 @@ class PostsMatchBody extends Component {
       //Set the button for stream, depending on current time vs match time.
       // Pass the button the match and let it determine the time difference.
     let streamButton
-	  if(match && match.espnstreamId){
+    if (match && match.espnstreamId){
       streamButton = <Components.EspnStreamButton match={match} />
     }
 

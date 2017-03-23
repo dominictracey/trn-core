@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import {Link} from 'react-router'
-import {ModalTrigger, Components, replaceComponent, Utils} from 'meteor/nova:core';
+import {ModalTrigger, Components, replaceComponent, Utils} from 'meteor/vulcan:core';
 
 const TrnPostsCommentsThread = (props, context) => {
 

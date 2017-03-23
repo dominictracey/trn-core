@@ -1,4 +1,4 @@
-import { Components, replaceComponent } from 'meteor/nova:core';
+import { Components, replaceComponent } from 'meteor/vulcan:core';
 import React from 'react';
 import { Alert } from 'react-bootstrap';
 
@@ -7,7 +7,7 @@ const TrnPostsList = (props) => {
   const {results, loading, count, totalCount, loadMore, showHeader = true, networkStatus, currentUser, error, terms} = props;
 
   const loadingMore = networkStatus === 2;
-  
+
   if (error && error.message.includes('Failed to fetch')) {
     return <Alert bsStyle="info">You have been disconnected, please refresh the page.</Alert>
   } else if (results && results.length) {

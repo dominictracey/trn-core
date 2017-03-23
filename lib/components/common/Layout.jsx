@@ -1,4 +1,4 @@
-import { Components, replaceComponent } from 'meteor/nova:core';
+import { Components, replaceComponent } from 'meteor/vulcan:core';
 import React, { PropTypes, Component } from 'react';
 import { withRouter } from 'react-router';
 

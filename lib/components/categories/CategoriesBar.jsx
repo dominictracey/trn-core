@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Components, registerComponent, getFragment, withDocument } from 'meteor/nova:core';
-import Categories from 'meteor/nova:categories';
+import { Components, registerComponent, getFragment, withDocument } from 'meteor/vulcan:core';
+import Categories from 'meteor/vulcan:categories';
 
 const CategoriesBar = ({loading, document: category}) => {
 

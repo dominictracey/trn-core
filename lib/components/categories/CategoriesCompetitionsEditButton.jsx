@@ -5,9 +5,9 @@ import { intlShape } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import { withApollo } from 'react-apollo';
 
-import { Components, registerComponent, getFragment, withEdit, withNew, withMessages, getActions, Utils, getSetting } from 'meteor/nova:core';
+import { Components, registerComponent, getFragment, withEdit, withNew, withMessages, getActions, Utils, getSetting } from 'meteor/vulcan:core';
 
-import Categories from 'meteor/nova:categories';
+import Categories from 'meteor/vulcan:categories';
 
 class CategoriesCompetitionsEditButton extends Component {
 
