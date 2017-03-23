@@ -1,3 +1,9 @@
+# Xavier's note - March 23rd 2017:
+# This file is a duplicate from the README. I understand it can be easy to by 
+# copy/pasting this file but it can also lead to confusion for newcomers imho.
+# => which is the right source of truth? :S
+# Anyway I updated it, though I believe you should remove it.
+
 ############ Core Packages ############
 
 nova:core                       # core components and wrappers
@@ -45,5 +51,7 @@ accounts-facebook
 # framework-demo
 xavcz:nova-forms-upload
 xavcz:nova-social-share
+xavcz:nova-wires
+xavcz:nova-trophies
 trn:core
 trn:rest-redux
