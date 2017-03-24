@@ -13,11 +13,12 @@ Needed to run the app:
 - isomorphic-fetch
 - react-table
 - emojilib
+- react-tooltip
 
 **--save**
 
 ```bash
-npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-dnd-html5-backend react-dropzone isomorphic-fetch react-table emojilib
+npm install --save humps normalizr redux-thunk react-tag-input react-dnd react-dnd-html5-backend react-dropzone isomorphic-fetch react-table emojilib react-tooltip
 ```
 
 ## Meteor packages dependencies

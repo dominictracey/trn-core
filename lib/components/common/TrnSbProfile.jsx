@@ -37,6 +37,7 @@ const TrnSbProfile = ({ loading, currentUser, data }, context) => {
             );
           })
         }
+        <Components.UsersTrophiesList />
       </div>
     </div>
   );
