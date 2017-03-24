@@ -1,6 +1,7 @@
 import { Components, registerComponent, withDocument, withCurrentUser, getActions, withMutation } from 'meteor/vulcan:core';
 import Posts from 'meteor/vulcan:posts';
 import React, { Component, PropTypes } from 'react';
+import { Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
@@ -8,9 +9,9 @@ import { FormattedMessage } from 'react-intl';
 class PostsPage extends Component {
 
   render() {
-	  if (this.props.error && this.props.error.message.includes('Failed to fetch')) {
-		  return <Alert bsStyle="info">The content you were viewing has timed out. Please reload.</Alert>
-	  }else if(this.props.loading) {
+    if (this.props.error && this.props.error.message.includes('Failed to fetch')) {
+      return <Alert bsStyle="info">The content you were viewing has timed out. Please reload.</Alert>
+    } else if (this.props.loading) {
 
       return <div className="posts-page"><Components.Loading/></div>
 

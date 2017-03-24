@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Components, registerComponent, getFragment, withDocument } from 'meteor/vulcan:core';
+import { Components, registerComponent, getFragment, withDocument, getSetting } from 'meteor/vulcan:core';
 import Categories from 'meteor/vulcan:categories';
 
 const CategoriesBar = ({loading, document: category}) => {
 
   return loading || !category ? <Components.Loading /> : (
     <div className="category-bar">
+      {category.abbr ?
+        <Components.HeadTags url={Categories.getUrl(category, true)} title={category.name + " on The Rugby Net"} image={Categories.getLogo(category)} description={"The latest news, results and banter from " + category.name + " on The Rugby Net."} />
+        : <Components.HeadTags url={Categories.getUrl(category, true)} title={category.name + " on The Rugby Net"} image={getSetting("siteImage")} description={"The latest news, results and banter in The Rugby Net's " + category.name + " section."} /> }
+
       <div className="category-bar-content">
         {category.abbr ? <img src={Categories.getLogo(category)} title={category.name} className="category-bar-thumbnail" /> : null}
         <h3>{category.name}</h3>
