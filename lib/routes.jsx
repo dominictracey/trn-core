@@ -38,6 +38,12 @@ addRoute({
 })
 
 addRoute({
+  name:"trophiesRoute",
+  path:"/trophies",
+  component: getComponent("UsersTrophiesAdminList"),
+})
+
+addRoute({
   name:"welcome",
   path:"/welcome",
   component: getComponent("WelcomePage"),
