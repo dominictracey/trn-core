@@ -9,7 +9,7 @@ const TrnPostsList = (props) => {
   const loadingMore = networkStatus === 2;
 
   if (error && error.message.includes('Failed to fetch')) {
-    return <Alert bsStyle="info">You have been disconnected, please refresh the page.</Alert>
+    return <Alert bsStyle="info">The content you were viewing has timed out. Please reload.</Alert>
   } else if (results && results.length) {
 
     const hasMore = totalCount > results.length;
