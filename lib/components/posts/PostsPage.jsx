@@ -8,7 +8,9 @@ import { FormattedMessage } from 'react-intl';
 class PostsPage extends Component {
 
   render() {
-    if (this.props.loading) {
+	  if (this.props.error && this.props.error.message.includes('Failed to fetch')) {
+		  return <Alert bsStyle="info">The content you were viewing has timed out. Please reload.</Alert>
+	  }else if(this.props.loading) {
 
       return <div className="posts-page"><Components.Loading/></div>
 
