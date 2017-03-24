@@ -7,9 +7,13 @@ const HeadTags = props => {
 	const url = !!props.url ? props.url : Utils.getSiteUrl();
 	const title = !!props.title ? props.title : getSetting("title", "The Rugby Net");
 	const description = !!props.description ? props.description : getSetting("tagline");
-
+	const fbAppId = getSetting("fbAppId")
 	// default image meta: logo url, else site image defined in settings
 	let image = !!getSetting("siteImage") ? getSetting("siteImage"): getSetting("logoUrl");
+	// these default values are hardcoded in stock embedly package
+	// 200 x 200 is also the minimum size accepted by facebook share
+	let imageHeight = !!getSetting("thumbnailHeight") ? getSetting("thumbnailHeight"): 200
+	let imageWidth = !!getSetting("thumbnailWidth") ? getSetting("thumbnailWidth"): 200
 
 	// overwrite default image if one is passed as props
 	if (!!props.image) {
@@ -31,13 +35,17 @@ const HeadTags = props => {
 		{ property: "og:type", content: "article" },
 		{ property: "og:url", content: url },
 		{ property: "og:image", content: image },
+		{ property: "og:image:width", content: imageWidth},
+		{ property: "og:image:height", content: imageHeight},
 		{ property: "og:title", content: title },
 		{ property: "og:description", content: description },
 		//twitter
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:image", content: image },
 		{ name: "twitter:title", content: title },
-		{ name: "twitter:description", content: description }
+		{ name: "twitter:description", content: description },
+
+		{ name: "fb:app_id", content: fbAppId },
 	]);
 
 	// add <link /> markup specific to the page rendered

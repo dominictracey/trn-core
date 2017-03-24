@@ -46,12 +46,15 @@ class CustomEmbedlyURL extends Component {
           const result = await this.props.getEmbedlyData({url});
 
           // uncomment for debug
-          console.log('Embedly Data', result);
+          //console.log('Embedly Data', result);
+
+          // make sure image url has protocol
+          const thumbnail = /http/.test(thumbnail) ? result.data.getEmbedlyData.thumbnailUrl : 'http:' + result.data.getEmbedlyData.thumbnailUrl
 
           await this.context.updateCurrentValues({
             title: result.data.getEmbedlyData.title || "",
             body: result.data.getEmbedlyData.description || "",
-            thumbnailUrl: result.data.getEmbedlyData.thumbnailUrl || "",
+            thumbnailUrl: thumbnail || "",
           });
 
           // this could be a modification on the core EmbedlyURL
