@@ -645,6 +645,10 @@ div.matchDate {
   border: none;
  }
 
+.posts-item-date, .posts-item-comments {
+  padding: 0 4px 0 2px;
+}
+
 //Most mobile screens
 @media screen and (max-width: 400px) {
   .container {
