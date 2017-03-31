@@ -31,6 +31,8 @@ class PostsPage extends Component {
         body = <Components.PostsMatchBody post={post} type={this.props.type ? this.props.type : null}/>
       } else if (post.postType === 'video') {
         body = <Components.PostsVideoBody post={post}/>
+      } else if (post.postType === 'rating') {
+	      body = <Components.PostsRatingBody post={post} />
       }
 
       return (
