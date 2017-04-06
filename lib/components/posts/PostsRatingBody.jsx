@@ -25,7 +25,7 @@ class PostsRatingBody extends Component {
     return (
       <div>
 	      {detailedRatingQuery ? <div className="posts-page-ratings"><Components.RatingTable queryId={'5628709818073088'} /></div> : <Components.Loading />}
-	      <div><Components.PMSRatingTable queryId={'5628709818073088'} /></div>
+	      {/*detailedRatingQuery ? <div><Components.PMSRatingTable queryId={'5628709818073088'} /></div> : <Components.Loading/>*/}
         {post.htmlBody && <div className="posts-page-body" dangerouslySetInnerHTML={htmlBody}></div>}
       </div>
     )
