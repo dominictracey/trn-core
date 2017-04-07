@@ -17,7 +17,7 @@ const RatingTable = (props) => {
 			//className="rt-ratingTable"
 			columns={topRatingColumnMap}
 			data={map}
-			pivotBy={['name']}
+			// pivotBy={['name']}
 			defaultPageSize={10}
 			SubComponent={ (row) => {
 				return <span><PMSRatingTable {...props} row={row}/></span>
@@ -28,16 +28,16 @@ const RatingTable = (props) => {
 }
 
 const topRatingDataMap = (props) => {
-	const {queryId, detailedRatingQuery, playerRating, playerMatchStats} = props
+	const {queryId, detailedRatingQuery, playerRating, playerMatchStats, playerStats } = props
 
 	let map = []
 	const query = detailedRatingQuery[queryId]
 	const playerArr = query.playerRatings
 
-	for (let id in playerArr) {
-		let player = playerRating[playerArr[id]]
+	for (let id in playerArr) {                   // For each id in ratingQuery's rating list
+		let player = playerRating[playerArr[id]]    // Get the actual player rating from the list
 		let data = {
-			name: player.playerId,
+			name: playerStats[player.playerId].displayName,
 			rating: player.rating,
 			rawScore: 0,
 			T: 0,
@@ -60,9 +60,9 @@ const topRatingDataMap = (props) => {
 			time: 0,
 		}
 
-		for (let i = 0; i < player.matchStats.length; i++) {
-			let matchStat = playerMatchStats[player.matchStats[i]]
-			let ratingComponent = player.ratingComponents[i]
+		for (let i = 0; i < player.matchStats.length; i++) {        // For each match pertaining to player's rating
+			let matchStat = playerMatchStats[player.matchStats[i]]    // Get stats for match
+			let ratingComponent = player.ratingComponents[i]          // Also get rating component pertaining to match from player
 
 			// data.name += ratingComponent.matchLabel;
 			// data.rating += ratingComponent.scaledRating
@@ -86,6 +86,9 @@ const topRatingDataMap = (props) => {
 			data.RC += matchStat.redCards
 			data.time += matchStat.timePlayed
 
+			if(i == player.matchStats.length-1) {   // Get average of time played.
+				data.time = data.time / player.matchStats.length
+			}
 		}
 
 		map.push(data)
@@ -93,27 +96,26 @@ const topRatingDataMap = (props) => {
 	return map
 }
 const topRatingColumnMap = [
-
 	{
 		header: "Name",
 		accessor: "name",
 		minWidth: undefined,
-		className: 'td-smaller',
-		headerClassName: 'th-smaller',
+		className: 'td-larger',
+		headerClassName: 'th-larger',
 	},
 	{
 		header: "Rating",
 		accessor: 'rating',
 		minWidth: undefined,
-		className: 'td-smaller',
-		headerClassName: 'th-smaller',
+		className: 'td-larger',
+		headerClassName: 'th-larger',
 	},
 	{
 		header: "RawScore",
 		accessor: 'rawScore',
 		minWidth: undefined,
-		className: 'td-smaller',
-		headerClassName: 'th-smaller',
+		className: 'td-larger',
+		headerClassName: 'th-larger',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
 		// 	return <span>{row.aggregated ? row.value : row.value}</span>
@@ -199,6 +201,7 @@ const topRatingColumnMap = [
 	{
 		header: "CB",
 		accessor: 'CB',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -209,6 +212,7 @@ const topRatingColumnMap = [
 	{
 		header: "DB",
 		accessor: 'DB',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -219,6 +223,7 @@ const topRatingColumnMap = [
 	{
 		header: "O",
 		accessor: 'O',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -229,6 +234,7 @@ const topRatingColumnMap = [
 	{
 		header: "TC",
 		accessor: 'TC',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -239,6 +245,7 @@ const topRatingColumnMap = [
 	{
 		header: "TM",
 		accessor: 'TM',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -249,6 +256,7 @@ const topRatingColumnMap = [
 	{
 		header: "MT",
 		accessor: 'MT',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -259,6 +267,7 @@ const topRatingColumnMap = [
 	{
 		header: "LW",
 		accessor: 'LW',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -269,6 +278,7 @@ const topRatingColumnMap = [
 	{
 		header: "PC",
 		accessor: 'PC',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -279,6 +289,7 @@ const topRatingColumnMap = [
 	{
 		header: "YC",
 		accessor: 'YC',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -289,6 +300,7 @@ const topRatingColumnMap = [
 	{
 		header: "RC",
 		accessor: 'RC',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
@@ -299,6 +311,7 @@ const topRatingColumnMap = [
 	{
 		header: "Time",
 		accessor: 'time',
+		minWidth: undefined,
 		className: 'td-smaller',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),

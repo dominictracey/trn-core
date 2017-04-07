@@ -26,183 +26,232 @@ export const PMSRatingTable = (props) => {
 
 const columnMap = [
 	{
-		header: "Info",
-		accessor: 'info',
-		columns:
-		[
-			{
-				header: "Name",
-				accessor: "name",
-			},
-			{
-				header: "Rating",
-				accessor: 'rating',
-			},
-			{
-				header: "RawScore",
-				accessor: 'rawScore',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			}
-		]
+		header: "Name",
+		accessor: "name",
+		minWidth: undefined,
+		className: 'td-larger',
+		headerClassName: 'th-larger',
 	},
 	{
-		header: "Stats",
-		accessor: "stats",
-		columns:
-		[
-			{
-				header: "T",
-				accessor: 'T',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "TA",
-				accessor: "TA",
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "PTS",
-				accessor: "PTS",
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "K",
-				accessor: 'K',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "P",
-				accessor: 'P',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "R",
-				accessor: 'R',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "MR",
-				accessor: 'MR',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "CB",
-				accessor: 'CB',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "DB",
-				accessor: 'DB',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "O",
-				accessor: 'O',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "TC",
-				accessor: 'TC',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "TM",
-				accessor: 'TM',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "MT",
-				accessor: 'MT',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "LW",
-				accessor: 'LW',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "PC",
-				accessor: 'PC',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "YC",
-				accessor: 'YC',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "RC",
-				accessor: 'RC',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			},
-			{
-				header: "Time",
-				accessor: 'time',
-				aggregate: vals => _.sum(vals),
-				render: row => {
-					return <span>{row.aggregated ? row.value : row.value}</span>
-				}
-			}
-		]
+		header: "Rating",
+		accessor: 'rating',
+		minWidth: undefined,
+		className: 'td-larger',
+		headerClassName: 'th-larger',
+	},
+	{
+		header: "RawScore",
+		accessor: 'rawScore',
+		minWidth: undefined,
+		className: 'td-larger',
+		headerClassName: 'th-larger',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "T",
+		accessor: 'T',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "TA",
+		accessor: 'TA',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "PTS",
+		accessor: 'PTS',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "K",
+		accessor: 'K',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "P",
+		accessor: 'P',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "R",
+		accessor: 'R',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "MR",
+		accessor: 'MR',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "CB",
+		accessor: 'CB',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "DB",
+		accessor: 'DB',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "O",
+		accessor: 'O',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "TC",
+		accessor: 'TC',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "TM",
+		accessor: 'TM',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "MT",
+		accessor: 'MT',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "LW",
+		accessor: 'LW',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "PC",
+		accessor: 'PC',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "YC",
+		accessor: 'YC',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "RC",
+		accessor: 'RC',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
+	},
+	{
+		header: "Time",
+		accessor: 'time',
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		// aggregate: vals => _.sum(vals),
+		// render: row => {
+		// 	return <span>{row.aggregated ? row.value : row.value}</span>
+		// }
 	}
 ]
 
 const dataMap = (props) => {
-	const { row, queryId, detailedRatingQuery, playerMatchStats, playerRating} = props
+	const {row, queryId, detailedRatingQuery, playerMatchStats, playerRating} = props
 
 	let map = []
 	let data = {}
