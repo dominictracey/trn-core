@@ -1,3 +1,7 @@
+.sub {
+  //background: #eeeeee;
+}
+
 .ReactTable {
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -169,6 +173,10 @@
     margin: auto;
     text-align: center;
     min-width: 45px;
+
+  img {
+    height: 30px;
+  }
 }
 
 .ReactTable .rt-th.-hidden, .ReactTable .rt-td.-hidden {

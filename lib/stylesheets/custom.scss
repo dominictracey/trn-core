@@ -660,6 +660,24 @@ div.matchDate {
   margin-bottom: 15px;
 }
 
+.ratingTable-matchLabel {
+  display: flex;
+  flex-direction: column;
+}
+.ratingTable-matchLabel-teams {
+  display: flex;
+  justify-content: space-around;
+
+  span, img{
+    padding: 0 3px;
+    height: 25px;
+  }
+}
+.ratingTable-matchLabel-round {
+  display: flex;
+  justify-content: center;
+}
+
 
 //Most mobile screens
 @media screen and (max-width: 400px) {

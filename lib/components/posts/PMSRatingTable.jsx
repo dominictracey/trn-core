@@ -1,11 +1,11 @@
-import React, {Component, PropTypes} from 'react'
-import Components from 'meteor/vulcan:core'
+import React from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Utils, getActions, registerComponent} from 'meteor/vulcan:core';
+import { Components, Utils, getActions, registerComponent } from 'meteor/vulcan:core';
 import {FormattedMessage} from 'react-intl'
 import ReactTable from 'react-table'
 import _ from 'lodash'
+import { MatchLabel } from './MatchLabel'
 
 export const PMSRatingTable = (props) => {
 	const {queryId, row, playerRating} = props
@@ -31,20 +31,23 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-larger',
 		headerClassName: 'th-larger',
+		render: row => {
+			return <span><Components.MatchLabel {...this.props} label={row.value} /></span>
+		},
 	},
 	{
 		header: "Rating",
 		accessor: 'rating',
 		minWidth: undefined,
-		className: 'td-larger',
-		headerClassName: 'th-larger',
+		className: 'td-smaller sub',
+		headerClassName: 'th-smaller',
 	},
 	{
-		header: "RawScore",
-		accessor: 'rawScore',
+		header: "Raw",
+		accessor: 'raw',
 		minWidth: undefined,
-		className: 'td-larger',
-		headerClassName: 'th-larger',
+		className: 'td-smaller sub',
+		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
 		// 	return <span>{row.aggregated ? row.value : row.value}</span>
@@ -54,7 +57,7 @@ const columnMap = [
 		header: "T",
 		accessor: 'T',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -65,7 +68,7 @@ const columnMap = [
 		header: "TA",
 		accessor: 'TA',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -76,7 +79,7 @@ const columnMap = [
 		header: "PTS",
 		accessor: 'PTS',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -87,7 +90,7 @@ const columnMap = [
 		header: "K",
 		accessor: 'K',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -98,7 +101,7 @@ const columnMap = [
 		header: "P",
 		accessor: 'P',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -109,7 +112,7 @@ const columnMap = [
 		header: "R",
 		accessor: 'R',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -120,7 +123,7 @@ const columnMap = [
 		header: "MR",
 		accessor: 'MR',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -131,7 +134,7 @@ const columnMap = [
 		header: "CB",
 		accessor: 'CB',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -142,7 +145,7 @@ const columnMap = [
 		header: "DB",
 		accessor: 'DB',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -153,7 +156,7 @@ const columnMap = [
 		header: "O",
 		accessor: 'O',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -164,7 +167,7 @@ const columnMap = [
 		header: "TC",
 		accessor: 'TC',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -175,7 +178,7 @@ const columnMap = [
 		header: "TM",
 		accessor: 'TM',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -186,7 +189,7 @@ const columnMap = [
 		header: "MT",
 		accessor: 'MT',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -197,7 +200,7 @@ const columnMap = [
 		header: "LW",
 		accessor: 'LW',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -208,7 +211,7 @@ const columnMap = [
 		header: "PC",
 		accessor: 'PC',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -219,7 +222,7 @@ const columnMap = [
 		header: "YC",
 		accessor: 'YC',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -230,7 +233,7 @@ const columnMap = [
 		header: "RC",
 		accessor: 'RC',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -241,7 +244,7 @@ const columnMap = [
 		header: "Time",
 		accessor: 'time',
 		minWidth: undefined,
-		className: 'td-smaller',
+		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
@@ -266,7 +269,7 @@ const dataMap = (props) => {
 		data = {
 			name: ratingComponent.matchLabel,
 			rating: ratingComponent.scaledRating,
-			rawScore: ratingComponent.rawScore,
+			raw: ratingComponent.rawScore.toFixed(2),
 			T: matchStat.tries,
 			TA: matchStat.tryAssists,
 			PTS: matchStat.points,
@@ -302,5 +305,4 @@ const mapStateToProps = ({entities: {detailedRatingQuery, playerRating, playerMa
 const {loadTeamMatchStats, loadPlayerMatchStats} = getActions();
 const mapDispatchToProps = dispatch => bindActionCreators({loadTeamMatchStats, loadPlayerMatchStats}, dispatch);
 
-PMSRatingTable.displayName = "PMSRatingTable";
 registerComponent('PMSRatingTable', PMSRatingTable, connect(mapStateToProps, mapDispatchToProps));

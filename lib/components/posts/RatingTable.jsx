@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react'
-import Components from 'meteor/vulcan:core'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Utils, getActions, registerComponent} from 'meteor/vulcan:core';
+import { Components, Utils, getActions, registerComponent} from 'meteor/vulcan:core';
 import {FormattedMessage} from 'react-intl'
 import ReactTable from 'react-table'
 import {PMSRatingTable} from './PMSRatingTable'
@@ -37,9 +36,11 @@ const topRatingDataMap = (props) => {
 	for (let id in playerArr) {                   // For each id in ratingQuery's rating list
 		let player = playerRating[playerArr[id]]    // Get the actual player rating from the list
 		let data = {
+			number: parseInt(id)+1,
+			team: "",
 			name: playerStats[player.playerId].displayName,
 			rating: player.rating,
-			rawScore: 0,
+			raw: 0,
 			T: 0,
 			TA: 0,
 			PTS: 0,
@@ -66,7 +67,8 @@ const topRatingDataMap = (props) => {
 
 			// data.name += ratingComponent.matchLabel;
 			// data.rating += ratingComponent.scaledRating
-			data.rawScore += ratingComponent.rawScore
+			data.team = matchStat.teamAbbr,
+			data.raw += ratingComponent.rawScore
 			data.T += matchStat.tries
 			data.TA += matchStat.tryAssists
 			data.PTS += matchStat.points
@@ -86,8 +88,9 @@ const topRatingDataMap = (props) => {
 			data.RC += matchStat.redCards
 			data.time += matchStat.timePlayed
 
-			if(i == player.matchStats.length-1) {   // Get average of time played.
-				data.time = data.time / player.matchStats.length
+			if(i == player.matchStats.length-1) {
+				data.time = data.time / player.matchStats.length    // Get average of time played.
+				data.raw = data.raw.toFixed(2)
 			}
 		}
 
@@ -96,6 +99,23 @@ const topRatingDataMap = (props) => {
 	return map
 }
 const topRatingColumnMap = [
+	{
+		header: "No.",
+		accessor: "number",
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+	},
+	{
+		header: "Team",
+		accessor: "team",
+		minWidth: undefined,
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
+		render: row => {
+			return <span><img src={Utils.getLogoFromAbbr(row.value)} title={row.value} /></span>
+		}
+	},
 	{
 		header: "Name",
 		accessor: "name",
@@ -107,15 +127,15 @@ const topRatingColumnMap = [
 		header: "Rating",
 		accessor: 'rating',
 		minWidth: undefined,
-		className: 'td-larger',
-		headerClassName: 'th-larger',
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
 	},
 	{
-		header: "RawScore",
-		accessor: 'rawScore',
+		header: "Raw",
+		accessor: 'raw',
 		minWidth: undefined,
-		className: 'td-larger',
-		headerClassName: 'th-larger',
+		className: 'td-smaller',
+		headerClassName: 'th-smaller',
 		// aggregate: vals => _.sum(vals),
 		// render: row => {
 		// 	return <span>{row.aggregated ? row.value : row.value}</span>
