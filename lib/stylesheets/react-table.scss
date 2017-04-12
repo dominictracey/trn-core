@@ -1,5 +1,5 @@
-.sub {
-  //background: #eeeeee;
+.-sub {
+  background: #fff2cc;
 }
 
 .ReactTable {
@@ -46,6 +46,11 @@
     flex: 1 1;
     margin: auto;
     min-width: 45px;
+}
+.th-placer {
+    flex: 1 1;
+    margin: auto;
+    min-width: 70px;
 }
 
 .ReactTable .rt-thead.-headerGroups {
@@ -177,6 +182,12 @@
   img {
     height: 30px;
   }
+}
+.td-placer {
+    flex: 1 1;
+    margin: auto;
+    min-width: 70px;
+    text-align: center;
 }
 
 .ReactTable .rt-th.-hidden, .ReactTable .rt-td.-hidden {

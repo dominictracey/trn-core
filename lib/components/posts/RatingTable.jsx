@@ -1,25 +1,20 @@
-import React, {Component, PropTypes} from 'react'
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import { Components, Utils, getActions, registerComponent} from 'meteor/vulcan:core';
-import {FormattedMessage} from 'react-intl'
+import React, { Component, PropTypes } from 'react'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Components, Utils, getActions, registerComponent } from 'meteor/vulcan:core';
 import ReactTable from 'react-table'
-import {PMSRatingTable} from './PMSRatingTable'
-import _ from 'lodash'
 
 const RatingTable = (props) => {
-	const {queryId, playerRating} = props
+	const { queryId } = props
 
 	let map = topRatingDataMap(props);
 	return (
 		<ReactTable
-			//className="rt-ratingTable"
 			columns={topRatingColumnMap}
 			data={map}
-			// pivotBy={['name']}
 			defaultPageSize={10}
 			SubComponent={ (row) => {
-				return <span><PMSRatingTable {...props} row={row}/></span>
+				return <span><Components.PMSRatingTable {...props} row={row}/></span>
 			}
 			}
 		/>
@@ -65,9 +60,6 @@ const topRatingDataMap = (props) => {
 			let matchStat = playerMatchStats[player.matchStats[i]]    // Get stats for match
 			let ratingComponent = player.ratingComponents[i]          // Also get rating component pertaining to match from player
 
-			// data.name += ratingComponent.matchLabel;
-			// data.rating += ratingComponent.scaledRating
-			data.team = matchStat.teamAbbr,
 			data.raw += ratingComponent.rawScore
 			data.T += matchStat.tries
 			data.TA += matchStat.tryAssists
@@ -88,9 +80,10 @@ const topRatingDataMap = (props) => {
 			data.RC += matchStat.redCards
 			data.time += matchStat.timePlayed
 
-			if(i == player.matchStats.length-1) {
-				data.time = data.time / player.matchStats.length    // Get average of time played.
+			if(i == player.matchStats.length-1) {   // Set on final loop.
+				// data.time = (data.time / player.matchStats.length).toFixed(2)
 				data.raw = data.raw.toFixed(2)
+				data.team = matchStat.teamAbbr
 			}
 		}
 

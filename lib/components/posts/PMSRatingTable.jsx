@@ -2,19 +2,18 @@ import React from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { Components, Utils, getActions, registerComponent } from 'meteor/vulcan:core';
-import {FormattedMessage} from 'react-intl'
 import ReactTable from 'react-table'
 import _ from 'lodash'
-import { MatchLabel } from './MatchLabel'
 
 export const PMSRatingTable = (props) => {
-	const {queryId, row, playerRating} = props
+	const { queryId, playerRating } = props
 
 	let map = playerRating ? dataMap(props) : null
 	return (
 
 		map
 			? <ReactTable
+			className="-sub"
 			columns={columnMap}
 			data={map}
 			defaultPageSize={map.length}
@@ -26,8 +25,22 @@ export const PMSRatingTable = (props) => {
 
 const columnMap = [
 	{
-		header: "Name",
-		accessor: "name",
+		header: "Comp",
+		accessor: "comp",
+		minWidth: undefined,
+		className: 'td-placer',
+		headerClassName: 'th-placer',
+	},
+	{
+		header: "Round",
+		accessor: "round",
+		minWidth: undefined,
+		className: 'td-placer',
+		headerClassName: 'th-placer',
+	},
+	{
+		header: "Match",
+		accessor: "match",
 		minWidth: undefined,
 		className: 'td-larger',
 		headerClassName: 'th-larger',
@@ -48,10 +61,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "T",
@@ -59,10 +68,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "TA",
@@ -70,10 +75,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "PTS",
@@ -81,10 +82,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "K",
@@ -92,10 +89,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "P",
@@ -103,10 +96,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "R",
@@ -114,10 +103,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "MR",
@@ -125,10 +110,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "CB",
@@ -136,10 +117,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "DB",
@@ -147,10 +124,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "O",
@@ -158,10 +131,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "TC",
@@ -169,10 +138,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "TM",
@@ -180,10 +145,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "MT",
@@ -191,10 +152,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "LW",
@@ -202,10 +159,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "PC",
@@ -213,10 +166,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "YC",
@@ -224,10 +173,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "RC",
@@ -235,10 +180,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	},
 	{
 		header: "Time",
@@ -246,10 +187,6 @@ const columnMap = [
 		minWidth: undefined,
 		className: 'td-smaller sub',
 		headerClassName: 'th-smaller',
-		// aggregate: vals => _.sum(vals),
-		// render: row => {
-		// 	return <span>{row.aggregated ? row.value : row.value}</span>
-		// }
 	}
 ]
 
@@ -266,8 +203,11 @@ const dataMap = (props) => {
 	for (let i = 0; i < player.matchStats.length; i++) {
 		let matchStat = playerMatchStats[player.matchStats[i]]
 		let ratingComponent = player.ratingComponents[i]
+		let pieces = ratingComponent.matchLabel.split(" ")[5].split("-")
 		data = {
-			name: ratingComponent.matchLabel,
+			comp: pieces[0].substring(1),
+			round: pieces[1].substring(0, pieces[1].length-1),
+			match: ratingComponent.matchLabel,
 			rating: ratingComponent.scaledRating,
 			raw: ratingComponent.rawScore.toFixed(2),
 			T: matchStat.tries,

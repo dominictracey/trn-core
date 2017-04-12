@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getActions, getSetting, Components, registerComponent, withMessages } from 'meteor/vulcan:core';
+import { getActions, getSetting, Components, registerComponent } from 'meteor/vulcan:core';
 
 class PostsRatingBody extends Component {
 	constructor(props) {
@@ -10,22 +9,23 @@ class PostsRatingBody extends Component {
 	}
 
 	async componentDidMount() {
-		const { loadRatingQuery }= this.props
+		const { post, loadRatingQuery }= this.props
 
+		if(!post && !post.trnId) {
+			return    // RUN!
+		}
 		console.log("Fetching Ratings")
-		await loadRatingQuery(5628709818073088)
+		await loadRatingQuery(post.trnId)   // Fetch ratingQuery
 		console.log("Fetched.")
 	}
 
   render() {
     const { post, detailedRatingQuery } = this.props
 
-
     const htmlBody = {__html: post.htmlBody}
     return (
       <div>
-	      {detailedRatingQuery ? <div className="posts-page-ratings"><Components.RatingTable queryId={'5628709818073088'} /></div> : <Components.Loading />}
-	      {/*detailedRatingQuery ? <div><Components.PMSRatingTable queryId={'5628709818073088'} /></div> : <Components.Loading/>*/}
+	      {detailedRatingQuery ? <div className="posts-page-ratings"><Components.RatingTable queryId={post.trnId} /></div> : <Components.Loading />}
         {post.htmlBody && <div className="posts-page-body" dangerouslySetInnerHTML={htmlBody}></div>}
       </div>
     )
