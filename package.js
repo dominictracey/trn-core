@@ -13,7 +13,6 @@ Package.onUse( function(api) {
     'vulcan:core',
     'vulcan:posts',
     'vulcan:users',
-    'xavcz:vulcan-forms-upload',
     'xavcz:vulcan-social-share',
     'xavcz:vulcan-wires',
     'xavcz:vulcan-trophies',
