@@ -13,14 +13,14 @@ const TrnSbWelcome = (props, context) => {
       <div className='sidebar-sbwelcome-container'>
         <div className='sidebar-sbwelcome-box'>
           Say hi over on the <Link to={"/c/meta"}>meta thread.<br/>
-          <Components.Icon name={'comments'} iconClass='sidebar-icon'/></Link>
+          <span className='sidebar-icon'><Components.Icon name={'comments'}/></span></Link>
         </div>
         <div className='sidebar-sbwelcome-box sidebar-sbwelcome-box-dividers'>
           Love rugby and technology? <Link to={"/welcome"}>Read more<br/>
-          <Components.Icon name={'info-circle'} iconClass='sidebar-icon'/></Link>
+          <span className='sidebar-icon'><Components.Icon name={'info-circle'}/></span></Link>
         </div>
         <div className='sidebar-sbwelcome-box'>Source code for this project is available <a href="https://github.com/dominictracey/trn-core">here.<br/>
-          <Components.Icon name={'github'} iconClass='sidebar-icon'/></a>
+          <span className='sidebar-icon'><Components.Icon name={'github'} /></span></a>
         </div>
       </div>
       </div>
