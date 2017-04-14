@@ -1,3 +1,7 @@
+.-sub {
+  background: #fff2cc;
+}
+
 .ReactTable {
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -36,11 +40,17 @@
     flex: 3 1;
     margin: auto;
     min-width: 105px;
+  overflow-x: hidden;
 }
 .th-smaller {
     flex: 1 1;
     margin: auto;
     min-width: 45px;
+}
+.th-placer {
+    flex: 1 1;
+    margin: auto;
+    min-width: 70px;
 }
 
 .ReactTable .rt-thead.-headerGroups {
@@ -115,6 +125,7 @@
 
 .ReactTable .rt-tr-group {
     display: flex;
+    flex-direction: column;
     font-size: .95em;
     //display: -webkit-box;
     //display: -ms-flexbox;
@@ -160,12 +171,23 @@
     margin: auto;
     text-align: left;
     min-width: 105px;
+  overflow-x: hidden;
 }
 .td-smaller {
     flex: 1 1;
     margin: auto;
     text-align: center;
     min-width: 45px;
+
+  img {
+    height: 30px;
+  }
+}
+.td-placer {
+    flex: 1 1;
+    margin: auto;
+    min-width: 70px;
+    text-align: center;
 }
 
 .ReactTable .rt-th.-hidden, .ReactTable .rt-td.-hidden {

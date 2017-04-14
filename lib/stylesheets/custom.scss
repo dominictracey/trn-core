@@ -52,6 +52,13 @@ div.main{
   border-width: 2px;
 }
 
+.rating-post-item{
+  background-color: $rating;
+  border-color: $rating-border;
+  color: $rating-text;
+  border-width: 2px;
+}
+
 div.vote.voted.upvoted {
   background: #ffcc97;
   border: 1px solid #dddddd;
@@ -648,6 +655,29 @@ div.matchDate {
 .posts-item-date, .posts-item-comments {
   padding: 0 4px 0 2px;
 }
+
+.posts-page-ratings {
+  margin-bottom: 15px;
+}
+
+.ratingTable-matchLabel {
+  display: flex;
+  flex-direction: column;
+}
+.ratingTable-matchLabel-teams {
+  display: flex;
+  justify-content: space-around;
+
+  span, img{
+    padding: 0 3px;
+    height: 25px;
+  }
+}
+.ratingTable-matchLabel-round {
+  display: flex;
+  justify-content: center;
+}
+
 
 //Most mobile screens
 @media screen and (max-width: 400px) {

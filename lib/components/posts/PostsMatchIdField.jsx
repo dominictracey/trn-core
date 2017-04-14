@@ -41,11 +41,21 @@ class PostsMatchIdField extends Component {
         loading: true,
       })
 
-      // do we need to fetch this match?
-      if (!matches || !matches[id]) {
-        await loadMatch(id)
-      }
-      this.prefillFields(this.props.matches[id])
+	    if(this.props.document.postType !== "rating"){  // Most likely a match post
+		    // do we need to fetch this match?
+		    if (!matches || !matches[id]) {
+			    await loadMatch(id)
+		    }
+		    this.prefillFields(this.props.matches[id])
+	    } else {                                        // A rating post!
+		    this.context.updateCurrentValues({
+			    title: "Top Ten List",
+		    });
+		    this.setState({
+			    loading: false,
+		    })
+	    }
+
     }
   }
 
